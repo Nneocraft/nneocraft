@@ -401,4 +401,634 @@ body {
 .goal-content { flex: 1; }
 .goal-title { font-size: 16px; font-weight: 700; color: var(--text); }
 .goal-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-.goal-progress { margin-top: 8px; height: 4px; background
+.goal-progress { margin-top: 8px; height: 4px; background: var(--glass); border-radius: 4px; overflow: hidden; }
+.goal-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4a9aff); border-radius: 4px; transition: width 0.6s ease; }
+
+/* ============================================================
+   ВКЛАДКИ
+   ============================================================ */
+.tabs, .game-tabs {
+    display: flex;
+    gap: 4px;
+    margin: 20px 0 16px;
+    background: var(--glass);
+    border-radius: 40px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+@media (max-width: 600px) { .tabs, .game-tabs { flex-direction: column; border-radius: 20px; } }
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+    min-width: 60px;
+}
+.tab-btn:hover { color: var(--text); background: var(--glass-hover); }
+.tab-btn.active {
+    background: rgba(100, 180, 255, 0.08);
+    color: var(--text);
+}
+
+.tab-content { display: none; animation: fadeUp 0.3s ease; }
+.tab-content.active { display: block; }
+.game-content { display: none; animation: fadeUp 0.3s ease; }
+.game-content.active { display: block; }
+
+/* ============================================================
+   ИГРЫ
+   ============================================================ */
+.game-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+@media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
+
+.game-card {
+    background: var(--glass);
+    border-radius: var(--radius);
+    padding: 16px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.game-card:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+}
+.game-card.game-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.game-icon { font-size: 36px; display: block; margin-bottom: 4px; }
+.game-title { font-size: 17px; font-weight: 700; color: var(--text); }
+.game-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+.game-canvas-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.game-canvas-wrap canvas {
+    border-radius: 12px;
+    background: rgba(10, 10, 22, 0.5);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    image-rendering: pixelated;
+}
+
+.game-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+.game-status { font-size: 12px; color: var(--text-secondary); padding: 4px 12px; background: var(--glass); border-radius: 20px; border: 1px solid var(--border); }
+
+.game-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.game-btn:hover { background: var(--glass-hover); border-color: var(--border-hover); }
+.game-btn.primary {
+    border-color: rgba(100, 180, 255, 0.2);
+    background: rgba(100, 180, 255, 0.05);
+    color: var(--accent);
+}
+.game-btn.primary:hover {
+    background: rgba(100, 180, 255, 0.1);
+    border-color: rgba(100, 180, 255, 0.3);
+}
+
+.mobile-controls {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    max-width: 160px;
+    margin: 8px auto 0;
+}
+.mobile-controls button {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 20px;
+    padding: 6px;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+    transition: 0.15s ease;
+}
+.mobile-controls button:active { transform: scale(0.88); background: rgba(100, 180, 255, 0.1); }
+.mobile-controls span { visibility: hidden; }
+@media (pointer: coarse) { .mobile-controls { display: grid; } }
+
+/* ============================================================
+   ЗАМЕТКИ
+   ============================================================ */
+.notes-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+.notes-toolbar input {
+    flex: 1;
+    min-width: 120px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+.notes-toolbar input:focus { border-color: var(--accent); }
+.notes-toolbar input::placeholder { color: var(--text-secondary); }
+
+.notes-action {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+.notes-action:hover { background: var(--glass-hover); border-color: var(--border-hover); }
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 8px 0;
+}
+@media (max-width: 540px) { .notes-grid { grid-template-columns: 1fr; } }
+
+.note-card {
+    background: var(--glass);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    position: relative;
+}
+.note-card:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+}
+.note-card .sticker { font-size: 24px; display: block; margin-bottom: 2px; }
+.note-card .title { font-size: 16px; font-weight: 700; color: var(--text); }
+.note-card .content { font-size: 14px; color: var(--text-secondary); margin-top: 2px; line-height: 1.5; }
+.note-card .date { font-size: 10px; color: var(--text-secondary); opacity: 0.6; margin-top: 6px; }
+.note-card .delete-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    opacity: 0.5;
+}
+.note-card .delete-btn:hover { opacity: 1; color: #ff6b6b; }
+
+.notes-input-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.notes-input-row input, .notes-input-row select {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 80px;
+}
+.notes-input-row input:focus, .notes-input-row select:focus { border-color: var(--accent); }
+.notes-input-row input::placeholder { color: var(--text-secondary); }
+.notes-input-row select option { background: var(--bg); }
+.notes-input-row button {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--accent);
+    background: rgba(100, 180, 255, 0.05);
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+.notes-input-row button:hover {
+    background: rgba(100, 180, 255, 0.1);
+    box-shadow: 0 0 30px var(--accent-glow);
+}
+
+/* ============================================================
+   ЧАТ
+   ============================================================ */
+.chat-container {
+    background: var(--glass);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+}
+.chat-container:hover { border-color: var(--border-hover); }
+
+.chat-messages {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding-right: 4px;
+}
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-track { background: var(--glass); border-radius: 4px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+.chat-msg {
+    background: var(--glass);
+    padding: 8px 14px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 85%;
+    animation: fadeUp 0.3s ease;
+}
+.chat-msg.self {
+    align-self: flex-end;
+    background: rgba(100, 180, 255, 0.06);
+    border-color: rgba(100, 180, 255, 0.1);
+}
+.chat-msg .name { font-weight: 700; color: var(--accent); font-size: 13px; }
+.chat-msg .time { font-size: 10px; color: var(--text-secondary); margin-left: 8px; }
+.chat-msg .text { color: var(--text-secondary); margin-top: 2px; }
+
+.chat-input-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.chat-input-row input {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+.chat-input-row input:focus { border-color: var(--accent); }
+.chat-input-row input::placeholder { color: var(--text-secondary); }
+.chat-input-row button {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--accent);
+    background: rgba(100, 180, 255, 0.05);
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+.chat-input-row button:hover {
+    background: rgba(100, 180, 255, 0.1);
+    box-shadow: 0 0 30px var(--accent-glow);
+}
+
+/* ============================================================
+   СПОТИФАЙ
+   ============================================================ */
+.spotify-real {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+.spotify-real:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+}
+
+.spotify-artwork {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--glass);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+}
+
+.spotify-info { flex: 1; min-width: 0; }
+.spotify-track {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.spotify-artist {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.spotify-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #44ff88;
+    flex-shrink: 0;
+    animation: pulse 1.6s ease-in-out infinite;
+}
+.spotify-status-dot.paused { background: #ffaa44; }
+
+/* ============================================================
+   СТАТУС DISCORD
+   ============================================================ */
+.discord-status {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin: 14px 0 10px;
+    transition: all 0.3s ease;
+}
+.discord-status:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+}
+
+.discord-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #888;
+    flex-shrink: 0;
+    transition: background 0.3s ease;
+    box-shadow: 0 0 20px rgba(100, 180, 255, 0.05);
+}
+
+.discord-text { color: var(--text-secondary); font-size: 15px; }
+.discord-text strong { color: var(--text); font-weight: 600; }
+.discord-text .game { color: var(--accent); font-weight: 700; }
+.discord-text .details { color: var(--text-secondary); }
+
+/* ============================================================
+   ПОГОДА
+   ============================================================ */
+.weather {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin: 8px 0 4px;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+}
+.weather:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+}
+
+.weather-icon { font-size: 28px; }
+.weather-city { color: var(--text-secondary); font-size: 15px; }
+.weather-city strong { color: var(--text); }
+.weather-temp { color: var(--text); font-weight: 700; font-size: 18px; }
+.weather-desc {
+    color: var(--text-secondary);
+    font-size: 13px;
+    background: var(--glass);
+    padding: 2px 14px;
+    border-radius: 30px;
+}
+
+/* ============================================================
+   ТАЙМЕР
+   ============================================================ */
+.birthday-timer {
+    padding: 14px 20px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    text-align: center;
+    margin: 8px 0 4px;
+    transition: all 0.3s ease;
+}
+.birthday-timer:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+}
+
+.birthday-label { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; }
+.birthday-time {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+}
+.birthday-time span { display: inline-block; min-width: 40px; }
+.birthday-time .sep { color: var(--text-secondary); min-width: 8px; }
+
+/* ============================================================
+   ССЫЛКИ
+   ============================================================ */
+.links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0 10px;
+}
+@media (max-width: 540px) { .links { grid-template-columns: 1fr; } }
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+.link:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+}
+
+.link-icon { font-size: 22px; position: relative; z-index: 1; }
+.link-label { flex: 1; position: relative; z-index: 1; }
+.link-chip {
+    font-size: 12px;
+    background: var(--glass);
+    padding: 2px 12px;
+    border-radius: 30px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.link:hover .link-chip { background: var(--glass-hover); }
+
+.link.full { grid-column: 1 / -1; justify-content: center; }
+
+/* ============================================================
+   ФУТЕР
+   ============================================================ */
+.footer {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    transition: border-color 0.5s ease;
+}
+.footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; font-weight: 500; }
+.footer a:hover { color: var(--accent); }
+.footer-social { display: flex; gap: 20px; }
+
+.visitors { display: flex; align-items: center; gap: 6px; }
+.visitors-count { font-weight: 700; color: var(--accent); font-size: 16px; }
+
+/* ============================================================
+   КНОПКА ТЕМЫ
+   ============================================================ */
+.theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    padding: 6px 14px;
+    color: var(--text);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.theme-toggle:hover {
+    background: var(--glass-hover);
+    border-color: var(--border-hover);
+    transform: scale(1.03);
+}
+.theme-toggle .theme-icon { font-size: 16px; }
+
+/* ============================================================
+   АДАПТИВ
+   ============================================================ */
+@media (max-width: 640px) {
+    .card { padding: 24px; }
+    .header { gap: 16px; }
+    .avatar { width: 76px; height: 76px; }
+    .name h1 { font-size: 24px; }
+    .bio { padding: 16px 18px; font-size: 15px; }
+    .link { padding: 10px 14px; font-size: 14px; }
+    .tech { font-size: 13px; padding: 4px 14px; }
+    .footer { flex-direction: column; text-align: center; }
+    .mc-block { padding: 14px 16px; }
+    .tabs, .game-tabs { flex-direction: column; border-radius: 20px; }
+    .tab-btn { padding: 8px; }
+    .game-card { padding: 12px; }
+    .game-canvas-wrap canvas { max-width: 200px; }
+    .theme-toggle { top: 12px; right: 12px; padding: 4px 12px; font-size: 12px; }
+    .notes-input-row { flex-direction: column; }
+    .notes-input-row input, .notes-input-row select { min-width: 100%; }
+    .chat-input-row { flex-direction: column; }
+    .chat-input-row input { min-width: 100%; }
+    .birthday-time { font-size: 20px; }
+    .birthday-time span { min-width: 32px; }
+}
+
+@media (max-width: 400px) {
+    .card { padding: 16px; }
+    .name h1 { font-size: 20px; }
+    .avatar { width: 60px; height: 60px; }
+    .bio { padding: 12px 14px; font-size: 14px; }
+    .game-canvas-wrap canvas { max-width: 160px; }
+    .birthday-time { font-size: 16px; }
+    .birthday-time span { min-width: 24px; }
+}
