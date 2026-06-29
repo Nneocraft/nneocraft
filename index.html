@@ -151,7 +151,8 @@
         .note-card,
         .chat-msg,
         .link-btn,
-        .theme-toggle {
+        .theme-toggle,
+        .lang-toggle {
             cursor: none;
         }
 
@@ -1396,10 +1397,9 @@
         /* ============================================================
            КНОПКА СМЕНЫ ТЕМЫ И ЦВЕТА
            ============================================================ */
-        .theme-toggle {
+        .theme-toggle,
+        .lang-toggle {
             position: fixed;
-            top: 16px;
-            right: 16px;
             z-index: 100;
             background: var(--glass);
             border: 1px solid var(--border);
@@ -1416,13 +1416,23 @@
             align-items: center;
             gap: 6px;
         }
-        .theme-toggle:hover {
+        .theme-toggle:hover,
+        .lang-toggle:hover {
             background: var(--glass-hover);
             border-color: var(--border-hover);
             transform: scale(1.03);
         }
         .theme-toggle .theme-icon {
             font-size: 16px;
+        }
+
+        .theme-toggle {
+            top: 16px;
+            right: 16px;
+        }
+        .lang-toggle {
+            top: 16px;
+            right: 110px;
         }
 
         /* ============================================================
@@ -1748,11 +1758,15 @@
             .game-canvas-wrap canvas {
                 max-width: 200px;
             }
-            .theme-toggle {
+            .theme-toggle,
+            .lang-toggle {
                 top: 12px;
                 right: 12px;
                 padding: 4px 12px;
                 font-size: 12px;
+            }
+            .lang-toggle {
+                right: 90px;
             }
             .notes-input-row {
                 flex-direction: column;
@@ -1807,7 +1821,8 @@
             .note-card,
             .chat-msg,
             .link-btn,
-            .theme-toggle {
+            .theme-toggle,
+            .lang-toggle {
                 cursor: pointer;
             }
             .contact-form .form-row {
@@ -1856,6 +1871,11 @@
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
+            .lang-toggle {
+                right: 75px;
+                font-size: 11px;
+                padding: 4px 8px;
+            }
         }
     </style>
 </head>
@@ -1872,8 +1892,11 @@
     <!-- ===== ЗАГРУЗЧИК ===== -->
     <div id="loader">
         <div class="loader-ring"></div>
-        <p>ЗАГРУЗКА...</p>
+        <p id="loaderText">ЗАГРУЗКА...</p>
     </div>
+
+    <!-- ===== КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ===== -->
+    <button class="lang-toggle" id="langToggle">🌐 RU</button>
 
     <!-- ===== КНОПКА ТЕМЫ ===== -->
     <button class="theme-toggle" id="themeToggle">
@@ -1896,20 +1919,20 @@
         <!-- ШАПКА -->
         <header class="header">
             <div class="avatar-wrap">
-                <img class="avatar" src="avatar.png" alt="Nneocraft" loading="lazy"
+                <img class="avatar" id="avatarImg" src="avatar.png" alt="Nneocraft" loading="lazy"
                 onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=6ab0ff&bold=true'">
                 <span class="online-badge"></span>
             </div>
             <div class="name">
                 <h1>@Nneocraft</h1>
-                <p class="sub">⚡ <span>Тех-админ</span> · <span id="ageDisplay">14</span> лет · Москва</p>
+                <p class="sub" id="subTitle">⚡ <span>Тех-админ</span> · <span id="ageDisplay">14</span> лет · Москва</p>
                 <span class="age-chip">🧮 <span id="ageInline">14</span> лет</span>
             </div>
         </header>
 
         <!-- БИО -->
-        <section class="bio">
-            <p>
+        <section class="bio" id="bioText">
+            <p id="bioParagraph">
                 👋 Привет! Я <strong>Nneocraft</strong> — молодой <span class="hl">тех-админ</span> из Москвы.<br>
                 🎂 Родился <strong>03.12.2011</strong> · сейчас <span id="ageInline2" style="color:var(--accent);font-weight:700;">14</span> лет.<br>
                 ⚙️ Занимаюсь <strong>администрированием Minecraft-серверов</strong>, настройкой плагинов, оптимизацией и технической поддержкой.<br>
@@ -1919,7 +1942,7 @@
 
         <!-- ТЕХНОЛОГИИ -->
         <section>
-            <h2 class="section-title">⚙️ Технологии</h2>
+            <h2 class="section-title" id="techTitle">⚙️ Технологии</h2>
             <div class="tech-wrap">
                 <span class="tech">☕ Java</span>
                 <span class="tech">🐍 Python</span>
@@ -1933,39 +1956,39 @@
 
         <!-- MINECRAFT -->
         <section>
-            <h2 class="section-title">⛏️ Minecraft</h2>
+            <h2 class="section-title" id="mcTitle">⛏️ Minecraft</h2>
             <div class="mc-block">
                 <div class="mc-head">
                     <span class="mc-icon">🛡️</span>
-                    <span class="mc-label">Тех-администрирование</span>
+                    <span class="mc-label" id="mcLabel">Тех-администрирование</span>
                 </div>
                 <div class="mc-tags">
-                    <span class="mc-tag">🔧 Настройка плагинов</span>
-                    <span class="mc-tag">⚡ Оптимизация</span>
-                    <span class="mc-tag">🖥️ Администрирование</span>
-                    <span class="mc-tag">📊 Мониторинг</span>
-                    <span class="mc-tag">🔒 Безопасность</span>
+                    <span class="mc-tag" id="mcTag1">🔧 Настройка плагинов</span>
+                    <span class="mc-tag" id="mcTag2">⚡ Оптимизация</span>
+                    <span class="mc-tag" id="mcTag3">🖥️ Администрирование</span>
+                    <span class="mc-tag" id="mcTag4">📊 Мониторинг</span>
+                    <span class="mc-tag" id="mcTag5">🔒 Безопасность</span>
                 </div>
             </div>
         </section>
 
         <!-- ПЛАНЫ -->
         <section>
-            <h2 class="section-title">🎯 Планы</h2>
+            <h2 class="section-title" id="goalsTitle">🎯 Планы</h2>
             <div class="goals-grid" id="goalsGrid">
                 <div class="goal-item" data-goal="0">
                     <span class="goal-check">⬜</span>
                     <div class="goal-content">
-                        <div class="goal-title">Научиться программированию</div>
-                        <div class="goal-desc">Java, Python, Node.js 🚀</div>
+                        <div class="goal-title" id="goal1Title">Научиться программированию</div>
+                        <div class="goal-desc" id="goal1Desc">Java, Python, Node.js 🚀</div>
                         <div class="goal-progress"><div class="goal-bar" style="width:45%"></div></div>
                     </div>
                 </div>
                 <div class="goal-item completed" data-goal="1">
                     <span class="goal-check">✅</span>
                     <div class="goal-content">
-                        <div class="goal-title">Создать сайт-визитку</div>
-                        <div class="goal-desc">Сделано! 🔥</div>
+                        <div class="goal-title" id="goal2Title">Создать сайт-визитку</div>
+                        <div class="goal-desc" id="goal2Desc">Сделано! 🔥</div>
                         <div class="goal-progress"><div class="goal-bar" style="width:100%"></div></div>
                     </div>
                 </div>
@@ -1974,23 +1997,23 @@
 
         <!-- ===== СТАТИСТИКА ===== -->
         <section>
-            <h2 class="section-title">📊 Статистика</h2>
+            <h2 class="section-title" id="statsTitle">📊 Статистика</h2>
             <div class="stats-grid" id="statsGrid">
                 <div class="stats-item">
                     <div class="number" id="statVisits">0</div>
-                    <div class="label">Посещений</div>
+                    <div class="label" id="statLabel1">Посещений</div>
                 </div>
                 <div class="stats-item">
                     <div class="number" id="statLikes">0</div>
-                    <div class="label">Лайков</div>
+                    <div class="label" id="statLabel2">Лайков</div>
                 </div>
                 <div class="stats-item">
                     <div class="number" id="statGames">0</div>
-                    <div class="label">Игр сыграно</div>
+                    <div class="label" id="statLabel3">Игр сыграно</div>
                 </div>
                 <div class="stats-item">
                     <div class="number" id="statNotes">0</div>
-                    <div class="label">Заметок</div>
+                    <div class="label" id="statLabel4">Заметок</div>
                 </div>
             </div>
         </section>
@@ -2000,24 +2023,24 @@
             <div class="like-section">
                 <button class="like-btn" id="likeBtn">❤️</button>
                 <span class="like-count" id="likeCount">0</span>
-                <span style="color:var(--text-secondary);font-size:14px;">лайков</span>
+                <span id="likesLabel" style="color:var(--text-secondary);font-size:14px;">лайков</span>
             </div>
         </section>
 
         <!-- ВКЛАДКИ -->
         <nav class="tabs">
-            <button class="tab-btn active" data-tab="games">🎮 Игры</button>
-            <button class="tab-btn" data-tab="gallery">🖼️ Галерея</button>
-            <button class="tab-btn" data-tab="notes">📝 Заметки</button>
-            <button class="tab-btn" data-tab="chat">💬 Чат</button>
-            <button class="tab-btn" data-tab="contact">📧 Контакты</button>
+            <button class="tab-btn active" data-tab="games" id="tabGames">🎮 Игры</button>
+            <button class="tab-btn" data-tab="gallery" id="tabGallery">🖼️ Галерея</button>
+            <button class="tab-btn" data-tab="notes" id="tabNotes">📝 Заметки</button>
+            <button class="tab-btn" data-tab="chat" id="tabChat">💬 Чат</button>
+            <button class="tab-btn" data-tab="contact" id="tabContact">📧 Контакты</button>
         </nav>
 
         <!-- ИГРЫ -->
         <section class="tab-content active" id="tab-games">
             <div class="game-tabs">
-                <button class="tab-btn active" data-game="tetris">🧩 Тетрис</button>
-                <button class="tab-btn" data-game="snake">🐍 Змейка</button>
+                <button class="tab-btn active" data-game="tetris" id="gameTetris">🧩 Тетрис</button>
+                <button class="tab-btn" data-game="snake" id="gameSnake">🐍 Змейка</button>
             </div>
 
             <div class="game-content active" id="game-tetris">
@@ -2045,10 +2068,10 @@
                     <div class="game-card game-stats">
                         <span class="game-icon">📊</span>
                         <div class="game-title" id="tetrisScore">Счёт: 0</div>
-                        <p class="game-desc">Лучший: <span id="tetrisBest">0</span></p>
+                        <p class="game-desc" id="tetrisBestLabel">Лучший: <span id="tetrisBest">0</span></p>
                         <p class="game-status" id="tetrisStatus">▶ Игра идёт</p>
-                        <button class="game-btn primary" id="tetrisReset">🔄 Новая игра</button>
-                        <button class="game-btn" id="tetrisSave">💾 Сохранить</button>
+                        <button class="game-btn primary" id="tetrisReset" data-key="newGame">🔄 Новая игра</button>
+                        <button class="game-btn" id="tetrisSave" data-key="save">💾 Сохранить</button>
                     </div>
                 </div>
             </div>
@@ -2063,7 +2086,7 @@
                             <canvas id="snakeCanvas" width="300" height="300"></canvas>
                         </div>
                         <div class="game-controls">
-                            <button class="game-btn" id="snakePause">⏸️ Пауза</button>
+                            <button class="game-btn" id="snakePause" data-key="pause">⏸️ Пауза</button>
                             <span class="game-status" id="snakeSaveStatus">💾 Сохранено</span>
                         </div>
                         <div class="mobile-controls" id="snakeMobile">
@@ -2076,10 +2099,10 @@
                     <div class="game-card game-stats">
                         <span class="game-icon">🎯</span>
                         <div class="game-title" id="snakeScore">Счёт: 0</div>
-                        <p class="game-desc">Лучший: <span id="snakeBest">0</span></p>
+                        <p class="game-desc" id="snakeBestLabel">Лучший: <span id="snakeBest">0</span></p>
                         <p class="game-status" id="snakeStatus">▶ Игра идёт</p>
-                        <button class="game-btn primary" id="snakeReset">🔄 Новая игра</button>
-                        <button class="game-btn" id="snakeSave">💾 Сохранить</button>
+                        <button class="game-btn primary" id="snakeReset" data-key="newGame">🔄 Новая игра</button>
+                        <button class="game-btn" id="snakeSave" data-key="save">💾 Сохранить</button>
                     </div>
                 </div>
             </div>
@@ -2087,21 +2110,23 @@
 
         <!-- ===== ГАЛЕРЕЯ ===== -->
         <section class="tab-content" id="tab-gallery">
-            <h2 class="section-title">🖼️ Галерея скриншотов</h2>
-            <div class="gallery-grid" id="galleryGrid"></div>
+            <h2 class="section-title" id="galleryTitle">🖼️ Галерея скриншотов</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Аватар будет добавлен сюда через JS -->
+            </div>
             <div class="gallery-upload">
                 <input type="file" id="galleryInput" accept="image/*" multiple>
-                <button id="galleryUploadBtn">📤 Загрузить</button>
+                <button id="galleryUploadBtn" data-key="upload">📤 Загрузить</button>
             </div>
         </section>
 
         <!-- ЗАМЕТКИ -->
         <section class="tab-content" id="tab-notes">
-            <h2 class="section-title">📝 Мои личные заметки</h2>
+            <h2 class="section-title" id="notesTitle">📝 Мои личные заметки</h2>
             <div class="notes-toolbar">
                 <input type="text" id="noteSearch" placeholder="🔍 Поиск по заметкам...">
-                <button class="notes-action" id="notesExport">📤</button>
-                <button class="notes-action" id="notesImport">📥</button>
+                <button class="notes-action" id="notesExport" title="Экспорт">📤</button>
+                <button class="notes-action" id="notesImport" title="Импорт">📥</button>
             </div>
             <div class="notes-grid" id="notesGrid"></div>
             <div class="notes-input-row">
@@ -2122,7 +2147,7 @@
 
         <!-- ===== ЧАТ ===== -->
         <section class="tab-content" id="tab-chat">
-            <h2 class="section-title">💬 Чат</h2>
+            <h2 class="section-title" id="chatTitle">💬 Чат</h2>
             <div class="chat-container">
                 <div class="chat-messages" id="chatMessages"></div>
                 <div class="chat-input-row">
@@ -2135,7 +2160,7 @@
 
         <!-- ===== ФОРМА ОБРАТНОЙ СВЯЗИ ===== -->
         <section class="tab-content" id="tab-contact">
-            <h2 class="section-title">📧 Связаться со мной</h2>
+            <h2 class="section-title" id="contactTitle">📧 Связаться со мной</h2>
             <div class="contact-form">
                 <div class="form-row">
                     <input type="text" id="contactName" placeholder="Ваше имя" maxlength="40">
@@ -2144,14 +2169,14 @@
                 <div class="form-row">
                     <textarea id="contactMessage" placeholder="Ваше сообщение..." maxlength="500"></textarea>
                 </div>
-                <button id="contactSend">📤 Отправить</button>
+                <button id="contactSend" data-key="send">📤 Отправить</button>
                 <p id="contactStatus" style="margin-top:8px;font-size:14px;color:var(--text-secondary);"></p>
             </div>
         </section>
 
         <!-- СПОТИФАЙ -->
         <section>
-            <h2 class="section-title">🎵 Сейчас играет</h2>
+            <h2 class="section-title" id="spotifyTitle">🎵 Сейчас играет</h2>
             <div class="spotify-real">
                 <div class="spotify-artwork" id="spotifyArtwork"><span id="spotifyEmoji">🎵</span></div>
                 <div class="spotify-info">
@@ -2184,7 +2209,7 @@
         <!-- ТАЙМЕР -->
         <section>
             <div class="birthday-timer">
-                <p class="birthday-label">🎂 До дня рождения</p>
+                <p class="birthday-label" id="birthdayLabel">🎂 До дня рождения</p>
                 <div class="birthday-time" id="birthdayTimer">
                     <span id="bDays">00</span><span class="sep">:</span>
                     <span id="bHours">00</span><span class="sep">:</span>
@@ -2242,7 +2267,7 @@
         <footer class="footer">
             <span>© 2026 · @Nneocraft</span>
             <div class="visitors">
-                👁️ <span class="visitors-count" id="visitorCount">0</span> посетителей
+                👁️ <span class="visitors-count" id="visitorCount">0</span> <span id="visitorsLabel">посетителей</span>
             </div>
             <div class="footer-social">
                 <a href="https://t.me/rrrrrmeaw" target="_blank">Telegram</a>
@@ -2252,8 +2277,297 @@
         </footer>
     </main>
 
-    <!-- PWA: Service Worker -->
     <script>
+        // ============================================================
+        // === ПЕРЕВОДЫ ===
+        // ============================================================
+        const translations = {
+            ru: {
+                loader: 'ЗАГРУЗКА...',
+                subTitle: '⚡ <span>Тех-админ</span> · <span id="ageDisplay">14</span> лет · Москва',
+                bio: '👋 Привет! Я <strong>Nneocraft</strong> — молодой <span class="hl">тех-админ</span> из Москвы.<br>🎂 Родился <strong>03.12.2011</strong> · сейчас <span id="ageInline2" style="color:var(--accent);font-weight:700;">14</span> лет.<br>⚙️ Занимаюсь <strong>администрированием Minecraft-серверов</strong>, настройкой плагинов, оптимизацией и технической поддержкой.<br>🧠 Люблю разбираться в <strong>инфраструктуре</strong> и делать сервера стабильными и быстрыми.',
+                techTitle: '⚙️ Технологии',
+                mcTitle: '⛏️ Minecraft',
+                mcLabel: 'Тех-администрирование',
+                mcTag1: '🔧 Настройка плагинов',
+                mcTag2: '⚡ Оптимизация',
+                mcTag3: '🖥️ Администрирование',
+                mcTag4: '📊 Мониторинг',
+                mcTag5: '🔒 Безопасность',
+                goalsTitle: '🎯 Планы',
+                goal1Title: 'Научиться программированию',
+                goal1Desc: 'Java, Python, Node.js 🚀',
+                goal2Title: 'Создать сайт-визитку',
+                goal2Desc: 'Сделано! 🔥',
+                statsTitle: '📊 Статистика',
+                statLabel1: 'Посещений',
+                statLabel2: 'Лайков',
+                statLabel3: 'Игр сыграно',
+                statLabel4: 'Заметок',
+                likesLabel: 'лайков',
+                tabGames: '🎮 Игры',
+                tabGallery: '🖼️ Галерея',
+                tabNotes: '📝 Заметки',
+                tabChat: '💬 Чат',
+                tabContact: '📧 Контакты',
+                gameTetris: '🧩 Тетрис',
+                gameSnake: '🐍 Змейка',
+                tetrisScore: 'Счёт: 0',
+                tetrisBestLabel: 'Лучший: <span id="tetrisBest">0</span>',
+                tetrisStatus: '▶ Игра идёт',
+                tetrisPause: '⏸️ Пауза',
+                tetrisSaveStatus: '💾 Сохранено',
+                tetrisNewGame: '🔄 Новая игра',
+                tetrisSave: '💾 Сохранить',
+                snakeScore: 'Счёт: 0',
+                snakeBestLabel: 'Лучший: <span id="snakeBest">0</span>',
+                snakeStatus: '▶ Игра идёт',
+                snakePause: '⏸️ Пауза',
+                snakeSaveStatus: '💾 Сохранено',
+                snakeNewGame: '🔄 Новая игра',
+                snakeSave: '💾 Сохранить',
+                galleryTitle: '🖼️ Галерея скриншотов',
+                galleryUpload: '📤 Загрузить',
+                notesTitle: '📝 Мои личные заметки',
+                noteSearch: '🔍 Поиск по заметкам...',
+                noteTitlePlaceholder: 'Заголовок',
+                noteContentPlaceholder: 'Текст заметки',
+                noteColorDark: 'Тёмный',
+                noteColorBlue: 'Синий',
+                noteColorPurple: 'Фиолетовый',
+                noteColorRed: 'Красный',
+                noteColorGreen: 'Зелёный',
+                noteColorOrange: 'Оранжевый',
+                noteStickerPlaceholder: 'Стикер',
+                chatTitle: '💬 Чат',
+                chatNamePlaceholder: 'Ваше имя',
+                chatInputPlaceholder: 'Напишите сообщение...',
+                contactTitle: '📧 Связаться со мной',
+                contactNamePlaceholder: 'Ваше имя',
+                contactEmailPlaceholder: 'Ваш email',
+                contactMessagePlaceholder: 'Ваше сообщение...',
+                contactSend: '📤 Отправить',
+                spotifyTitle: '🎵 Сейчас играет',
+                birthdayLabel: '🎂 До дня рождения',
+                visitorsLabel: 'посетителей',
+                themeDark: 'Тёмная',
+                themeLight: 'Светлая',
+                themeBlue: 'Синяя',
+                themePurple: 'Фиолетовая',
+                langToggle: '🌐 RU',
+                noNotes: '📝 Нет заметок',
+                noChat: '💬 Напиши первое сообщение!',
+                noGallery: '🖼️ Нет скриншотов. Загрузи свои!'
+            },
+            en: {
+                loader: 'LOADING...',
+                subTitle: '⚡ <span>Tech Admin</span> · <span id="ageDisplay">14</span> years old · Moscow',
+                bio: '👋 Hello! I\'m <strong>Nneocraft</strong> — a young <span class="hl">tech admin</span> from Moscow.<br>🎂 Born <strong>03.12.2011</strong> · now <span id="ageInline2" style="color:var(--accent);font-weight:700;">14</span> years old.<br>⚙️ I do <strong>Minecraft server administration</strong>, plugin configuration, optimization and technical support.<br>🧠 I love exploring <strong>infrastructure</strong> and making servers stable and fast.',
+                techTitle: '⚙️ Technologies',
+                mcTitle: '⛏️ Minecraft',
+                mcLabel: 'Tech Administration',
+                mcTag1: '🔧 Plugin Configuration',
+                mcTag2: '⚡ Optimization',
+                mcTag3: '🖥️ Administration',
+                mcTag4: '📊 Monitoring',
+                mcTag5: '🔒 Security',
+                goalsTitle: '🎯 Goals',
+                goal1Title: 'Learn programming',
+                goal1Desc: 'Java, Python, Node.js 🚀',
+                goal2Title: 'Create a business card website',
+                goal2Desc: 'Done! 🔥',
+                statsTitle: '📊 Statistics',
+                statLabel1: 'Visits',
+                statLabel2: 'Likes',
+                statLabel3: 'Games played',
+                statLabel4: 'Notes',
+                likesLabel: 'likes',
+                tabGames: '🎮 Games',
+                tabGallery: '🖼️ Gallery',
+                tabNotes: '📝 Notes',
+                tabChat: '💬 Chat',
+                tabContact: '📧 Contact',
+                gameTetris: '🧩 Tetris',
+                gameSnake: '🐍 Snake',
+                tetrisScore: 'Score: 0',
+                tetrisBestLabel: 'Best: <span id="tetrisBest">0</span>',
+                tetrisStatus: '▶ Playing',
+                tetrisPause: '⏸️ Pause',
+                tetrisSaveStatus: '💾 Saved',
+                tetrisNewGame: '🔄 New Game',
+                tetrisSave: '💾 Save',
+                snakeScore: 'Score: 0',
+                snakeBestLabel: 'Best: <span id="snakeBest">0</span>',
+                snakeStatus: '▶ Playing',
+                snakePause: '⏸️ Pause',
+                snakeSaveStatus: '💾 Saved',
+                snakeNewGame: '🔄 New Game',
+                snakeSave: '💾 Save',
+                galleryTitle: '🖼️ Screenshot Gallery',
+                galleryUpload: '📤 Upload',
+                notesTitle: '📝 My Personal Notes',
+                noteSearch: '🔍 Search notes...',
+                noteTitlePlaceholder: 'Title',
+                noteContentPlaceholder: 'Note text',
+                noteColorDark: 'Dark',
+                noteColorBlue: 'Blue',
+                noteColorPurple: 'Purple',
+                noteColorRed: 'Red',
+                noteColorGreen: 'Green',
+                noteColorOrange: 'Orange',
+                noteStickerPlaceholder: 'Sticker',
+                chatTitle: '💬 Chat',
+                chatNamePlaceholder: 'Your name',
+                chatInputPlaceholder: 'Write a message...',
+                contactTitle: '📧 Contact Me',
+                contactNamePlaceholder: 'Your name',
+                contactEmailPlaceholder: 'Your email',
+                contactMessagePlaceholder: 'Your message...',
+                contactSend: '📤 Send',
+                spotifyTitle: '🎵 Now Playing',
+                birthdayLabel: '🎂 Until Birthday',
+                visitorsLabel: 'visitors',
+                themeDark: 'Dark',
+                themeLight: 'Light',
+                themeBlue: 'Blue',
+                themePurple: 'Purple',
+                langToggle: '🌐 EN',
+                noNotes: '📝 No notes',
+                noChat: '💬 Write the first message!',
+                noGallery: '🖼️ No screenshots. Upload yours!'
+            }
+        };
+
+        // ============================================================
+        // === ПРИМЕНЕНИЕ ПЕРЕВОДОВ ===
+        // ============================================================
+        let currentLang = localStorage.getItem('lang') || 'ru';
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            // Загрузчик
+            document.getElementById('loaderText').textContent = t.loader;
+
+            // Подзаголовок
+            document.getElementById('subTitle').innerHTML = t.subTitle;
+
+            // Био
+            document.getElementById('bioParagraph').innerHTML = t.bio;
+
+            // Технологии
+            document.getElementById('techTitle').textContent = t.techTitle;
+            document.getElementById('mcTitle').textContent = t.mcTitle;
+            document.getElementById('mcLabel').textContent = t.mcLabel;
+            document.getElementById('mcTag1').textContent = t.mcTag1;
+            document.getElementById('mcTag2').textContent = t.mcTag2;
+            document.getElementById('mcTag3').textContent = t.mcTag3;
+            document.getElementById('mcTag4').textContent = t.mcTag4;
+            document.getElementById('mcTag5').textContent = t.mcTag5;
+
+            // Планы
+            document.getElementById('goalsTitle').textContent = t.goalsTitle;
+            document.getElementById('goal1Title').textContent = t.goal1Title;
+            document.getElementById('goal1Desc').textContent = t.goal1Desc;
+            document.getElementById('goal2Title').textContent = t.goal2Title;
+            document.getElementById('goal2Desc').textContent = t.goal2Desc;
+
+            // Статистика
+            document.getElementById('statsTitle').textContent = t.statsTitle;
+            document.getElementById('statLabel1').textContent = t.statLabel1;
+            document.getElementById('statLabel2').textContent = t.statLabel2;
+            document.getElementById('statLabel3').textContent = t.statLabel3;
+            document.getElementById('statLabel4').textContent = t.statLabel4;
+            document.getElementById('likesLabel').textContent = t.likesLabel;
+            document.getElementById('visitorsLabel').textContent = t.visitorsLabel;
+
+            // Вкладки
+            document.getElementById('tabGames').textContent = t.tabGames;
+            document.getElementById('tabGallery').textContent = t.tabGallery;
+            document.getElementById('tabNotes').textContent = t.tabNotes;
+            document.getElementById('tabChat').textContent = t.tabChat;
+            document.getElementById('tabContact').textContent = t.tabContact;
+            document.getElementById('gameTetris').textContent = t.gameTetris;
+            document.getElementById('gameSnake').textContent = t.gameSnake;
+
+            // Игры
+            document.getElementById('tetrisScore').textContent = t.tetrisScore;
+            document.getElementById('tetrisBestLabel').innerHTML = t.tetrisBestLabel;
+            document.getElementById('tetrisStatus').textContent = t.tetrisStatus;
+            document.getElementById('tetrisPause').textContent = t.tetrisPause;
+            document.getElementById('tetrisSaveStatus').textContent = t.tetrisSaveStatus;
+            document.getElementById('tetrisReset').textContent = t.tetrisNewGame;
+            document.getElementById('tetrisSave').textContent = t.tetrisSave;
+            document.getElementById('snakeScore').textContent = t.snakeScore;
+            document.getElementById('snakeBestLabel').innerHTML = t.snakeBestLabel;
+            document.getElementById('snakeStatus').textContent = t.snakeStatus;
+            document.getElementById('snakePause').textContent = t.snakePause;
+            document.getElementById('snakeSaveStatus').textContent = t.snakeSaveStatus;
+            document.getElementById('snakeReset').textContent = t.snakeNewGame;
+            document.getElementById('snakeSave').textContent = t.snakeSave;
+
+            // Галерея
+            document.getElementById('galleryTitle').textContent = t.galleryTitle;
+            document.getElementById('galleryUploadBtn').textContent = t.galleryUpload;
+
+            // Заметки
+            document.getElementById('notesTitle').textContent = t.notesTitle;
+            document.getElementById('noteSearch').placeholder = t.noteSearch;
+            document.getElementById('noteTitle').placeholder = t.noteTitlePlaceholder;
+            document.getElementById('noteContent').placeholder = t.noteContentPlaceholder;
+            const colorSelect = document.getElementById('noteColor');
+            colorSelect.options[0].text = t.noteColorDark;
+            colorSelect.options[1].text = t.noteColorBlue;
+            colorSelect.options[2].text = t.noteColorPurple;
+            colorSelect.options[3].text = t.noteColorRed;
+            colorSelect.options[4].text = t.noteColorGreen;
+            colorSelect.options[5].text = t.noteColorOrange;
+            document.getElementById('noteSticker').placeholder = t.noteStickerPlaceholder;
+
+            // Чат
+            document.getElementById('chatTitle').textContent = t.chatTitle;
+            document.getElementById('chatName').placeholder = t.chatNamePlaceholder;
+            document.getElementById('chatInput').placeholder = t.chatInputPlaceholder;
+
+            // Контакты
+            document.getElementById('contactTitle').textContent = t.contactTitle;
+            document.getElementById('contactName').placeholder = t.contactNamePlaceholder;
+            document.getElementById('contactEmail').placeholder = t.contactEmailPlaceholder;
+            document.getElementById('contactMessage').placeholder = t.contactMessagePlaceholder;
+            document.getElementById('contactSend').textContent = t.contactSend;
+
+            // Спотyфай
+            document.getElementById('spotifyTitle').textContent = t.spotifyTitle;
+
+            // Таймер
+            document.getElementById('birthdayLabel').textContent = t.birthdayLabel;
+
+            // Кнопка языка
+            document.getElementById('langToggle').textContent = t.langToggle;
+
+            // Тема
+            updateThemeLabel();
+
+            // Обновить статичные элементы, которые могут быть пересозданы
+            renderNotes(document.getElementById('noteSearch').value);
+            renderChat();
+            renderGallery();
+        }
+
+        // ============================================================
+        // === ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА ===
+        // ============================================================
+        document.getElementById('langToggle').addEventListener('click', function() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            localStorage.setItem('lang', currentLang);
+            applyLanguage(currentLang);
+            // Обновить возраст
+            updateAge();
+            // Обновить статистику
+            updateStats();
+        });
+
         // ============================================================
         // === КАСТОМНЫЙ КУРСОР ===
         // ============================================================
@@ -2267,7 +2581,7 @@
             ring.style.top = e.clientY + 'px';
         });
 
-        document.querySelectorAll('a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn')
+        document.querySelectorAll('a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn, .lang-toggle')
             .forEach(el => {
                 el.addEventListener('mouseenter', () => ring.classList.add('hover'));
                 el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
@@ -2313,6 +2627,7 @@
         // ============================================================
         window.addEventListener('load', () => {
             document.getElementById('loader').classList.add('hidden');
+            applyLanguage(currentLang);
             updateStats();
         });
 
@@ -2367,28 +2682,20 @@
         // ============================================================
         // === ВОЗРАСТ ===
         // ============================================================
-        (function() {
+        function updateAge() {
             const birth = new Date(2011, 11, 3);
-
-            function getAge() {
-                const now = new Date();
-                let age = now.getFullYear() - birth.getFullYear();
-                const m = now.getMonth() - birth.getMonth();
-                const d = now.getDate() - birth.getDate();
-                if (m < 0 || (m === 0 && d < 0)) age--;
-                return age;
-            }
-
-            function update() {
-                const a = getAge();
-                ['ageDisplay', 'ageInline', 'ageInline2'].forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) el.textContent = a;
-                });
-            }
-            update();
-            setInterval(update, 60000);
-        })();
+            const now = new Date();
+            let age = now.getFullYear() - birth.getFullYear();
+            const m = now.getMonth() - birth.getMonth();
+            const d = now.getDate() - birth.getDate();
+            if (m < 0 || (m === 0 && d < 0)) age--;
+            ['ageDisplay', 'ageInline', 'ageInline2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = age;
+            });
+        }
+        updateAge();
+        setInterval(updateAge, 60000);
 
         // ============================================================
         // === ПОСЕТИТЕЛИ ===
@@ -2517,7 +2824,7 @@
                         emojiEl.style.display = 'block';
                     }
                 } else {
-                    document.getElementById('spotifyTrack').textContent = 'Не играет';
+                    document.getElementById('spotifyTrack').textContent = currentLang === 'ru' ? 'Не играет' : 'Not playing';
                     document.getElementById('spotifyArtist').textContent = '—';
                     document.getElementById('spotifyStatusDot').className = 'spotify-status-dot paused';
                     artworkEl.innerHTML = '<span id="spotifyEmoji">🎵</span>';
@@ -2542,14 +2849,19 @@
                     }
                 }
 
+                const isRu = currentLang === 'ru';
+
                 switch (status.discord_status) {
                     case 'online':
                         dot.style.background = '#44ff88';
                         if (game) {
-                            let txt = `🎮 <strong>Играет в <span class="game">${game.name}</span></strong>`;
-                            if (game.details) txt += ` · <span class="details">${game.details}</span>`;
-                            if (game.state) txt += ` <span class="details">${game.state}</span>`;
-                            text.innerHTML = txt;
+                            const txt = isRu ?
+                                `🎮 <strong>Играет в <span class="game">${game.name}</span></strong>` :
+                                `🎮 <strong>Playing <span class="game">${game.name}</span></strong>`;
+                            let extra = '';
+                            if (game.details) extra += ` · <span class="details">${game.details}</span>`;
+                            if (game.state) extra += ` <span class="details">${game.state}</span>`;
+                            text.innerHTML = txt + extra;
                             if (game.assets && game.assets.large_image) {
                                 const iconName = game.assets.large_image.replace('spotify:', '').replace('mp:', '');
                                 setGameIcon(iconName);
@@ -2557,32 +2869,37 @@
                                 iconEl.innerHTML = '🎮';
                             }
                         } else if (listening) {
-                            text.innerHTML = `🎵 <strong>Слушает <span class="game">${listening.name}</span></strong>`;
+                            text.innerHTML = isRu ?
+                                `🎵 <strong>Слушает <span class="game">${listening.name}</span></strong>` :
+                                `🎵 <strong>Listening to <span class="game">${listening.name}</span></strong>`;
                             iconEl.innerHTML = '🎵';
                         } else {
-                            text.innerHTML = '🟢 <strong>Онлайн</strong> · Не играет';
+                            text.innerHTML = isRu ? '🟢 <strong>Онлайн</strong> · Не играет' :
+                                '🟢 <strong>Online</strong> · Not playing';
                             iconEl.innerHTML = '🟢';
                         }
                         break;
                     case 'idle':
                         dot.style.background = '#ffaa44';
-                        text.innerHTML = '🌙 <strong>Отошёл</strong>';
+                        text.innerHTML = isRu ? '🌙 <strong>Отошёл</strong>' : '🌙 <strong>Away</strong>';
                         iconEl.innerHTML = '🌙';
                         break;
                     case 'dnd':
                         dot.style.background = '#ff4444';
-                        text.innerHTML = '🔴 <strong>Не беспокоить</strong>';
+                        text.innerHTML = isRu ? '🔴 <strong>Не беспокоить</strong>' : '🔴 <strong>Do not disturb</strong>';
                         iconEl.innerHTML = '🔴';
                         break;
                     default:
                         dot.style.background = '#888';
-                        text.innerHTML = '⚫ <strong>Офлайн</strong>';
+                        text.innerHTML = isRu ? '⚫ <strong>Офлайн</strong>' : '⚫ <strong>Offline</strong>';
                         iconEl.innerHTML = '⚫';
                 }
             } catch {
-                document.getElementById('spotifyTrack').textContent = 'Ошибка';
+                const isRu = currentLang === 'ru';
+                document.getElementById('spotifyTrack').textContent = isRu ? 'Ошибка' : 'Error';
                 document.getElementById('spotifyArtist').textContent = '—';
-                document.getElementById('discordText').innerHTML = '⚠️ Не удалось загрузить';
+                document.getElementById('discordText').innerHTML = isRu ? '⚠️ Не удалось загрузить' :
+                    '⚠️ Failed to load';
                 document.getElementById('spotifyArtwork').innerHTML = '<span id="spotifyEmoji">🎵</span>';
                 document.getElementById('spotifyEmoji').style.display = 'block';
             }
@@ -2599,6 +2916,7 @@
         const noteSearch = document.getElementById('noteSearch');
 
         function renderNotes(filter = '') {
+            const t = translations[currentLang];
             const filtered = filter ? notes.filter(n =>
                 n.title.toLowerCase().includes(filter.toLowerCase()) ||
                 n.content.toLowerCase().includes(filter.toLowerCase())
@@ -2607,7 +2925,7 @@
             notesGrid.innerHTML = '';
             if (!filtered.length) {
                 notesGrid.innerHTML =
-                    '<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:20px;">📝 Нет заметок</div>';
+                    `<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:20px;">${t.noNotes}</div>`;
                 return;
             }
             filtered.forEach((note, idx) => {
@@ -2624,7 +2942,7 @@
                 `;
                 card.querySelector('.delete-btn').addEventListener('click', (e) => {
                     e.stopPropagation();
-                    if (confirm('Удалить заметку?')) {
+                    if (confirm(currentLang === 'ru' ? 'Удалить заметку?' : 'Delete note?')) {
                         notes.splice(realIdx, 1);
                         localStorage.setItem('notes', JSON.stringify(notes));
                         renderNotes(noteSearch.value);
@@ -2639,11 +2957,15 @@
         noteSearch.addEventListener('input', () => renderNotes(noteSearch.value));
 
         document.getElementById('noteAdd').addEventListener('click', () => {
-            const title = document.getElementById('noteTitle').value.trim() || 'Без названия';
+            const title = document.getElementById('noteTitle').value.trim() || (currentLang === 'ru' ? 'Без названия' :
+                'Untitled');
             const content = document.getElementById('noteContent').value.trim();
             const color = document.getElementById('noteColor').value;
             const sticker = document.getElementById('noteSticker').value.trim() || '📌';
-            if (!content) return alert('Напиши текст заметки!');
+            if (!content) {
+                alert(currentLang === 'ru' ? 'Напиши текст заметки!' : 'Write note text!');
+                return;
+            }
             const now = new Date();
             const date = now.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
                 ' ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
@@ -2683,7 +3005,7 @@
                             renderNotes(noteSearch.value);
                             updateStats();
                         }
-                    } catch { alert('Ошибка при импорте'); }
+                    } catch { alert(currentLang === 'ru' ? 'Ошибка при импорте' : 'Import error'); }
                 };
                 reader.readAsText(file);
             };
@@ -2699,10 +3021,11 @@
         const chatContainer = document.getElementById('chatMessages');
 
         function renderChat() {
+            const t = translations[currentLang];
             chatContainer.innerHTML = '';
             if (!chatMessages.length) {
                 chatContainer.innerHTML =
-                    '<div style="text-align:center;color:var(--text-secondary);padding:12px;">💬 Напиши первое сообщение!</div>';
+                    `<div style="text-align:center;color:var(--text-secondary);padding:12px;">${t.noChat}</div>`;
                 return;
             }
             chatMessages.forEach(msg => {
@@ -2719,9 +3042,13 @@
         }
 
         document.getElementById('chatSend').addEventListener('click', () => {
-            const name = document.getElementById('chatName').value.trim() || 'Аноним';
+            const name = document.getElementById('chatName').value.trim() || (currentLang === 'ru' ? 'Аноним' :
+            'Anonymous');
             const text = document.getElementById('chatInput').value.trim();
-            if (!text) return alert('Напиши сообщение!');
+            if (!text) {
+                alert(currentLang === 'ru' ? 'Напиши сообщение!' : 'Write a message!');
+                return;
+            }
             const now = new Date();
             const time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
             chatMessages.push({ name, text, time, self: name === 'Nneocraft' });
@@ -2744,14 +3071,16 @@
             const email = document.getElementById('contactEmail').value.trim();
             const message = document.getElementById('contactMessage').value.trim();
             if (!message) {
-                document.getElementById('contactStatus').textContent = '⚠️ Напишите сообщение!';
+                document.getElementById('contactStatus').textContent = currentLang === 'ru' ?
+                    '⚠️ Напишите сообщение!' : '⚠️ Write a message!';
                 return;
             }
-            // Сохраняем в localStorage
             const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-            contacts.push({ name: name || 'Аноним', email, message, date: new Date().toLocaleString() });
+            contacts.push({ name: name || (currentLang === 'ru' ? 'Аноним' : 'Anonymous'), email, message, date: new Date()
+                    .toLocaleString() });
             localStorage.setItem('contacts', JSON.stringify(contacts));
-            document.getElementById('contactStatus').textContent = '✅ Сообщение отправлено!';
+            document.getElementById('contactStatus').textContent = currentLang === 'ru' ? '✅ Сообщение отправлено!' :
+                '✅ Message sent!';
             document.getElementById('contactName').value = '';
             document.getElementById('contactEmail').value = '';
             document.getElementById('contactMessage').value = '';
@@ -2761,18 +3090,37 @@
         });
 
         // ============================================================
-        // === ГАЛЕРЕЯ ===
+        // === ГАЛЕРЕЯ С СИНХРОНИЗАЦИЕЙ АВАТАРА ===
         // ============================================================
         let galleryImages = JSON.parse(localStorage.getItem('gallery') || '[]');
 
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
+            const t = translations[currentLang];
             grid.innerHTML = '';
+
+            // Добавляем аватар как первый элемент галереи
+            const avatarSrc = localStorage.getItem('avatarImage') || 'avatar.png';
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'gallery-item';
+            avatarDiv.style.border = '3px solid var(--accent)';
+            avatarDiv.style.boxShadow = '0 0 30px var(--accent-glow)';
+            avatarDiv.innerHTML = `
+                <img src="${avatarSrc}" alt="Аватар" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=6ab0ff&bold=true'">
+                <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);color:#fff;font-size:11px;text-align:center;padding:4px;font-weight:600;">⭐ Аватар</div>
+            `;
+            grid.appendChild(avatarDiv);
+
+            // Остальные изображения
             if (!galleryImages.length) {
-                grid.innerHTML =
-                    '<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:20px;">🖼️ Нет скриншотов. Загрузи свои!</div>';
+                const emptyMsg = document.createElement('div');
+                emptyMsg.style.cssText =
+                    'grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:20px;';
+                emptyMsg.textContent = t.noGallery;
+                grid.appendChild(emptyMsg);
                 return;
             }
+
             galleryImages.forEach((img, idx) => {
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
@@ -2782,7 +3130,7 @@
                 `;
                 div.querySelector('.delete-img').addEventListener('click', (e) => {
                     e.stopPropagation();
-                    if (confirm('Удалить скриншот?')) {
+                    if (confirm(currentLang === 'ru' ? 'Удалить скриншот?' : 'Delete screenshot?')) {
                         galleryImages.splice(idx, 1);
                         localStorage.setItem('gallery', JSON.stringify(galleryImages));
                         renderGallery();
@@ -2795,15 +3143,28 @@
         document.getElementById('galleryUploadBtn').addEventListener('click', function() {
             const input = document.getElementById('galleryInput');
             const files = input.files;
-            if (!files.length) return alert('Выберите файлы!');
+            if (!files.length) {
+                alert(currentLang === 'ru' ? 'Выберите файлы!' : 'Select files!');
+                return;
+            }
             let loaded = 0;
+            const totalFiles = files.length;
+
             for (let file of files) {
                 if (!file.type.startsWith('image/')) continue;
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    galleryImages.push(e.target.result);
+                    const dataUrl = e.target.result;
+
+                    // Если это первый файл, обновляем аватар
+                    if (loaded === 0) {
+                        localStorage.setItem('avatarImage', dataUrl);
+                        document.getElementById('avatarImg').src = dataUrl;
+                    }
+
+                    galleryImages.push(dataUrl);
                     loaded++;
-                    if (loaded === files.length) {
+                    if (loaded === totalFiles) {
                         localStorage.setItem('gallery', JSON.stringify(galleryImages));
                         renderGallery();
                         input.value = '';
@@ -2814,6 +3175,41 @@
         });
 
         renderGallery();
+
+        // ============================================================
+        // === ТЕМА ===
+        // ============================================================
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function updateThemeLabel() {
+            const t = translations[currentLang];
+            const labels = {
+                dark: t.themeDark,
+                light: t.themeLight,
+                blue: t.themeBlue,
+                purple: t.themePurple
+            };
+            document.getElementById('themeLabel').textContent = labels[currentTheme] || t.themeDark;
+            const icons = { dark: '🌙', light: '☀️', blue: '🔵', purple: '🟣' };
+            document.getElementById('themeIcon').textContent = icons[currentTheme] || '🌙';
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+            updateThemeLabel();
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const themes = ['dark', 'light', 'blue', 'purple'];
+            let idx = themes.indexOf(currentTheme);
+            idx = (idx + 1) % themes.length;
+            applyTheme(themes[idx]);
+        });
+
+        // Применяем сохраненную тему
+        applyTheme(currentTheme);
 
         // ============================================================
         // === ТЕТРИС ===
@@ -2868,8 +3264,9 @@
             tBoard = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
             tScore = 0;
             tPaused = false;
-            document.getElementById('tetrisScore').textContent = 'Счёт: 0';
-            document.getElementById('tetrisStatus').textContent = '▶ Игра идёт';
+            const t = translations[currentLang];
+            document.getElementById('tetrisScore').textContent = t.tetrisScore;
+            document.getElementById('tetrisStatus').textContent = t.tetrisStatus;
             spawnTetris();
             drawTetris();
         }
@@ -2883,8 +3280,9 @@
                 tRunning = false;
                 tPiece = null;
                 updateTetrisBest();
-                document.getElementById('tetrisStatus').textContent = '💥 Игра окончена!';
-                alert('💥 Игра окончена! Счёт: ' + tScore);
+                const t = translations[currentLang];
+                document.getElementById('tetrisStatus').textContent = t.tetrisStatus.replace('▶', '💥');
+                alert((currentLang === 'ru' ? '💥 Игра окончена! Счёт: ' : '💥 Game over! Score: ') + tScore);
                 return false;
             }
             return true;
@@ -2930,7 +3328,8 @@
                 }
             if (cleared) {
                 tScore += [0, 100, 300, 500, 800][cleared] || 1000;
-                document.getElementById('tetrisScore').textContent = 'Счёт: ' + tScore;
+                const t = translations[currentLang];
+                document.getElementById('tetrisScore').textContent = t.tetrisScore.replace('0', tScore);
                 updateTetrisBest();
                 let games = parseInt(localStorage.getItem('gamesPlayed') || '0');
                 games++;
@@ -2944,8 +3343,10 @@
                 tBest = tScore;
                 localStorage.setItem('tetrisBest', String(tBest));
                 document.getElementById('tetrisBest').textContent = tBest;
-                document.getElementById('tetrisSaveStatus').textContent = '🏆 Новый рекорд!';
-                setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = '💾 Сохранено', 3000);
+                const t = translations[currentLang];
+                document.getElementById('tetrisSaveStatus').textContent = '🏆 ' + (currentLang === 'ru' ? 'Новый рекорд!' :
+                    'New record!');
+                setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = t.tetrisSaveStatus, 3000);
             }
         }
 
@@ -3006,7 +3407,9 @@
         document.getElementById('tetrisPause').addEventListener('click', () => {
             if (!tRunning) return;
             tPaused = !tPaused;
-            document.getElementById('tetrisStatus').textContent = tPaused ? '⏸ Пауза' : '▶ Игра идёт';
+            const t = translations[currentLang];
+            document.getElementById('tetrisStatus').textContent = tPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' :
+                'Paused') : t.tetrisStatus;
         });
 
         document.getElementById('tetrisReset').addEventListener('click', () => {
@@ -3019,8 +3422,10 @@
 
         document.getElementById('tetrisSave').addEventListener('click', () => {
             localStorage.setItem('tetrisBest', String(tBest));
-            document.getElementById('tetrisSaveStatus').textContent = '✅ Сохранено!';
-            setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = '💾 Сохранено', 2000);
+            const t = translations[currentLang];
+            document.getElementById('tetrisSaveStatus').textContent = '✅ ' + (currentLang === 'ru' ? 'Сохранено!' :
+                'Saved!');
+            setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = t.tetrisSaveStatus, 2000);
         });
 
         document.addEventListener('keydown', (e) => {
@@ -3080,8 +3485,9 @@
             sNext = { dx: 1, dy: 0 };
             sScore = 0;
             sPaused = false;
-            document.getElementById('snakeScore').textContent = 'Счёт: 0';
-            document.getElementById('snakeStatus').textContent = '▶ Игра идёт';
+            const t = translations[currentLang];
+            document.getElementById('snakeScore').textContent = t.snakeScore;
+            document.getElementById('snakeStatus').textContent = t.snakeStatus;
             spawnFood();
             drawSnake();
         }
@@ -3130,7 +3536,8 @@
             snake.unshift(head);
             if (sFood && head.x === sFood.x && head.y === sFood.y) {
                 sScore += 10;
-                document.getElementById('snakeScore').textContent = 'Счёт: ' + sScore;
+                const t = translations[currentLang];
+                document.getElementById('snakeScore').textContent = t.snakeScore.replace('0', sScore);
                 updateSnakeBest();
                 spawnFood();
             } else snake.pop();
@@ -3142,8 +3549,10 @@
                 sBest = sScore;
                 localStorage.setItem('snakeBest', String(sBest));
                 document.getElementById('snakeBest').textContent = sBest;
-                document.getElementById('snakeSaveStatus').textContent = '🏆 Новый рекорд!';
-                setTimeout(() => document.getElementById('snakeSaveStatus').textContent = '💾 Сохранено', 3000);
+                const t = translations[currentLang];
+                document.getElementById('snakeSaveStatus').textContent = '🏆 ' + (currentLang === 'ru' ? 'Новый рекорд!' :
+                    'New record!');
+                setTimeout(() => document.getElementById('snakeSaveStatus').textContent = t.snakeSaveStatus, 3000);
                 let games = parseInt(localStorage.getItem('gamesPlayed') || '0');
                 games++;
                 localStorage.setItem('gamesPlayed', String(games));
@@ -3154,8 +3563,10 @@
         function gameOverSnake() {
             clearInterval(sInterval);
             sRunning = false;
-            document.getElementById('snakeStatus').textContent = '💥 Игра окончена!';
-            alert('💥 Игра окончена! Счёт: ' + sScore);
+            const t = translations[currentLang];
+            document.getElementById('snakeStatus').textContent = '💥 ' + (currentLang === 'ru' ? 'Игра окончена!' :
+                'Game over!');
+            alert((currentLang === 'ru' ? '💥 Игра окончена! Счёт: ' : '💥 Game over! Score: ') + sScore);
             initSnake();
             sRunning = true;
             sInterval = setInterval(moveSnake, 130);
@@ -3164,7 +3575,9 @@
         document.getElementById('snakePause').addEventListener('click', () => {
             if (!sRunning) return;
             sPaused = !sPaused;
-            document.getElementById('snakeStatus').textContent = sPaused ? '⏸ Пауза' : '▶ Игра идёт';
+            const t = translations[currentLang];
+            document.getElementById('snakeStatus').textContent = sPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' :
+                'Paused') : t.snakeStatus;
         });
 
         document.getElementById('snakeReset').addEventListener('click', () => {
@@ -3177,8 +3590,10 @@
 
         document.getElementById('snakeSave').addEventListener('click', () => {
             localStorage.setItem('snakeBest', String(sBest));
-            document.getElementById('snakeSaveStatus').textContent = '✅ Сохранено!';
-            setTimeout(() => document.getElementById('snakeSaveStatus').textContent = '💾 Сохранено', 2000);
+            const t = translations[currentLang];
+            document.getElementById('snakeSaveStatus').textContent = '✅ ' + (currentLang === 'ru' ? 'Сохранено!' :
+                'Saved!');
+            setTimeout(() => document.getElementById('snakeSaveStatus').textContent = t.snakeSaveStatus, 2000);
         });
 
         document.addEventListener('keydown', (e) => {
@@ -3219,6 +3634,8 @@
         tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
 
         initSnake();
+        sRunning = true;
+        sInterval = setInterval(moveSnake, 130);
     </script>
 </body>
 </html>
