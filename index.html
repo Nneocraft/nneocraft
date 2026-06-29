@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Nneocraft · Тех-админ</title>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#04040a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" href="avatar.png" />
     <style>
         /* ============================================================
            ПЕРЕМЕННЫЕ И ТЕМЫ
@@ -78,6 +83,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         html {
             scroll-behavior: smooth;
         }
@@ -95,40 +101,136 @@
             transition: background 0.6s ease, color 0.6s ease;
             line-height: 1.6;
             overflow-x: hidden;
+            cursor: none;
         }
 
         /* ============================================================
-           ФОН: ТУМАННОСТЬ + ЗВЁЗДЫ + ПАДАЮЩИЕ ЧАСТИЦЫ
+           КАСТОМНЫЙ КУРСОР
            ============================================================ */
-        #bgCanvas {
+        .cursor-dot {
             position: fixed;
-            inset: 0;
-            z-index: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
             pointer-events: none;
-            width: 100%;
-            height: 100%;
+            z-index: 9999;
+            transition: transform 0.1s ease, background 0.3s ease;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .bg-glow {
+        .cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
+        }
+
+        .cursor-ring.hover {
+            width: 60px;
+            height: 60px;
+            border-color: var(--text);
+            opacity: 0.3;
+        }
+
+        /* Скрываем стандартный курсор на интерактивных элементах */
+        a,
+        button,
+        .link,
+        .tab-btn,
+        .game-btn,
+        .goal-item,
+        .tech,
+        .note-card,
+        .chat-msg,
+        .link-btn,
+        .theme-toggle {
+            cursor: none;
+        }
+
+        /* ============================================================
+           ФОН: АНИМИРОВАННЫЙ ГРАДИЕНТ
+           ============================================================ */
+        .bg-gradient-animated {
             position: fixed;
             inset: 0;
             z-index: 0;
             pointer-events: none;
+            background: linear-gradient(135deg, #04040a, #0a0a22, #04040a);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ============================================================
+           ПАРАЛЛАКС
+           ============================================================ */
+        .parallax-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+        }
+
+        .parallax-layer-1 {
             background:
                 radial-gradient(ellipse at 20% 30%, rgba(100, 180, 255, 0.06) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 70%, rgba(100, 180, 255, 0.04) 0%, transparent 50%);
-            transition: opacity 0.6s ease;
         }
 
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
+        .parallax-layer-2 {
             background-image:
-                linear-gradient(rgba(255,255,255,0.008) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.008) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.008) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.008) 1px, transparent 1px);
             background-size: 60px 60px;
+        }
+
+        /* ============================================================
+           НЕОНОВЫЕ ЛИНИИ
+           ============================================================ */
+        .neon-border {
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(100, 180, 255, 0.15), rgba(255, 255, 255, 0.03), rgba(100, 180, 255,
+                        0.08));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
+            animation: neonPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes neonPulse {
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
         }
 
         /* ============================================================
@@ -161,7 +263,9 @@
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         #loader p {
@@ -191,29 +295,15 @@
             opacity: 0;
         }
         @keyframes cardIn {
-            to { opacity: 1;
-                transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card:hover {
             transform: translateY(-4px);
             box-shadow: 0 50px 120px rgba(0, 0, 0, 0.7);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(100, 180, 255, 0.15), rgba(255, 255, 255, 0.03), rgba(100, 180, 255,
-                        0.08));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            z-index: 0;
         }
 
         /* ============================================================
@@ -264,9 +354,13 @@
         }
         @keyframes pulse {
             0%,
-            100% { transform: scale(1); }
-            50% { transform: scale(1.12);
-                box-shadow: 0 0 40px rgba(68, 255, 136, 0.25); }
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.12);
+                box-shadow: 0 0 40px rgba(68, 255, 136, 0.25);
+            }
         }
 
         .name h1 {
@@ -455,7 +549,11 @@
             gap: 12px;
             margin: 12px 0 6px;
         }
-        @media (max-width: 540px) { .goals-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 540px) {
+            .goals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .goal-item {
             background: var(--glass);
@@ -524,9 +622,13 @@
             border: 1px solid var(--border);
             flex-wrap: wrap;
         }
-        @media (max-width: 600px) { .tabs,
-            .game-tabs { flex-direction: column;
-                border-radius: 20px; } }
+        @media (max-width: 600px) {
+            .tabs,
+            .game-tabs {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+        }
 
         .tab-btn {
             flex: 1;
@@ -575,7 +677,11 @@
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-        @media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .game-card {
             background: var(--glass);
@@ -696,7 +802,11 @@
         .mobile-controls span {
             visibility: hidden;
         }
-        @media (pointer: coarse) { .mobile-controls { display: grid; } }
+        @media (pointer: coarse) {
+            .mobile-controls {
+                display: grid;
+            }
+        }
 
         /* ============================================================
            ЗАМЕТКИ
@@ -749,7 +859,11 @@
             gap: 12px;
             margin: 8px 0;
         }
-        @media (max-width: 540px) { .notes-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 540px) {
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .note-card {
             background: var(--glass);
@@ -956,7 +1070,7 @@
         }
 
         /* ============================================================
-           СПОТИФАЙ С ОБЛОЖКОЙ
+           СПОТИФАЙ
            ============================================================ */
         .spotify-real {
             display: flex;
@@ -1025,7 +1139,7 @@
         }
 
         /* ============================================================
-           СТАТУС DISCORD С ИКОНКОЙ ИГРЫ
+           СТАТУС DISCORD
            ============================================================ */
         .discord-status {
             display: flex;
@@ -1182,7 +1296,11 @@
             gap: 10px;
             margin: 20px 0 10px;
         }
-        @media (max-width: 540px) { .links { grid-template-columns: 1fr; } }
+        @media (max-width: 540px) {
+            .links {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .link {
             display: flex;
@@ -1276,7 +1394,7 @@
         }
 
         /* ============================================================
-           КНОПКА СМЕНЫ ТЕМЫ
+           КНОПКА СМЕНЫ ТЕМЫ И ЦВЕТА
            ============================================================ */
         .theme-toggle {
             position: fixed;
@@ -1308,69 +1426,448 @@
         }
 
         /* ============================================================
+           ЦВЕТА АКЦЕНТА
+           ============================================================ */
+        .color-picker {
+            position: fixed;
+            top: 70px;
+            right: 16px;
+            z-index: 99;
+            display: flex;
+            gap: 6px;
+            background: var(--glass);
+            padding: 8px 12px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .color-picker:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+        .color-picker button {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .color-picker button:hover {
+            transform: scale(1.15);
+        }
+        .color-picker button.active {
+            border-color: var(--text);
+            transform: scale(1.1);
+        }
+
+        /* ============================================================
+           ФОРМА ОБРАТНОЙ СВЯЗИ
+           ============================================================ */
+        .contact-form {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            margin: 8px 0 4px;
+        }
+        .contact-form:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+        .contact-form .form-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+        }
+        .contact-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .contact-form button {
+            padding: 10px 28px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            background: rgba(100, 180, 255, 0.05);
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .contact-form button:hover {
+            background: rgba(100, 180, 255, 0.1);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* ============================================================
+           ГАЛЕРЕЯ СКРИНШОТОВ
+           ============================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1 / 1;
+            background: var(--glass);
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            border-color: var(--border-hover);
+            transform: scale(1.02);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-item .delete-img {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: #fff;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-item:hover .delete-img {
+            opacity: 1;
+        }
+        .gallery-item .delete-img:hover {
+            background: #ff4444;
+            transform: scale(1.1);
+        }
+        .gallery-upload {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .gallery-upload input[type="file"] {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .gallery-upload input[type="file"]:focus {
+            border-color: var(--accent);
+        }
+        .gallery-upload button {
+            padding: 10px 24px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            background: rgba(100, 180, 255, 0.05);
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .gallery-upload button:hover {
+            background: rgba(100, 180, 255, 0.1);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* ============================================================
+           ЛАЙКИ
+           ============================================================ */
+        .like-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin: 8px 0 4px;
+            transition: all 0.3s ease;
+        }
+        .like-section:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+        .like-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px;
+            line-height: 1;
+        }
+        .like-btn:hover {
+            transform: scale(1.2);
+        }
+        .like-btn.liked {
+            animation: likeAnim 0.4s ease;
+        }
+        @keyframes likeAnim {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.4);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .like-count {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            min-width: 30px;
+        }
+
+        /* ============================================================
+           СТАТИСТИКА
+           ============================================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 8px 0 4px;
+        }
+        .stats-item {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .stats-item:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+        .stats-item .number {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .stats-item .label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* ============================================================
            АДАПТИВ
            ============================================================ */
         @media (max-width: 640px) {
-            .card { padding: 24px; }
-            .header { gap: 16px; }
-            .avatar { width: 76px;
-                height: 76px; }
-            .name h1 { font-size: 24px; }
-            .bio { padding: 16px 18px;
-                font-size: 15px; }
-            .link { padding: 10px 14px;
-                font-size: 14px; }
-            .tech { font-size: 13px;
-                padding: 4px 14px; }
-            .footer { flex-direction: column;
-                text-align: center; }
-            .mc-block { padding: 14px 16px; }
+            .card {
+                padding: 24px;
+            }
+            .header {
+                gap: 16px;
+            }
+            .avatar {
+                width: 76px;
+                height: 76px;
+            }
+            .name h1 {
+                font-size: 24px;
+            }
+            .bio {
+                padding: 16px 18px;
+                font-size: 15px;
+            }
+            .link {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            .tech {
+                font-size: 13px;
+                padding: 4px 14px;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .mc-block {
+                padding: 14px 16px;
+            }
             .tabs,
-            .game-tabs { flex-direction: column;
-                border-radius: 20px; }
-            .tab-btn { padding: 8px; }
-            .game-card { padding: 12px; }
-            .game-canvas-wrap canvas { max-width: 200px; }
-            .theme-toggle { top: 12px;
+            .game-tabs {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+            .tab-btn {
+                padding: 8px;
+            }
+            .game-card {
+                padding: 12px;
+            }
+            .game-canvas-wrap canvas {
+                max-width: 200px;
+            }
+            .theme-toggle {
+                top: 12px;
                 right: 12px;
                 padding: 4px 12px;
-                font-size: 12px; }
-            .notes-input-row { flex-direction: column; }
+                font-size: 12px;
+            }
+            .notes-input-row {
+                flex-direction: column;
+            }
             .notes-input-row input,
-            .notes-input-row select { min-width: 100%; }
-            .chat-input-row { flex-direction: column; }
-            .chat-input-row input { min-width: 100%; }
-            .birthday-time { font-size: 20px; }
-            .birthday-time span { min-width: 32px; }
-            .spotify-artwork { width: 44px;
-                height: 44px; }
-            .discord-icon { width: 32px;
-                height: 32px; }
+            .notes-input-row select {
+                min-width: 100%;
+            }
+            .chat-input-row {
+                flex-direction: column;
+            }
+            .chat-input-row input {
+                min-width: 100%;
+            }
+            .birthday-time {
+                font-size: 20px;
+            }
+            .birthday-time span {
+                min-width: 32px;
+            }
+            .spotify-artwork {
+                width: 44px;
+                height: 44px;
+            }
+            .discord-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .color-picker {
+                top: 60px;
+                right: 12px;
+                padding: 6px 10px;
+            }
+            .color-picker button {
+                width: 20px;
+                height: 20px;
+            }
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+            a,
+            button,
+            .link,
+            .tab-btn,
+            .game-btn,
+            .goal-item,
+            .tech,
+            .note-card,
+            .chat-msg,
+            .link-btn,
+            .theme-toggle {
+                cursor: pointer;
+            }
+            .contact-form .form-row {
+                flex-direction: column;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
         }
 
         @media (max-width: 400px) {
-            .card { padding: 16px; }
-            .name h1 { font-size: 20px; }
-            .avatar { width: 60px;
-                height: 60px; }
-            .bio { padding: 12px 14px;
-                font-size: 14px; }
-            .game-canvas-wrap canvas { max-width: 160px; }
-            .birthday-time { font-size: 16px; }
-            .birthday-time span { min-width: 24px; }
-            .spotify-artwork { width: 36px;
-                height: 36px; }
-            .discord-icon { width: 28px;
-                height: 28px; }
+            .card {
+                padding: 16px;
+            }
+            .name h1 {
+                font-size: 20px;
+            }
+            .avatar {
+                width: 60px;
+                height: 60px;
+            }
+            .bio {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+            .game-canvas-wrap canvas {
+                max-width: 160px;
+            }
+            .birthday-time {
+                font-size: 16px;
+            }
+            .birthday-time span {
+                min-width: 24px;
+            }
+            .spotify-artwork {
+                width: 36px;
+                height: 36px;
+            }
+            .discord-icon {
+                width: 28px;
+                height: 28px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
+    <!-- ===== КАСТОМНЫЙ КУРСОР ===== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- ===== ФОН (анимированный) ===== -->
-    <canvas id="bgCanvas"></canvas>
-    <div class="bg-glow"></div>
-    <div class="bg-grid"></div>
+    <!-- ===== ФОН ===== -->
+    <div class="bg-gradient-animated"></div>
+    <div class="parallax-layer parallax-layer-1" id="parallax1"></div>
+    <div class="parallax-layer parallax-layer-2" id="parallax2"></div>
 
     <!-- ===== ЗАГРУЗЧИК ===== -->
     <div id="loader">
@@ -1384,9 +1881,18 @@
         <span id="themeLabel">Тёмная</span>
     </button>
 
+    <!-- ===== ЦВЕТА АКЦЕНТА ===== -->
+    <div class="color-picker" id="colorPicker">
+        <button style="background:#6ab0ff" data-color="#6ab0ff" class="active"></button>
+        <button style="background:#ff6b6b" data-color="#ff6b6b"></button>
+        <button style="background:#ffd93d" data-color="#ffd93d"></button>
+        <button style="background:#6bcb77" data-color="#6bcb77"></button>
+        <button style="background:#b388ff" data-color="#b388ff"></button>
+        <button style="background:#ff8a80" data-color="#ff8a80"></button>
+    </div>
+
     <!-- ===== КАРТОЧКА ===== -->
     <main class="card">
-
         <!-- ШАПКА -->
         <header class="header">
             <div class="avatar-wrap">
@@ -1466,11 +1972,45 @@
             </div>
         </section>
 
+        <!-- ===== СТАТИСТИКА ===== -->
+        <section>
+            <h2 class="section-title">📊 Статистика</h2>
+            <div class="stats-grid" id="statsGrid">
+                <div class="stats-item">
+                    <div class="number" id="statVisits">0</div>
+                    <div class="label">Посещений</div>
+                </div>
+                <div class="stats-item">
+                    <div class="number" id="statLikes">0</div>
+                    <div class="label">Лайков</div>
+                </div>
+                <div class="stats-item">
+                    <div class="number" id="statGames">0</div>
+                    <div class="label">Игр сыграно</div>
+                </div>
+                <div class="stats-item">
+                    <div class="number" id="statNotes">0</div>
+                    <div class="label">Заметок</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ЛАЙКИ ===== -->
+        <section>
+            <div class="like-section">
+                <button class="like-btn" id="likeBtn">❤️</button>
+                <span class="like-count" id="likeCount">0</span>
+                <span style="color:var(--text-secondary);font-size:14px;">лайков</span>
+            </div>
+        </section>
+
         <!-- ВКЛАДКИ -->
         <nav class="tabs">
             <button class="tab-btn active" data-tab="games">🎮 Игры</button>
+            <button class="tab-btn" data-tab="gallery">🖼️ Галерея</button>
             <button class="tab-btn" data-tab="notes">📝 Заметки</button>
             <button class="tab-btn" data-tab="chat">💬 Чат</button>
+            <button class="tab-btn" data-tab="contact">📧 Контакты</button>
         </nav>
 
         <!-- ИГРЫ -->
@@ -1545,6 +2085,16 @@
             </div>
         </section>
 
+        <!-- ===== ГАЛЕРЕЯ ===== -->
+        <section class="tab-content" id="tab-gallery">
+            <h2 class="section-title">🖼️ Галерея скриншотов</h2>
+            <div class="gallery-grid" id="galleryGrid"></div>
+            <div class="gallery-upload">
+                <input type="file" id="galleryInput" accept="image/*" multiple>
+                <button id="galleryUploadBtn">📤 Загрузить</button>
+            </div>
+        </section>
+
         <!-- ЗАМЕТКИ -->
         <section class="tab-content" id="tab-notes">
             <h2 class="section-title">📝 Мои личные заметки</h2>
@@ -1570,7 +2120,7 @@
             </div>
         </section>
 
-        <!-- ЧАТ -->
+        <!-- ===== ЧАТ ===== -->
         <section class="tab-content" id="tab-chat">
             <h2 class="section-title">💬 Чат</h2>
             <div class="chat-container">
@@ -1583,13 +2133,27 @@
             </div>
         </section>
 
-        <!-- ===== СПОТИФАЙ С ОБЛОЖКОЙ ===== -->
+        <!-- ===== ФОРМА ОБРАТНОЙ СВЯЗИ ===== -->
+        <section class="tab-content" id="tab-contact">
+            <h2 class="section-title">📧 Связаться со мной</h2>
+            <div class="contact-form">
+                <div class="form-row">
+                    <input type="text" id="contactName" placeholder="Ваше имя" maxlength="40">
+                    <input type="email" id="contactEmail" placeholder="Ваш email">
+                </div>
+                <div class="form-row">
+                    <textarea id="contactMessage" placeholder="Ваше сообщение..." maxlength="500"></textarea>
+                </div>
+                <button id="contactSend">📤 Отправить</button>
+                <p id="contactStatus" style="margin-top:8px;font-size:14px;color:var(--text-secondary);"></p>
+            </div>
+        </section>
+
+        <!-- СПОТИФАЙ -->
         <section>
             <h2 class="section-title">🎵 Сейчас играет</h2>
             <div class="spotify-real">
-                <div class="spotify-artwork" id="spotifyArtwork">
-                    <span id="spotifyEmoji">🎵</span>
-                </div>
+                <div class="spotify-artwork" id="spotifyArtwork"><span id="spotifyEmoji">🎵</span></div>
                 <div class="spotify-info">
                     <div class="spotify-track" id="spotifyTrack">Загрузка...</div>
                     <div class="spotify-artist" id="spotifyArtist">—</div>
@@ -1598,7 +2162,7 @@
             </div>
         </section>
 
-        <!-- ===== СТАТУС DISCORD С ИКОНКОЙ ИГРЫ ===== -->
+        <!-- СТАТУС DISCORD -->
         <section>
             <div class="discord-status">
                 <div class="discord-icon" id="discordIcon">🎮</div>
@@ -1686,141 +2250,118 @@
                 <a href="https://github.com/vaypcraft-ux" target="_blank">GitHub</a>
             </div>
         </footer>
-
     </main>
 
+    <!-- PWA: Service Worker -->
     <script>
         // ============================================================
-        // === ФОН: ЗВЁЗДЫ + ПАДАЮЩИЕ ЧАСТИЦЫ ===
+        // === КАСТОМНЫЙ КУРСОР ===
         // ============================================================
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        let particles = [];
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        // ЗВЁЗДЫ
-        function initStars(count = 140) {
-            stars = [];
-            for (let i = 0; i < count; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 1.5 + 0.5,
-                    alpha: Math.random() * 0.6 + 0.2,
-                    speed: Math.random() * 0.02 + 0.005,
-                    phase: Math.random() * Math.PI * 2
-                });
-            }
-        }
-        initStars();
-
-        // ПАДАЮЩИЕ ЧАСТИЦЫ
-        function initParticles(count = 40) {
-            particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    speed: Math.random() * 0.6 + 0.2,
-                    opacity: Math.random() * 0.3 + 0.1,
-                    wobble: Math.random() * 0.02 + 0.005,
-                    phase: Math.random() * Math.PI * 2
-                });
-            }
-        }
-        initParticles();
-
-        let time = 0;
-
-        function drawBg() {
-            time += 0.01;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            const starColor = isLight ? 'rgba(60, 100, 180, ' : 'rgba(255, 255, 255, ';
-
-            // Рисуем звёзды
-            stars.forEach(star => {
-                const twinkle = Math.sin(time * 1.5 + star.phase) * 0.3 + 0.7;
-                const alpha = star.alpha * twinkle;
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-                ctx.fillStyle = starColor + alpha + ')';
-                ctx.fill();
-            });
-
-            // Рисуем падающие частицы
-            const particleColor = isLight ? 'rgba(60, 120, 220, ' : 'rgba(255, 255, 255, ';
-            particles.forEach(p => {
-                p.y += p.speed;
-                p.x += Math.sin(time * p.wobble + p.phase) * 0.2;
-                if (p.y > canvas.height) {
-                    p.y = -p.size;
-                    p.x = Math.random() * canvas.width;
-                }
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width) p.x = 0;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = particleColor + p.opacity + ')';
-                ctx.fill();
-
-                // Маленький хвост
-                if (p.size > 1.2) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x - p.speed * 4, p.y - p.speed * 4);
-                    ctx.strokeStyle = particleColor + (p.opacity * 0.2) + ')';
-                    ctx.lineWidth = p.size * 0.4;
-                    ctx.stroke();
-                }
-            });
-
-            requestAnimationFrame(drawBg);
-        }
-        drawBg();
-
-        // ============================================================
-        // === ТЕМЫ ===
-        // ============================================================
-        const themes = ['dark', 'light', 'blue', 'purple'];
-        const themeLabels = ['🌙 Тёмная', '☀️ Светлая', '💎 Голубая', '🔮 Фиолетовая'];
-        const themeIcons = ['🌙', '☀️', '💎', '🔮'];
-        let currentThemeIndex = 0;
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            const idx = themes.indexOf(savedTheme);
-            if (idx !== -1) {
-                currentThemeIndex = idx;
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                document.getElementById('themeIcon').textContent = themeIcons[idx];
-                document.getElementById('themeLabel').textContent = themeLabels[idx].replace(/[^\s]+ /, '');
-            }
-        }
-
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            document.documentElement.setAttribute('data-theme', themes[currentThemeIndex]);
-            document.getElementById('themeIcon').textContent = themeIcons[currentThemeIndex];
-            document.getElementById('themeLabel').textContent = themeLabels[currentThemeIndex].replace(/[^\s]+ /, '');
-            localStorage.setItem('theme', themes[currentThemeIndex]);
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            ring.style.left = e.clientX + 'px';
+            ring.style.top = e.clientY + 'px';
         });
+
+        document.querySelectorAll('a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn')
+            .forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+            });
+
+        // ============================================================
+        // === ПАРАЛЛАКС ===
+        // ============================================================
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            document.getElementById('parallax1').style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+            document.getElementById('parallax2').style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+
+        // ============================================================
+        // === ЦВЕТА АКЦЕНТА ===
+        // ============================================================
+        document.querySelectorAll('#colorPicker button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#colorPicker button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const color = this.dataset.color;
+                document.documentElement.style.setProperty('--accent', color);
+                document.documentElement.style.setProperty('--accent-glow', color + '33');
+                document.documentElement.style.setProperty('--accent-soft', color + '1a');
+                localStorage.setItem('accentColor', color);
+            });
+        });
+
+        const savedAccent = localStorage.getItem('accentColor');
+        if (savedAccent) {
+            document.documentElement.style.setProperty('--accent', savedAccent);
+            document.documentElement.style.setProperty('--accent-glow', savedAccent + '33');
+            document.documentElement.style.setProperty('--accent-soft', savedAccent + '1a');
+            document.querySelectorAll('#colorPicker button').forEach(b => {
+                b.classList.toggle('active', b.dataset.color === savedAccent);
+            });
+        }
 
         // ============================================================
         // === ЗАГРУЗЧИК ===
         // ============================================================
         window.addEventListener('load', () => {
             document.getElementById('loader').classList.add('hidden');
+            updateStats();
+        });
+
+        // ============================================================
+        // === СТАТИСТИКА ===
+        // ============================================================
+        function updateStats() {
+            const visits = parseInt(localStorage.getItem('visitorCount') || '0');
+            const likes = parseInt(localStorage.getItem('likes') || '0');
+            const games = parseInt(localStorage.getItem('gamesPlayed') || '0');
+            const notes = JSON.parse(localStorage.getItem('notes') || '[]').length;
+
+            document.getElementById('statVisits').textContent = visits;
+            document.getElementById('statLikes').textContent = likes;
+            document.getElementById('statGames').textContent = games;
+            document.getElementById('statNotes').textContent = notes;
+            document.getElementById('visitorCount').textContent = visits;
+        }
+
+        // ============================================================
+        // === ЛАЙКИ ===
+        // ============================================================
+        let likes = parseInt(localStorage.getItem('likes') || '0');
+        let userLiked = localStorage.getItem('userLiked') === 'true';
+
+        document.getElementById('likeCount').textContent = likes;
+        if (userLiked) {
+            document.getElementById('likeBtn').textContent = '❤️';
+            document.getElementById('likeBtn').classList.add('liked');
+        }
+
+        document.getElementById('likeBtn').addEventListener('click', function() {
+            if (userLiked) {
+                likes--;
+                userLiked = false;
+                this.textContent = '🤍';
+                this.classList.remove('liked');
+            } else {
+                likes++;
+                userLiked = true;
+                this.textContent = '❤️';
+                this.classList.add('liked');
+                this.style.animation = 'none';
+                setTimeout(() => this.style.animation = 'likeAnim 0.4s ease', 10);
+            }
+            localStorage.setItem('likes', String(likes));
+            localStorage.setItem('userLiked', String(userLiked));
+            document.getElementById('likeCount').textContent = likes;
+            updateStats();
         });
 
         // ============================================================
@@ -1857,6 +2398,7 @@
             count++;
             localStorage.setItem('visitorCount', String(count));
             document.getElementById('visitorCount').textContent = count;
+            updateStats();
         })();
 
         // ============================================================
@@ -1948,7 +2490,7 @@
         })();
 
         // ============================================================
-        // === СПОТИФАЙ + СТАТУС DISCORD (С ИКОНКАМИ) ===
+        // === СПОТИФАЙ + СТАТУС DISCORD ===
         // ============================================================
         async function fetchSpotifyAndGames() {
             const userId = '994821782819311636';
@@ -1962,13 +2504,10 @@
                 const artworkEl = document.getElementById('spotifyArtwork');
                 const emojiEl = document.getElementById('spotifyEmoji');
 
-                // --- СПОТИФАЙ С ОБЛОЖКОЙ ---
                 if (spotify && spotify.song) {
                     document.getElementById('spotifyTrack').textContent = spotify.song;
                     document.getElementById('spotifyArtist').textContent = spotify.artist;
                     document.getElementById('spotifyStatusDot').className = 'spotify-status-dot';
-
-                    // Обложка альбома
                     if (spotify.album_art_url) {
                         artworkEl.innerHTML =
                             `<img src="${spotify.album_art_url}" alt="Обложка" loading="lazy" onerror="this.style.display='none';document.getElementById('spotifyEmoji').style.display='block'">`;
@@ -1985,7 +2524,6 @@
                     emojiEl.style.display = 'block';
                 }
 
-                // --- СТАТУС DISCORD С ИКОНКОЙ ИГРЫ ---
                 const activities = status.activities || [];
                 const game = activities.find(a => a.type === 0);
                 const listening = activities.find(a => a.type === 2);
@@ -1993,7 +2531,6 @@
                 const text = document.getElementById('discordText');
                 const iconEl = document.getElementById('discordIcon');
 
-                // Иконка игры (из Discord CDN)
                 function setGameIcon(iconName) {
                     if (iconName) {
                         const iconUrl =
@@ -2013,7 +2550,6 @@
                             if (game.details) txt += ` · <span class="details">${game.details}</span>`;
                             if (game.state) txt += ` <span class="details">${game.state}</span>`;
                             text.innerHTML = txt;
-                            // Иконка игры
                             if (game.assets && game.assets.large_image) {
                                 const iconName = game.assets.large_image.replace('spotify:', '').replace('mp:', '');
                                 setGameIcon(iconName);
@@ -2092,10 +2628,12 @@
                         notes.splice(realIdx, 1);
                         localStorage.setItem('notes', JSON.stringify(notes));
                         renderNotes(noteSearch.value);
+                        updateStats();
                     }
                 });
                 notesGrid.appendChild(card);
             });
+            updateStats();
         }
 
         noteSearch.addEventListener('input', () => renderNotes(noteSearch.value));
@@ -2115,6 +2653,7 @@
             document.getElementById('noteContent').value = '';
             document.getElementById('noteSticker').value = '📌';
             renderNotes(noteSearch.value);
+            updateStats();
         });
 
         document.getElementById('notesExport').addEventListener('click', () => {
@@ -2142,6 +2681,7 @@
                             notes = data;
                             localStorage.setItem('notes', JSON.stringify(notes));
                             renderNotes(noteSearch.value);
+                            updateStats();
                         }
                     } catch { alert('Ошибка при импорте'); }
                 };
@@ -2195,6 +2735,85 @@
         });
 
         renderChat();
+
+        // ============================================================
+        // === ФОРМА ОБРАТНОЙ СВЯЗИ ===
+        // ============================================================
+        document.getElementById('contactSend').addEventListener('click', function() {
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            if (!message) {
+                document.getElementById('contactStatus').textContent = '⚠️ Напишите сообщение!';
+                return;
+            }
+            // Сохраняем в localStorage
+            const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+            contacts.push({ name: name || 'Аноним', email, message, date: new Date().toLocaleString() });
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            document.getElementById('contactStatus').textContent = '✅ Сообщение отправлено!';
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+            setTimeout(() => {
+                document.getElementById('contactStatus').textContent = '';
+            }, 3000);
+        });
+
+        // ============================================================
+        // === ГАЛЕРЕЯ ===
+        // ============================================================
+        let galleryImages = JSON.parse(localStorage.getItem('gallery') || '[]');
+
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            if (!galleryImages.length) {
+                grid.innerHTML =
+                    '<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:20px;">🖼️ Нет скриншотов. Загрузи свои!</div>';
+                return;
+            }
+            galleryImages.forEach((img, idx) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${img}" alt="Скриншот ${idx+1}" loading="lazy">
+                    <button class="delete-img" data-idx="${idx}">✕</button>
+                `;
+                div.querySelector('.delete-img').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (confirm('Удалить скриншот?')) {
+                        galleryImages.splice(idx, 1);
+                        localStorage.setItem('gallery', JSON.stringify(galleryImages));
+                        renderGallery();
+                    }
+                });
+                grid.appendChild(div);
+            });
+        }
+
+        document.getElementById('galleryUploadBtn').addEventListener('click', function() {
+            const input = document.getElementById('galleryInput');
+            const files = input.files;
+            if (!files.length) return alert('Выберите файлы!');
+            let loaded = 0;
+            for (let file of files) {
+                if (!file.type.startsWith('image/')) continue;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    galleryImages.push(e.target.result);
+                    loaded++;
+                    if (loaded === files.length) {
+                        localStorage.setItem('gallery', JSON.stringify(galleryImages));
+                        renderGallery();
+                        input.value = '';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        renderGallery();
 
         // ============================================================
         // === ТЕТРИС ===
@@ -2313,6 +2932,10 @@
                 tScore += [0, 100, 300, 500, 800][cleared] || 1000;
                 document.getElementById('tetrisScore').textContent = 'Счёт: ' + tScore;
                 updateTetrisBest();
+                let games = parseInt(localStorage.getItem('gamesPlayed') || '0');
+                games++;
+                localStorage.setItem('gamesPlayed', String(games));
+                updateStats();
             }
         }
 
@@ -2521,6 +3144,10 @@
                 document.getElementById('snakeBest').textContent = sBest;
                 document.getElementById('snakeSaveStatus').textContent = '🏆 Новый рекорд!';
                 setTimeout(() => document.getElementById('snakeSaveStatus').textContent = '💾 Сохранено', 3000);
+                let games = parseInt(localStorage.getItem('gamesPlayed') || '0');
+                games++;
+                localStorage.setItem('gamesPlayed', String(games));
+                updateStats();
             }
         }
 
