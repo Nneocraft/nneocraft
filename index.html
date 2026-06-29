@@ -4,55 +4,1084 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Nneocraft · Тех-админ</title>
-    <meta name="description" content="Личный сайт-визитка Nneocraft — тех-админ, разработчик" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-    <!-- Микроразметка для соцсетей -->
-    <meta property="og:title" content="Nneocraft · Тех-админ" />
-    <meta property="og:description" content="Личный сайт-визитка Nneocraft — тех-админ, разработчик" />
-    <meta property="og:image" content="avatar.png" />
-    <meta name="theme-color" content="#0a0a16" />
+    <style>
+        /* ============================================================
+           ПЕРЕМЕННЫЕ И ТЕМЫ
+           ============================================================ */
+        :root {
+            --bg: #04040a;
+            --card: rgba(10, 10, 22, 0.78);
+            --text: #fff;
+            --text-secondary: #999;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(100, 180, 255, 0.15);
+            --accent: #6ab0ff;
+            --accent-glow: rgba(100, 180, 255, 0.1);
+            --shadow: 0 30px 80px rgba(0,0,0,0.7);
+            --glass: rgba(255,255,255,0.03);
+            --glass-hover: rgba(255,255,255,0.06);
+            --radius: 24px;
+            --transition: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f4ff;
+            --card: rgba(255, 255, 255, 0.75);
+            --text: #1a1a2e;
+            --text-secondary: #555;
+            --border: rgba(0,0,0,0.06);
+            --border-hover: rgba(100, 180, 255, 0.2);
+            --accent: #4a7aff;
+            --accent-glow: rgba(100, 180, 255, 0.08);
+            --shadow: 0 30px 80px rgba(100, 150, 255, 0.08);
+            --glass: rgba(0,0,0,0.02);
+            --glass-hover: rgba(0,0,0,0.04);
+        }
+
+        [data-theme="blue"] {
+            --bg: #000b1a;
+            --card: rgba(0, 20, 50, 0.8);
+            --text: #c8e6ff;
+            --text-secondary: #6a9bc7;
+            --border: rgba(100, 200, 255, 0.08);
+            --border-hover: rgba(100, 200, 255, 0.2);
+            --accent: #4fc3f7;
+            --accent-glow: rgba(79, 195, 247, 0.1);
+            --shadow: 0 30px 80px rgba(0,50,100,0.7);
+            --glass: rgba(100, 200, 255, 0.03);
+            --glass-hover: rgba(100, 200, 255, 0.06);
+        }
+
+        [data-theme="purple"] {
+            --bg: #0a0015;
+            --card: rgba(20, 5, 40, 0.8);
+            --text: #f0d6ff;
+            --text-secondary: #a87bc7;
+            --border: rgba(200, 100, 255, 0.08);
+            --border-hover: rgba(200, 100, 255, 0.2);
+            --accent: #b388ff;
+            --accent-glow: rgba(179, 136, 255, 0.1);
+            --shadow: 0 30px 80px rgba(50,0,100,0.7);
+            --glass: rgba(200, 100, 255, 0.03);
+            --glass-hover: rgba(200, 100, 255, 0.06);
+        }
+
+        /* ============================================================
+           БАЗА
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            transition: background 0.5s ease, color 0.5s ease;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           ФОН
+           ============================================================ */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(100, 180, 255, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 80%, rgba(100, 180, 255, 0.04) 0%, transparent 50%);
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        #weatherCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           ЗАГРУЗЧИК
+           ============================================================ */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #loader p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        /* ============================================================
+           КАРТОЧКА
+           ============================================================ */
+        .card {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            width: 100%;
+            background: var(--card);
+            backdrop-filter: blur(24px);
+            border-radius: var(--radius);
+            padding: 40px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s ease;
+            animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 0;
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:hover { transform: translateY(-3px); }
+
+        /* ============================================================
+           ШАПКА
+           ============================================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .avatar-wrap { position: relative; flex-shrink: 0; }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 3px solid var(--border);
+            background: #161622;
+            transition: border-color 0.3s ease;
+        }
+        .avatar:hover { border-color: var(--accent); }
+
+        .online-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 16px;
+            height: 16px;
+            background: #44ff88;
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .name h1 {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .name .sub {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .name .sub span { color: var(--accent); font-weight: 600; -webkit-text-fill-color: var(--accent); }
+
+        .age-chip {
+            display: inline-block;
+            background: var(--glass);
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            border: 1px solid var(--border);
+            margin-top: 6px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .age-chip:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+
+        /* ============================================================
+           БИО
+           ============================================================ */
+        .bio {
+            color: var(--text-secondary);
+            padding: 20px 24px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin: 16px 0 24px;
+            position: relative;
+        }
+        .bio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), #fff);
+            border-radius: 0 4px 4px 0;
+        }
+        .bio strong { color: var(--text); font-weight: 700; }
+        .bio .hl { color: var(--accent); font-weight: 600; }
+
+        /* ============================================================
+           ОБЩИЕ
+           ============================================================ */
+        .section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
+            font-weight: 700;
+            margin: 28px 0 14px;
+        }
+
+        /* ============================================================
+           ТЕХНОЛОГИИ
+           ============================================================ */
+        .tech-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tech {
+            background: var(--glass);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tech:hover {
+            background: var(--glass-hover);
+            border-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           MINECRAFT
+           ============================================================ */
+        .mc-block {
+            padding: 18px 22px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .mc-block:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+
+        .mc-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .mc-icon { font-size: 28px; }
+        .mc-label {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mc-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .mc-tag {
+            background: var(--glass);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .mc-tag:hover {
+            background: var(--glass-hover);
+            color: var(--text);
+            border-color: var(--border-hover);
+        }
+
+        /* ============================================================
+           ПЛАНЫ
+           ============================================================ */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0 6px;
+        }
+        @media (max-width: 540px) { .goals-grid { grid-template-columns: 1fr; } }
+
+        .goal-item {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .goal-item:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+        .goal-item.completed {
+            background: rgba(100, 180, 255, 0.04);
+            border-color: rgba(100, 180, 255, 0.08);
+        }
+
+        .goal-check { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+        .goal-content { flex: 1; }
+        .goal-title { font-size: 16px; font-weight: 700; color: var(--text); }
+        .goal-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .goal-progress { margin-top: 8px; height: 4px; background: var(--glass); border-radius: 4px; overflow: hidden; }
+        .goal-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4a9aff); border-radius: 4px; transition: width 0.6s ease; }
+
+        /* ============================================================
+           ВКЛАДКИ
+           ============================================================ */
+        .tabs,
+        .game-tabs {
+            display: flex;
+            gap: 4px;
+            margin: 20px 0 16px;
+            background: var(--glass);
+            border-radius: 40px;
+            padding: 4px;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        @media (max-width: 600px) { .tabs,
+            .game-tabs { flex-direction: column; border-radius: 20px; } }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 36px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            min-width: 60px;
+        }
+        .tab-btn:hover { color: var(--text); background: var(--glass-hover); }
+        .tab-btn.active {
+            background: rgba(100, 180, 255, 0.08);
+            color: var(--text);
+        }
+
+        .tab-content { display: none; animation: fadeUp 0.3s ease; }
+        .tab-content.active { display: block; }
+        .game-content { display: none; animation: fadeUp 0.3s ease; }
+        .game-content.active { display: block; }
+
+        /* ============================================================
+           ИГРЫ
+           ============================================================ */
+        .game-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
+
+        .game-card {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .game-card:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+        .game-card.game-stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .game-icon { font-size: 36px; display: block; margin-bottom: 4px; }
+        .game-title { font-size: 17px; font-weight: 700; color: var(--text); }
+        .game-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+        .game-canvas-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .game-canvas-wrap canvas {
+            border-radius: 12px;
+            background: rgba(10, 10, 22, 0.5);
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            image-rendering: pixelated;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .game-status { font-size: 12px; color: var(--text-secondary); padding: 4px 12px; background: var(--glass); border-radius: 20px; border: 1px solid var(--border); }
+
+        .game-btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .game-btn:hover { background: var(--glass-hover); border-color: var(--border-hover); }
+        .game-btn.primary {
+            border-color: rgba(100, 180, 255, 0.2);
+            background: rgba(100, 180, 255, 0.05);
+            color: var(--accent);
+        }
+        .game-btn.primary:hover {
+            background: rgba(100, 180, 255, 0.1);
+            border-color: rgba(100, 180, 255, 0.3);
+        }
+
+        .mobile-controls {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            max-width: 160px;
+            margin: 8px auto 0;
+        }
+        .mobile-controls button {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 20px;
+            padding: 6px;
+            cursor: pointer;
+            touch-action: manipulation;
+            user-select: none;
+            transition: 0.15s ease;
+        }
+        .mobile-controls button:active { transform: scale(0.88); background: rgba(100, 180, 255, 0.1); }
+        .mobile-controls span { visibility: hidden; }
+        @media (pointer: coarse) { .mobile-controls { display: grid; } }
+
+        /* ============================================================
+           ЗАМЕТКИ
+           ============================================================ */
+        .notes-toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .notes-toolbar input {
+            flex: 1;
+            min-width: 120px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .notes-toolbar input:focus { border-color: var(--accent); }
+        .notes-toolbar input::placeholder { color: var(--text-secondary); }
+
+        .notes-action {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        .notes-action:hover { background: var(--glass-hover); border-color: var(--border-hover); }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 8px 0;
+        }
+        @media (max-width: 540px) { .notes-grid { grid-template-columns: 1fr; } }
+
+        .note-card {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .note-card:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .note-card .sticker { font-size: 24px; display: block; margin-bottom: 2px; }
+        .note-card .title { font-size: 16px; font-weight: 700; color: var(--text); }
+        .note-card .content { font-size: 14px; color: var(--text-secondary); margin-top: 2px; line-height: 1.5; }
+        .note-card .date { font-size: 10px; color: var(--text-secondary); opacity: 0.6; margin-top: 6px; }
+        .note-card .delete-btn {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+            opacity: 0.5;
+        }
+        .note-card .delete-btn:hover { opacity: 1; color: #ff6b6b; }
+
+        .notes-input-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .notes-input-row input,
+        .notes-input-row select {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 80px;
+        }
+        .notes-input-row input:focus,
+        .notes-input-row select:focus { border-color: var(--accent); }
+        .notes-input-row input::placeholder { color: var(--text-secondary); }
+        .notes-input-row select option { background: var(--bg); }
+        .notes-input-row button {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            background: rgba(100, 180, 255, 0.05);
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+        .notes-input-row button:hover {
+            background: rgba(100, 180, 255, 0.1);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* ============================================================
+           ЧАТ
+           ============================================================ */
+        .chat-container {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+        }
+        .chat-container:hover { border-color: var(--border-hover); }
+
+        .chat-messages {
+            max-height: 180px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+            padding-right: 4px;
+        }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-track { background: var(--glass); border-radius: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+        .chat-msg {
+            background: var(--glass);
+            padding: 8px 14px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 85%;
+            animation: fadeUp 0.3s ease;
+        }
+        .chat-msg.self {
+            align-self: flex-end;
+            background: rgba(100, 180, 255, 0.06);
+            border-color: rgba(100, 180, 255, 0.1);
+        }
+        .chat-msg .name { font-weight: 700; color: var(--accent); font-size: 13px; }
+        .chat-msg .time { font-size: 10px; color: var(--text-secondary); margin-left: 8px; }
+        .chat-msg .text { color: var(--text-secondary); margin-top: 2px; }
+
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .chat-input-row input {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .chat-input-row input:focus { border-color: var(--accent); }
+        .chat-input-row input::placeholder { color: var(--text-secondary); }
+        .chat-input-row button {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            background: rgba(100, 180, 255, 0.05);
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+        .chat-input-row button:hover {
+            background: rgba(100, 180, 255, 0.1);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* ============================================================
+           СПОТИФАЙ
+           ============================================================ */
+        .spotify-real {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .spotify-real:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+
+        .spotify-artwork {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .spotify-info { flex: 1; min-width: 0; }
+        .spotify-track {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .spotify-artist {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .spotify-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #44ff88;
+            flex-shrink: 0;
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+        .spotify-status-dot.paused { background: #ffaa44; }
+
+        /* ============================================================
+           СТАТУС DISCORD
+           ============================================================ */
+        .discord-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin: 14px 0 10px;
+            transition: all 0.3s ease;
+        }
+        .discord-status:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+
+        .discord-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #888;
+            flex-shrink: 0;
+            transition: background 0.3s ease;
+            box-shadow: 0 0 20px rgba(100, 180, 255, 0.05);
+        }
+
+        .discord-text { color: var(--text-secondary); font-size: 15px; }
+        .discord-text strong { color: var(--text); font-weight: 600; }
+        .discord-text .game { color: var(--accent); font-weight: 700; }
+        .discord-text .details { color: var(--text-secondary); }
+
+        /* ============================================================
+           ПОГОДА
+           ============================================================ */
+        .weather {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 20px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin: 8px 0 4px;
+            flex-wrap: wrap;
+            transition: all 0.3s ease;
+        }
+        .weather:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+
+        .weather-icon { font-size: 28px; }
+        .weather-city { color: var(--text-secondary); font-size: 15px; }
+        .weather-city strong { color: var(--text); }
+        .weather-temp { color: var(--text); font-weight: 700; font-size: 18px; }
+        .weather-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            background: var(--glass);
+            padding: 2px 14px;
+            border-radius: 30px;
+        }
+
+        /* ============================================================
+           ТАЙМЕР
+           ============================================================ */
+        .birthday-timer {
+            padding: 14px 20px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            text-align: center;
+            margin: 8px 0 4px;
+            transition: all 0.3s ease;
+        }
+        .birthday-timer:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
+
+        .birthday-label { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; }
+        .birthday-time {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+        .birthday-time span { display: inline-block; min-width: 40px; }
+        .birthday-time .sep { color: var(--text-secondary); min-width: 8px; }
+
+        /* ============================================================
+           ССЫЛКИ
+           ============================================================ */
+        .links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0 10px;
+        }
+        @media (max-width: 540px) { .links { grid-template-columns: 1fr; } }
+
+        .link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .link:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .link-icon { font-size: 22px; position: relative; z-index: 1; }
+        .link-label { flex: 1; position: relative; z-index: 1; }
+        .link-chip {
+            font-size: 12px;
+            background: var(--glass);
+            padding: 2px 12px;
+            border-radius: 30px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .link:hover .link-chip { background: var(--glass-hover); }
+
+        .link.full { grid-column: 1 / -1; justify-content: center; }
+
+        /* ============================================================
+           ФУТЕР
+           ============================================================ */
+        .footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: border-color 0.5s ease;
+        }
+        .footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; font-weight: 500; }
+        .footer a:hover { color: var(--accent); }
+        .footer-social { display: flex; gap: 20px; }
+
+        .visitors { display: flex; align-items: center; gap: 6px; }
+        .visitors-count { font-weight: 700; color: var(--accent); font-size: 16px; }
+
+        /* ============================================================
+           КНОПКА ТЕМЫ
+           ============================================================ */
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 6px 14px;
+            color: var(--text);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-toggle:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+            transform: scale(1.03);
+        }
+        .theme-toggle .theme-icon { font-size: 16px; }
+
+        /* ============================================================
+           АДАПТИВ
+           ============================================================ */
+        @media (max-width: 640px) {
+            .card { padding: 24px; }
+            .header { gap: 16px; }
+            .avatar { width: 76px; height: 76px; }
+            .name h1 { font-size: 24px; }
+            .bio { padding: 16px 18px; font-size: 15px; }
+            .link { padding: 10px 14px; font-size: 14px; }
+            .tech { font-size: 13px; padding: 4px 14px; }
+            .footer { flex-direction: column; text-align: center; }
+            .mc-block { padding: 14px 16px; }
+            .tabs,
+            .game-tabs { flex-direction: column; border-radius: 20px; }
+            .tab-btn { padding: 8px; }
+            .game-card { padding: 12px; }
+            .game-canvas-wrap canvas { max-width: 200px; }
+            .theme-toggle { top: 12px; right: 12px; padding: 4px 12px; font-size: 12px; }
+            .notes-input-row { flex-direction: column; }
+            .notes-input-row input,
+            .notes-input-row select { min-width: 100%; }
+            .chat-input-row { flex-direction: column; }
+            .chat-input-row input { min-width: 100%; }
+            .birthday-time { font-size: 20px; }
+            .birthday-time span { min-width: 32px; }
+        }
+
+        @media (max-width: 400px) {
+            .card { padding: 16px; }
+            .name h1 { font-size: 20px; }
+            .avatar { width: 60px; height: 60px; }
+            .bio { padding: 12px 14px; font-size: 14px; }
+            .game-canvas-wrap canvas { max-width: 160px; }
+            .birthday-time { font-size: 16px; }
+            .birthday-time span { min-width: 24px; }
+        }
+    </style>
 </head>
 <body>
 
     <!-- ===== ЭКРАН ЗАГРУЗКИ ===== -->
-    <div id="loader" aria-hidden="true">
+    <div id="loader">
         <div class="loader-spinner"></div>
         <p>Загрузка...</p>
     </div>
 
-    <!-- ===== ФОН (CSS-only) ===== -->
+    <!-- ===== ФОН ===== -->
     <div class="bg-gradient"></div>
     <div class="bg-grid"></div>
-    <canvas id="weatherCanvas" aria-hidden="true"></canvas>
+    <canvas id="weatherCanvas"></canvas>
 
     <!-- ===== КНОПКА СМЕНЫ ТЕМЫ ===== -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
-        <span id="themeIcon">🌙</span>
+    <button class="theme-toggle" id="themeToggle">
+        <span class="theme-icon" id="themeIcon">🌙</span>
         <span id="themeLabel">Тёмная</span>
     </button>
 
     <!-- ===== ОСНОВНАЯ КАРТОЧКА ===== -->
-    <main class="card" role="main">
+    <main class="card">
 
         <!-- ШАПКА -->
         <header class="header">
             <div class="avatar-wrap">
-                <img class="avatar" src="avatar.png" alt="Nneocraft" loading="lazy" decoding="async"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=6ab0ff&bold=true'">
-                <span class="online-badge" aria-hidden="true"></span>
+                <img class="avatar" src="avatar.png" alt="Nneocraft" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=6ab0ff&bold=true'">
+                <span class="online-badge"></span>
             </div>
             <div class="name">
                 <h1>@Nneocraft</h1>
                 <p class="sub">⚡ <span>Тех-админ</span> · <span id="ageDisplay">14</span> лет · Москва</p>
-                <span class="age-chip" id="ageChip">🧮 <span id="ageInline">14</span> лет</span>
+                <span class="age-chip">🧮 <span id="ageInline">14</span> лет</span>
             </div>
         </header>
 
         <!-- БИО -->
-        <section class="bio" aria-label="О себе">
+        <section class="bio">
             <p>
                 👋 Привет! Я <strong>Nneocraft</strong> — молодой <span class="hl">тех-админ</span> из Москвы.<br>
                 🎂 Родился <strong>03.12.2011</strong> · сейчас <span id="ageInline2" style="color:var(--accent);font-weight:700;">14</span> лет.<br>
@@ -62,21 +1091,21 @@
         </section>
 
         <!-- ТЕХНОЛОГИИ -->
-        <section aria-label="Технологии">
+        <section>
             <h2 class="section-title">⚙️ Технологии</h2>
             <div class="tech-wrap">
-                <span class="tech" data-tech="Java">☕ Java</span>
-                <span class="tech" data-tech="Python">🐍 Python</span>
-                <span class="tech" data-tech="Node.js">🟩 Node.js</span>
-                <span class="tech" data-tech="Ubuntu">🐧 Ubuntu</span>
-                <span class="tech" data-tech="OpenAI">🧠 OpenAI</span>
-                <span class="tech" data-tech="DeepSeek">🤖 DeepSeek</span>
-                <span class="tech" data-tech="Linux">☁️ Linux</span>
+                <span class="tech">☕ Java</span>
+                <span class="tech">🐍 Python</span>
+                <span class="tech">🟩 Node.js</span>
+                <span class="tech">🐧 Ubuntu</span>
+                <span class="tech">🧠 OpenAI</span>
+                <span class="tech">🤖 DeepSeek</span>
+                <span class="tech">☁️ Linux</span>
             </div>
         </section>
 
         <!-- MINECRAFT -->
-        <section aria-label="Minecraft">
+        <section>
             <h2 class="section-title">⛏️ Minecraft</h2>
             <div class="mc-block">
                 <div class="mc-head">
@@ -94,7 +1123,7 @@
         </section>
 
         <!-- ПЛАНЫ -->
-        <section aria-label="Планы">
+        <section>
             <h2 class="section-title">🎯 Планы</h2>
             <div class="goals-grid" id="goalsGrid">
                 <div class="goal-item" data-goal="0">
@@ -117,14 +1146,14 @@
         </section>
 
         <!-- ВКЛАДКИ -->
-        <nav class="tabs" aria-label="Навигация">
+        <nav class="tabs">
             <button class="tab-btn active" data-tab="games">🎮 Игры</button>
             <button class="tab-btn" data-tab="notes">📝 Заметки</button>
             <button class="tab-btn" data-tab="chat">💬 Чат</button>
         </nav>
 
         <!-- ИГРЫ -->
-        <section class="tab-content active" id="tab-games" aria-label="Игры">
+        <section class="tab-content active" id="tab-games">
             <div class="game-tabs">
                 <button class="tab-btn active" data-game="tetris">🧩 Тетрис</button>
                 <button class="tab-btn" data-game="snake">🐍 Змейка</button>
@@ -144,11 +1173,11 @@
                             <span class="game-status" id="tetrisSaveStatus">💾 Сохранено</span>
                         </div>
                         <div class="mobile-controls" id="tetrisMobile">
-                            <button data-tetris="left" aria-label="Влево">◀</button>
-                            <button data-tetris="rotate" aria-label="Повернуть">🔄</button>
-                            <button data-tetris="right" aria-label="Вправо">▶</button>
-                            <button data-tetris="down" aria-label="Вниз">▼</button>
-                            <button data-tetris="drop" aria-label="Сбросить">⬇⬇</button>
+                            <button data-tetris="left">◀</button>
+                            <button data-tetris="rotate">🔄</button>
+                            <button data-tetris="right">▶</button>
+                            <button data-tetris="down">▼</button>
+                            <button data-tetris="drop">⬇⬇</button>
                             <span></span>
                         </div>
                     </div>
@@ -177,10 +1206,10 @@
                             <span class="game-status" id="snakeSaveStatus">💾 Сохранено</span>
                         </div>
                         <div class="mobile-controls" id="snakeMobile">
-                            <button data-snake="up" aria-label="Вверх">▲</button>
-                            <button data-snake="left" aria-label="Влево">◀</button>
-                            <button data-snake="down" aria-label="Вниз">▼</button>
-                            <button data-snake="right" aria-label="Вправо">▶</button>
+                            <button data-snake="up">▲</button>
+                            <button data-snake="left">◀</button>
+                            <button data-snake="down">▼</button>
+                            <button data-snake="right">▶</button>
                         </div>
                     </div>
                     <div class="game-card game-stats">
@@ -196,18 +1225,18 @@
         </section>
 
         <!-- ЗАМЕТКИ -->
-        <section class="tab-content" id="tab-notes" aria-label="Заметки">
+        <section class="tab-content" id="tab-notes">
             <h2 class="section-title">📝 Мои личные заметки</h2>
             <div class="notes-toolbar">
-                <input type="text" id="noteSearch" placeholder="🔍 Поиск по заметкам..." aria-label="Поиск заметок">
-                <button class="notes-action" id="notesExport" title="Экспорт заметок">📤</button>
-                <button class="notes-action" id="notesImport" title="Импорт заметок">📥</button>
+                <input type="text" id="noteSearch" placeholder="🔍 Поиск по заметкам...">
+                <button class="notes-action" id="notesExport">📤</button>
+                <button class="notes-action" id="notesImport">📥</button>
             </div>
             <div class="notes-grid" id="notesGrid"></div>
             <div class="notes-input-row">
-                <input type="text" id="noteTitle" placeholder="Заголовок" maxlength="40" aria-label="Заголовок заметки">
-                <input type="text" id="noteContent" placeholder="Текст заметки" maxlength="200" aria-label="Текст заметки">
-                <select id="noteColor" aria-label="Цвет заметки">
+                <input type="text" id="noteTitle" placeholder="Заголовок" maxlength="40">
+                <input type="text" id="noteContent" placeholder="Текст заметки" maxlength="200">
+                <select id="noteColor">
                     <option value="#1a1a2e">Тёмный</option>
                     <option value="#1a2a3a">Синий</option>
                     <option value="#2a1a3a">Фиолетовый</option>
@@ -215,28 +1244,28 @@
                     <option value="#1a3a1a">Зелёный</option>
                     <option value="#3a2a1a">Оранжевый</option>
                 </select>
-                <input type="text" id="noteSticker" placeholder="Стикер" maxlength="2" value="📌" aria-label="Стикер">
+                <input type="text" id="noteSticker" placeholder="Стикер" maxlength="2" value="📌">
                 <button id="noteAdd">➕</button>
             </div>
         </section>
 
         <!-- ЧАТ -->
-        <section class="tab-content" id="tab-chat" aria-label="Чат">
+        <section class="tab-content" id="tab-chat">
             <h2 class="section-title">💬 Чат</h2>
             <div class="chat-container">
                 <div class="chat-messages" id="chatMessages"></div>
                 <div class="chat-input-row">
-                    <input type="text" id="chatName" placeholder="Ваше имя" value="Nneocraft" maxlength="20" aria-label="Имя">
-                    <input type="text" id="chatInput" placeholder="Напишите сообщение..." maxlength="200" aria-label="Сообщение">
+                    <input type="text" id="chatName" placeholder="Ваше имя" value="Nneocraft" maxlength="20">
+                    <input type="text" id="chatInput" placeholder="Напишите сообщение..." maxlength="200">
                     <button id="chatSend">📤</button>
                 </div>
             </div>
         </section>
 
         <!-- СПОТИФАЙ -->
-        <section aria-label="Сейчас играет">
+        <section>
             <h2 class="section-title">🎵 Сейчас играет</h2>
-            <div class="spotify-real" id="spotifyBlock">
+            <div class="spotify-real">
                 <div class="spotify-artwork" id="spotifyArtwork">🎵</div>
                 <div class="spotify-info">
                     <div class="spotify-track" id="spotifyTrack">Загрузка...</div>
@@ -247,16 +1276,16 @@
         </section>
 
         <!-- СТАТУС DISCORD -->
-        <section aria-label="Статус Discord">
-            <div class="discord-status" id="discordStatus">
+        <section>
+            <div class="discord-status">
                 <span class="discord-dot" id="discordDot"></span>
                 <p class="discord-text" id="discordText">🔄 Загрузка статуса...</p>
             </div>
         </section>
 
         <!-- ПОГОДА -->
-        <section aria-label="Погода">
-            <div class="weather" id="weatherBlock">
+        <section>
+            <div class="weather">
                 <span class="weather-icon" id="weatherIcon">🌍</span>
                 <span class="weather-city">📍 <strong>Москва</strong></span>
                 <span class="weather-temp" id="weatherTemp">--°</span>
@@ -265,7 +1294,7 @@
         </section>
 
         <!-- ТАЙМЕР -->
-        <section aria-label="До дня рождения">
+        <section>
             <div class="birthday-timer">
                 <p class="birthday-label">🎂 До дня рождения</p>
                 <div class="birthday-time" id="birthdayTimer">
@@ -278,43 +1307,43 @@
         </section>
 
         <!-- ССЫЛКИ -->
-        <nav class="links" aria-label="Социальные ссылки">
-            <a href="https://discord.com/users/994821782819311636" target="_blank" rel="noopener" class="link">
+        <nav class="links">
+            <a href="https://discord.com/users/994821782819311636" target="_blank" class="link">
                 <span class="link-icon">💬</span>
                 <span class="link-label">Discord</span>
                 <span class="link-chip">ID: 9948...</span>
             </a>
-            <a href="https://t.me/rrrrrmeaw" target="_blank" rel="noopener" class="link">
+            <a href="https://t.me/rrrrrmeaw" target="_blank" class="link">
                 <span class="link-icon">✈️</span>
                 <span class="link-label">Telegram</span>
                 <span class="link-chip">@rrrrrmeaw</span>
             </a>
-            <a href="https://open.spotify.com/user/31pne3umxfi66ta67jsxu7nyx4au" target="_blank" rel="noopener" class="link">
+            <a href="https://open.spotify.com/user/31pne3umxfi66ta67jsxu7nyx4au" target="_blank" class="link">
                 <span class="link-icon">🎧</span>
                 <span class="link-label">Spotify</span>
                 <span class="link-chip">плейлисты</span>
             </a>
-            <a href="https://www.youtube.com/channel/UCZ-XOHXHqoZspb7R5hLSHSA" target="_blank" rel="noopener" class="link">
+            <a href="https://www.youtube.com/channel/UCZ-XOHXHqoZspb7R5hLSHSA" target="_blank" class="link">
                 <span class="link-icon">📺</span>
                 <span class="link-label">YouTube</span>
                 <span class="link-chip">канал</span>
             </a>
-            <a href="https://steamcommunity.com/profiles/76561199697239581" target="_blank" rel="noopener" class="link">
+            <a href="https://steamcommunity.com/profiles/76561199697239581" target="_blank" class="link">
                 <span class="link-icon">🎮</span>
                 <span class="link-label">Steam</span>
                 <span class="link-chip">профиль</span>
             </a>
-            <a href="https://github.com/vaypcraft-ux" target="_blank" rel="noopener" class="link">
+            <a href="https://github.com/vaypcraft-ux" target="_blank" class="link">
                 <span class="link-icon">🐙</span>
                 <span class="link-label">GitHub</span>
                 <span class="link-chip">репозитории</span>
             </a>
-            <a href="https://www.reddit.com/u/Hairy-Sky2381" target="_blank" rel="noopener" class="link">
+            <a href="https://www.reddit.com/u/Hairy-Sky2381" target="_blank" class="link">
                 <span class="link-icon">🤡</span>
                 <span class="link-label">Reddit</span>
                 <span class="link-chip">u/Hairy-Sky2381</span>
             </a>
-            <a href="https://www.donationalerts.com/dashboard" target="_blank" rel="noopener" class="link full">
+            <a href="https://www.donationalerts.com/dashboard" target="_blank" class="link full">
                 <span class="link-icon">💝</span>
                 <span class="link-label">Donation Alerts</span>
                 <span class="link-chip">поддержать</span>
@@ -328,14 +1357,778 @@
                 👁️ <span class="visitors-count" id="visitorCount">0</span> посетителей
             </div>
             <div class="footer-social">
-                <a href="https://t.me/rrrrrmeaw" target="_blank" rel="noopener">Telegram</a>
-                <a href="https://discord.com/users/994821782819311636" target="_blank" rel="noopener">Discord</a>
-                <a href="https://github.com/vaypcraft-ux" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://t.me/rrrrrmeaw" target="_blank">Telegram</a>
+                <a href="https://discord.com/users/994821782819311636" target="_blank">Discord</a>
+                <a href="https://github.com/vaypcraft-ux" target="_blank">GitHub</a>
             </div>
         </footer>
 
     </main>
 
-    <script src="script.js" defer></script>
+    <!-- ===== СКРИПТ ===== -->
+    <script>
+        // ============================================================
+        // === ТЕМЫ ===
+        // ============================================================
+        const themes = ['dark', 'light', 'blue', 'purple'];
+        const themeLabels = ['🌙 Тёмная', '☀️ Светлая', '💎 Голубая', '🔮 Фиолетовая'];
+        const themeIcons = ['🌙', '☀️', '💎', '🔮'];
+        let currentThemeIndex = 0;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            const idx = themes.indexOf(savedTheme);
+            if (idx !== -1) {
+                currentThemeIndex = idx;
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                document.getElementById('themeIcon').textContent = themeIcons[idx];
+                document.getElementById('themeLabel').textContent = themeLabels[idx].replace(/[^\s]+ /, '');
+            }
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            document.documentElement.setAttribute('data-theme', themes[currentThemeIndex]);
+            document.getElementById('themeIcon').textContent = themeIcons[currentThemeIndex];
+            document.getElementById('themeLabel').textContent = themeLabels[currentThemeIndex].replace(/[^\s]+ /, '');
+            localStorage.setItem('theme', themes[currentThemeIndex]);
+        });
+
+        // ============================================================
+        // === ЗАГРУЗЧИК ===
+        // ============================================================
+        window.addEventListener('load', () => {
+            document.getElementById('loader').classList.add('hidden');
+        });
+
+        // ============================================================
+        // === ВОЗРАСТ ===
+        // ============================================================
+        (function() {
+            const birth = new Date(2011, 11, 3);
+
+            function getAge() {
+                const now = new Date();
+                let age = now.getFullYear() - birth.getFullYear();
+                const m = now.getMonth() - birth.getMonth();
+                const d = now.getDate() - birth.getDate();
+                if (m < 0 || (m === 0 && d < 0)) age--;
+                return age;
+            }
+
+            function update() {
+                const a = getAge();
+                ['ageDisplay', 'ageInline', 'ageInline2'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = a;
+                });
+            }
+            update();
+            setInterval(update, 60000);
+        })();
+
+        // ============================================================
+        // === ПОСЕТИТЕЛИ ===
+        // ============================================================
+        (function() {
+            let count = parseInt(localStorage.getItem('visitorCount') || '0');
+            count++;
+            localStorage.setItem('visitorCount', String(count));
+            document.getElementById('visitorCount').textContent = count;
+        })();
+
+        // ============================================================
+        // === ТАЙМЕР ===
+        // ============================================================
+        (function() {
+            const birthDay = 3,
+                birthMonth = 11;
+            const elDays = document.getElementById('bDays');
+            const elHours = document.getElementById('bHours');
+            const elMinutes = document.getElementById('bMinutes');
+            const elSeconds = document.getElementById('bSeconds');
+
+            function update() {
+                const now = new Date();
+                let target = new Date(now.getFullYear(), birthMonth, birthDay);
+                if (now > target) target = new Date(now.getFullYear() + 1, birthMonth, birthDay);
+                const diff = target - now;
+                if (diff <= 0) return;
+
+                elDays.textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                elHours.textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2,
+                '0');
+                elMinutes.textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                elSeconds.textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            }
+            update();
+            setInterval(update, 1000);
+        })();
+
+        // ============================================================
+        // === ПЛАНЫ ===
+        // ============================================================
+        document.querySelectorAll('.goal-item').forEach(el => {
+            el.addEventListener('click', function() {
+                const isCompleted = this.classList.toggle('completed');
+                this.querySelector('.goal-check').textContent = isCompleted ? '✅' : '⬜';
+            });
+        });
+
+        // ============================================================
+        // === ВКЛАДКИ ===
+        // ============================================================
+        document.querySelectorAll('.tabs .tab-btn, .game-tabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.closest('.tabs') || this.closest('.game-tabs');
+                if (!parent) return;
+                parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const targetId = this.dataset.tab || this.dataset.game;
+                if (!targetId) return;
+                const content = this.closest('.card');
+                const prefix = this.closest('.game-tabs') ? 'game-' : 'tab-';
+                content.querySelectorAll(`.${prefix}content`).forEach(el => el.classList.remove('active'));
+                const target = content.querySelector(`#${prefix}${targetId}`);
+                if (target) target.classList.add('active');
+
+                if (targetId === 'tetris') drawTetris();
+                if (targetId === 'snake') drawSnake();
+            });
+        });
+
+        // ============================================================
+        // === ПОГОДА ===
+        // ============================================================
+        (async function getWeather() {
+            const city = 'Moscow';
+            try {
+                const res = await fetch(`https://wttr.in/${city}?format=j1&lang=ru`);
+                const data = await res.json();
+                const temp = data.current_condition[0].temp_C;
+                const desc = data.current_condition[0].weatherDesc[0].value;
+                const code = data.current_condition[0].weatherCode;
+                const icons = { '113': '☀️', '116': '⛅', '119': '☁️', '122': '☁️', '143': '🌫️', '176': '🌦️', '179': '🌨️',
+                    '182': '🌧️', '185': '🌧️', '200': '⛈️', '227': '❄️', '230': '❄️', '248': '🌫️', '260': '🌫️',
+                    '263': '🌦️', '266': '🌧️', '281': '🌧️', '284': '🌧️', '293': '🌦️', '296': '🌧️', '299': '🌧️',
+                    '302': '🌧️', '305': '🌧️', '308': '🌧️', '311': '🌧️', '314': '🌧️', '317': '🌧️', '320': '🌨️',
+                    '323': '🌨️', '326': '🌨️', '329': '❄️', '332': '❄️', '335': '❄️', '338': '❄️', '350': '🌧️',
+                    '353': '🌦️', '356': '🌧️', '359': '🌧️', '362': '🌨️', '365': '🌨️', '368': '🌨️', '371': '❄️',
+                    '377': '🌧️', '386': '⛈️', '389': '⛈️', '392': '⛈️', '395': '❄️'
+                };
+                document.getElementById('weatherIcon').textContent = icons[code] || '🌍';
+                document.getElementById('weatherTemp').textContent = `${temp}°`;
+                document.getElementById('weatherDesc').textContent = desc;
+            } catch {
+                document.getElementById('weatherDesc').textContent = 'Не удалось загрузить';
+            }
+        })();
+
+        // ============================================================
+        // === СПОТИФАЙ И СТАТУС ===
+        // ============================================================
+        async function fetchSpotifyAndGames() {
+            const userId = '994821782819311636';
+            try {
+                const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+                const data = await res.json();
+                if (!data.success) throw new Error('Lanyard error');
+
+                const status = data.data;
+                // Spotify
+                const spotify = status.spotify;
+                if (spotify && spotify.song) {
+                    document.getElementById('spotifyTrack').textContent = spotify.song;
+                    document.getElementById('spotifyArtist').textContent = spotify.artist;
+                    document.getElementById('spotifyArtwork').textContent = '🎵';
+                    document.getElementById('spotifyStatusDot').className = 'spotify-status-dot';
+                } else {
+                    document.getElementById('spotifyTrack').textContent = 'Не играет';
+                    document.getElementById('spotifyArtist').textContent = '—';
+                    document.getElementById('spotifyStatusDot').className = 'spotify-status-dot paused';
+                }
+
+                // Discord статус
+                const activities = status.activities || [];
+                const game = activities.find(a => a.type === 0);
+                const listening = activities.find(a => a.type === 2);
+                const dot = document.getElementById('discordDot');
+                const text = document.getElementById('discordText');
+
+                switch (status.discord_status) {
+                    case 'online':
+                        dot.style.background = '#44ff88';
+                        if (game) {
+                            let txt = `🎮 <strong>Играет в <span class="game">${game.name}</span></strong>`;
+                            if (game.details) txt += ` · <span class="details">${game.details}</span>`;
+                            if (game.state) txt += ` <span class="details">${game.state}</span>`;
+                            text.innerHTML = txt;
+                        } else if (listening) {
+                            text.innerHTML = `🎵 <strong>Слушает <span class="game">${listening.name}</span></strong>`;
+                        } else {
+                            text.innerHTML = '🟢 <strong>Онлайн</strong> · Не играет';
+                        }
+                        break;
+                    case 'idle':
+                        dot.style.background = '#ffaa44';
+                        text.innerHTML = '🌙 <strong>Отошёл</strong>';
+                        break;
+                    case 'dnd':
+                        dot.style.background = '#ff4444';
+                        text.innerHTML = '🔴 <strong>Не беспокоить</strong>';
+                        break;
+                    default:
+                        dot.style.background = '#888';
+                        text.innerHTML = '⚫ <strong>Офлайн</strong>';
+                }
+            } catch {
+                document.getElementById('spotifyTrack').textContent = 'Ошибка';
+                document.getElementById('spotifyArtist').textContent = '—';
+                document.getElementById('discordText').innerHTML = '⚠️ Не удалось загрузить';
+            }
+        }
+
+        fetchSpotifyAndGames();
+        setInterval(fetchSpotifyAndGames, 15000);
+
+        // ============================================================
+        // === ЗАМЕТКИ ===
+        // ============================================================
+        let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        const notesGrid = document.getElementById('notesGrid');
+        const noteSearch = document.getElementById('noteSearch');
+
+        function renderNotes(filter = '') {
+            const filtered = filter ? notes.filter(n =>
+                n.title.toLowerCase().includes(filter.toLowerCase()) ||
+                n.content.toLowerCase().includes(filter.toLowerCase())
+            ) : notes;
+
+            notesGrid.innerHTML = '';
+            if (!filtered.length) {
+                notesGrid.innerHTML =
+                    '<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:20px;">📝 Нет заметок</div>';
+                return;
+            }
+            filtered.forEach((note, idx) => {
+                const realIdx = notes.indexOf(note);
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.style.borderLeft = `4px solid ${note.color || 'var(--accent)'}`;
+                card.innerHTML = `
+                    <span class="sticker">${note.sticker || '📌'}</span>
+                    <div class="title">${note.title}</div>
+                    <div class="content">${note.content}</div>
+                    <div class="date">${note.date}</div>
+                    <button class="delete-btn" data-idx="${realIdx}">✕</button>
+                `;
+                card.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (confirm('Удалить заметку?')) {
+                        notes.splice(realIdx, 1);
+                        localStorage.setItem('notes', JSON.stringify(notes));
+                        renderNotes(noteSearch.value);
+                    }
+                });
+                notesGrid.appendChild(card);
+            });
+        }
+
+        noteSearch.addEventListener('input', () => renderNotes(noteSearch.value));
+
+        document.getElementById('noteAdd').addEventListener('click', () => {
+            const title = document.getElementById('noteTitle').value.trim() || 'Без названия';
+            const content = document.getElementById('noteContent').value.trim();
+            const color = document.getElementById('noteColor').value;
+            const sticker = document.getElementById('noteSticker').value.trim() || '📌';
+            if (!content) return alert('Напиши текст заметки!');
+            const now = new Date();
+            const date = now.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
+                ' ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            notes.unshift({ title, content, color, sticker, date });
+            localStorage.setItem('notes', JSON.stringify(notes));
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            document.getElementById('noteSticker').value = '📌';
+            renderNotes(noteSearch.value);
+        });
+
+        document.getElementById('notesExport').addEventListener('click', () => {
+            const blob = new Blob([JSON.stringify(notes, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `notes_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('notesImport').addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = () => {
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (Array.isArray(data)) {
+                            notes = data;
+                            localStorage.setItem('notes', JSON.stringify(notes));
+                            renderNotes(noteSearch.value);
+                        }
+                    } catch { alert('Ошибка при импорте'); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        });
+
+        renderNotes();
+
+        // ============================================================
+        // === ЧАТ ===
+        // ============================================================
+        let chatMessages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+        const chatContainer = document.getElementById('chatMessages');
+
+        function renderChat() {
+            chatContainer.innerHTML = '';
+            if (!chatMessages.length) {
+                chatContainer.innerHTML =
+                    '<div style="text-align:center;color:var(--text-secondary);padding:12px;">💬 Напиши первое сообщение!</div>';
+                return;
+            }
+            chatMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = `chat-msg${msg.self ? ' self' : ''}`;
+                div.innerHTML = `
+                    <span class="name">${msg.name}</span>
+                    <span class="time">${msg.time}</span>
+                    <div class="text">${msg.text}</div>
+                `;
+                chatContainer.appendChild(div);
+            });
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        document.getElementById('chatSend').addEventListener('click', () => {
+            const name = document.getElementById('chatName').value.trim() || 'Аноним';
+            const text = document.getElementById('chatInput').value.trim();
+            if (!text) return alert('Напиши сообщение!');
+            const now = new Date();
+            const time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            chatMessages.push({ name, text, time, self: name === 'Nneocraft' });
+            localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+            document.getElementById('chatInput').value = '';
+            renderChat();
+        });
+
+        document.getElementById('chatInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('chatSend').click();
+        });
+
+        renderChat();
+
+        // ============================================================
+        // === ТЕТРИС ===
+        // ============================================================
+        const tetrisCanvas = document.getElementById('tetrisCanvas');
+        const tctx = tetrisCanvas.getContext('2d');
+        const COLS = 10,
+            ROWS = 20,
+            BS = tetrisCanvas.width / COLS;
+
+        let tBoard = [],
+            tPiece = null,
+            tScore = 0,
+            tBest = parseInt(localStorage.getItem('tetrisBest') || '0');
+        let tInterval = null,
+            tRunning = false,
+            tPaused = false;
+
+        const T_PIECES = [
+            [
+                [1, 1, 1, 1]
+            ],
+            [
+                [1, 1],
+                [1, 1]
+            ],
+            [
+                [0, 1, 0],
+                [1, 1, 1]
+            ],
+            [
+                [1, 0, 0],
+                [1, 1, 1]
+            ],
+            [
+                [0, 0, 1],
+                [1, 1, 1]
+            ],
+            [
+                [0, 1, 1],
+                [1, 1, 0]
+            ],
+            [
+                [1, 1, 0],
+                [0, 1, 1]
+            ]
+        ];
+
+        document.getElementById('tetrisBest').textContent = tBest;
+
+        function initTetris() {
+            tBoard = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+            tScore = 0;
+            tPaused = false;
+            document.getElementById('tetrisScore').textContent = 'Счёт: 0';
+            document.getElementById('tetrisStatus').textContent = '▶ Игра идёт';
+            spawnTetris();
+            drawTetris();
+        }
+
+        function spawnTetris() {
+            const idx = Math.floor(Math.random() * T_PIECES.length);
+            const shape = T_PIECES[idx];
+            tPiece = { shape, x: Math.floor((COLS - shape[0].length) / 2), y: 0 };
+            if (collision(tPiece.shape, tPiece.x, tPiece.y)) {
+                clearInterval(tInterval);
+                tRunning = false;
+                tPiece = null;
+                updateTetrisBest();
+                document.getElementById('tetrisStatus').textContent = '💥 Игра окончена!';
+                alert('💥 Игра окончена! Счёт: ' + tScore);
+                return false;
+            }
+            return true;
+        }
+
+        function collision(shape, offX, offY) {
+            for (let r = 0; r < shape.length; r++)
+                for (let c = 0; c < shape[0].length; c++)
+                    if (shape[r][c]) {
+                        const x = offX + c,
+                            y = offY + r;
+                        if (x < 0 || x >= COLS || y >= ROWS || y < 0) return true;
+                        if (y >= 0 && tBoard[y][x]) return true;
+                    }
+            return false;
+        }
+
+        function mergeTetris() {
+            if (!tPiece) return;
+            const { shape, x, y } = tPiece;
+            for (let r = 0; r < shape.length; r++)
+                for (let c = 0; c < shape[0].length; c++)
+                    if (shape[r][c]) {
+                        const boardY = y + r,
+                            boardX = x + c;
+                        if (boardY >= 0 && boardY < ROWS && boardX >= 0 && boardX < COLS)
+                            tBoard[boardY][boardX] = 1;
+                    }
+            clearLines();
+            if (!spawnTetris()) { clearInterval(tInterval);
+                tRunning = false; }
+            drawTetris();
+        }
+
+        function clearLines() {
+            let cleared = 0;
+            for (let r = ROWS - 1; r >= 0; r--)
+                if (tBoard[r].every(cell => cell === 1)) {
+                    tBoard.splice(r, 1);
+                    tBoard.unshift(Array(COLS).fill(0));
+                    cleared++;
+                    r++;
+                }
+            if (cleared) {
+                tScore += [0, 100, 300, 500, 800][cleared] || 1000;
+                document.getElementById('tetrisScore').textContent = 'Счёт: ' + tScore;
+                updateTetrisBest();
+            }
+        }
+
+        function updateTetrisBest() {
+            if (tScore > tBest) {
+                tBest = tScore;
+                localStorage.setItem('tetrisBest', String(tBest));
+                document.getElementById('tetrisBest').textContent = tBest;
+                document.getElementById('tetrisSaveStatus').textContent = '🏆 Новый рекорд!';
+                setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = '💾 Сохранено', 3000);
+            }
+        }
+
+        function drawTetris() {
+            tctx.clearRect(0, 0, tetrisCanvas.width, tetrisCanvas.height);
+            for (let r = 0; r < ROWS; r++)
+                for (let c = 0; c < COLS; c++) {
+                    tctx.fillStyle = tBoard[r][c] ? 'rgba(100,180,255,0.12)' : 'rgba(255,255,255,0.02)';
+                    tctx.fillRect(c * BS, r * BS, BS - 0.5, BS - 0.5);
+                    if (tBoard[r][c]) {
+                        tctx.fillStyle = 'var(--accent)';
+                        tctx.shadowColor = 'var(--accent-glow)';
+                        tctx.shadowBlur = 8;
+                        tctx.fillRect(c * BS + 2, r * BS + 2, BS - 4, BS - 4);
+                        tctx.shadowBlur = 0;
+                    }
+                }
+            if (tPiece) {
+                const { shape, x, y } = tPiece;
+                for (let r = 0; r < shape.length; r++)
+                    for (let c = 0; c < shape[0].length; c++)
+                        if (shape[r][c]) {
+                            tctx.fillStyle = '#fff';
+                            tctx.shadowColor = 'rgba(100,180,255,0.3)';
+                            tctx.shadowBlur = 12;
+                            tctx.fillRect((x + c) * BS + 2, (y + r) * BS + 2, BS - 4, BS - 4);
+                            tctx.shadowBlur = 0;
+                        }
+            }
+        }
+
+        function moveTetris(dx, dy) {
+            if (!tPiece || !tRunning || tPaused) return;
+            if (!collision(tPiece.shape, tPiece.x + dx, tPiece.y + dy)) {
+                tPiece.x += dx;
+                tPiece.y += dy;
+                drawTetris();
+            } else if (dy === 1) mergeTetris();
+        }
+
+        function rotateTetris() {
+            if (!tPiece || !tRunning || tPaused) return;
+            const shape = tPiece.shape;
+            const rotated = shape[0].map((_, idx) => shape.map(row => row[idx]).reverse());
+            if (!collision(rotated, tPiece.x, tPiece.y)) {
+                tPiece.shape = rotated;
+                drawTetris();
+            }
+        }
+
+        function dropTetris() {
+            if (!tPiece || !tRunning || tPaused) return;
+            while (!collision(tPiece.shape, tPiece.x, tPiece.y + 1)) tPiece.y++;
+            mergeTetris();
+            drawTetris();
+        }
+
+        document.getElementById('tetrisPause').addEventListener('click', () => {
+            if (!tRunning) return;
+            tPaused = !tPaused;
+            document.getElementById('tetrisStatus').textContent = tPaused ? '⏸ Пауза' : '▶ Игра идёт';
+        });
+
+        document.getElementById('tetrisReset').addEventListener('click', () => {
+            if (tInterval) clearInterval(tInterval);
+            tRunning = true;
+            tPaused = false;
+            initTetris();
+            tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
+        });
+
+        document.getElementById('tetrisSave').addEventListener('click', () => {
+            localStorage.setItem('tetrisBest', String(tBest));
+            document.getElementById('tetrisSaveStatus').textContent = '✅ Сохранено!';
+            setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = '💾 Сохранено', 2000);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('tab-games').classList.contains('active')) return;
+            if (document.getElementById('game-tetris').classList.contains('active')) {
+                if (e.key === 'ArrowLeft') { e.preventDefault();
+                    moveTetris(-1, 0); }
+                if (e.key === 'ArrowRight') { e.preventDefault();
+                    moveTetris(1, 0); }
+                if (e.key === 'ArrowDown') { e.preventDefault();
+                    moveTetris(0, 1); }
+                if (e.key === 'ArrowUp') { e.preventDefault();
+                    rotateTetris(); }
+                if (e.key === ' ') { e.preventDefault();
+                    dropTetris(); }
+            }
+        });
+
+        document.querySelectorAll('[data-tetris]').forEach(btn => {
+            ['touchstart', 'mousedown'].forEach(ev => btn.addEventListener(ev, (e) => {
+                e.preventDefault();
+                const a = btn.dataset.tetris;
+                if (a === 'left') moveTetris(-1, 0);
+                if (a === 'right') moveTetris(1, 0);
+                if (a === 'down') moveTetris(0, 1);
+                if (a === 'rotate') rotateTetris();
+                if (a === 'drop') dropTetris();
+            }));
+        });
+
+        // ============================================================
+        // === ЗМЕЙКА ===
+        // ============================================================
+        const snakeCanvas = document.getElementById('snakeCanvas');
+        const sctx = snakeCanvas.getContext('2d');
+        const SZ = 15;
+        const S_COLS = Math.floor(snakeCanvas.width / SZ);
+        const S_ROWS = Math.floor(snakeCanvas.height / SZ);
+
+        let snake = [],
+            sDir = { dx: 1, dy: 0 },
+            sNext = { dx: 1, dy: 0 },
+            sFood = null;
+        let sScore = 0,
+            sBest = parseInt(localStorage.getItem('snakeBest') || '0');
+        let sRunning = false,
+            sPaused = false,
+            sInterval = null;
+
+        document.getElementById('snakeBest').textContent = sBest;
+
+        function initSnake() {
+            const mx = Math.floor(S_COLS / 2),
+                my = Math.floor(S_ROWS / 2);
+            snake = [{ x: mx, y: my }, { x: mx - 1, y: my }, { x: mx - 2, y: my }];
+            sDir = { dx: 1, dy: 0 };
+            sNext = { dx: 1, dy: 0 };
+            sScore = 0;
+            sPaused = false;
+            document.getElementById('snakeScore').textContent = 'Счёт: 0';
+            document.getElementById('snakeStatus').textContent = '▶ Игра идёт';
+            spawnFood();
+            drawSnake();
+        }
+
+        function spawnFood() {
+            let pos, attempts = 0;
+            do {
+                pos = { x: Math.floor(Math.random() * S_COLS), y: Math.floor(Math.random() * S_ROWS) };
+                attempts++;
+            } while (snake.some(s => s.x === pos.x && s.y === pos.y) && attempts < 100);
+            sFood = pos;
+        }
+
+        function drawSnake() {
+            sctx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            for (let r = 0; r < S_ROWS; r++)
+                for (let c = 0; c < S_COLS; c++)
+                    sctx.fillStyle = 'rgba(255,255,255,0.01)';
+            if (sFood) {
+                sctx.fillStyle = '#ff6b6b';
+                sctx.shadowColor = 'rgba(255,100,100,0.2)';
+                sctx.shadowBlur = 15;
+                sctx.beginPath();
+                sctx.arc(sFood.x * SZ + SZ / 2, sFood.y * SZ + SZ / 2, SZ / 2 - 2, 0, Math.PI * 2);
+                sctx.fill();
+                sctx.shadowBlur = 0;
+            }
+            snake.forEach((seg, idx) => {
+                const isHead = idx === 0;
+                sctx.fillStyle = isHead ? '#fff' : 'var(--accent)';
+                sctx.shadowColor = `rgba(100,180,255,${isHead ? 0.2 : 0.05})`;
+                sctx.shadowBlur = isHead ? 15 : 5;
+                sctx.fillRect(seg.x * SZ + 1, seg.y * SZ + 1, SZ - 2, SZ - 2);
+                sctx.shadowBlur = 0;
+            });
+        }
+
+        function moveSnake() {
+            if (!sRunning || sPaused) return;
+            sDir = { ...sNext };
+            const head = { ...snake[0] };
+            head.x += sDir.dx;
+            head.y += sDir.dy;
+            if (head.x < 0 || head.x >= S_COLS || head.y < 0 || head.y >= S_ROWS) { gameOverSnake(); return; }
+            if (snake.some((seg, idx) => idx > 0 && seg.x === head.x && seg.y === head.y)) { gameOverSnake(); return; }
+            snake.unshift(head);
+            if (sFood && head.x === sFood.x && head.y === sFood.y) {
+                sScore += 10;
+                document.getElementById('snakeScore').textContent = 'Счёт: ' + sScore;
+                updateSnakeBest();
+                spawnFood();
+            } else snake.pop();
+            drawSnake();
+        }
+
+        function updateSnakeBest() {
+            if (sScore > sBest) {
+                sBest = sScore;
+                localStorage.setItem('snakeBest', String(sBest));
+                document.getElementById('snakeBest').textContent = sBest;
+                document.getElementById('snakeSaveStatus').textContent = '🏆 Новый рекорд!';
+                setTimeout(() => document.getElementById('snakeSaveStatus').textContent = '💾 Сохранено', 3000);
+            }
+        }
+
+        function gameOverSnake() {
+            clearInterval(sInterval);
+            sRunning = false;
+            document.getElementById('snakeStatus').textContent = '💥 Игра окончена!';
+            alert('💥 Игра окончена! Счёт: ' + sScore);
+            initSnake();
+            sRunning = true;
+            sInterval = setInterval(moveSnake, 130);
+        }
+
+        document.getElementById('snakePause').addEventListener('click', () => {
+            if (!sRunning) return;
+            sPaused = !sPaused;
+            document.getElementById('snakeStatus').textContent = sPaused ? '⏸ Пауза' : '▶ Игра идёт';
+        });
+
+        document.getElementById('snakeReset').addEventListener('click', () => {
+            if (sInterval) clearInterval(sInterval);
+            sRunning = true;
+            sPaused = false;
+            initSnake();
+            sInterval = setInterval(moveSnake, 130);
+        });
+
+        document.getElementById('snakeSave').addEventListener('click', () => {
+            localStorage.setItem('snakeBest', String(sBest));
+            document.getElementById('snakeSaveStatus').textContent = '✅ Сохранено!';
+            setTimeout(() => document.getElementById('snakeSaveStatus').textContent = '💾 Сохранено', 2000);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('tab-games').classList.contains('active')) return;
+            if (document.getElementById('game-snake').classList.contains('active')) {
+                e.preventDefault();
+                if (e.key === 'ArrowUp' && sDir.dy !== 1) sNext = { dx: 0, dy: -1 };
+                if (e.key === 'ArrowDown' && sDir.dy !== -1) sNext = { dx: 0, dy: 1 };
+                if (e.key === 'ArrowLeft' && sDir.dx !== 1) sNext = { dx: -1, dy: 0 };
+                if (e.key === 'ArrowRight' && sDir.dx !== -1) sNext = { dx: 1, dy: 0 };
+                if (!sRunning) {
+                    sRunning = true;
+                    if (sInterval) clearInterval(sInterval);
+                    sInterval = setInterval(moveSnake, 130);
+                }
+            }
+        });
+
+        document.querySelectorAll('[data-snake]').forEach(btn => {
+            ['touchstart', 'mousedown'].forEach(ev => btn.addEventListener(ev, (e) => {
+                e.preventDefault();
+                if (!sRunning) {
+                    sRunning = true;
+                    if (sInterval) clearInterval(sInterval);
+                    sInterval = setInterval(moveSnake, 130);
+                }
+                const a = btn.dataset.snake;
+                if (a === 'up' && sDir.dy !== 1) sNext = { dx: 0, dy: -1 };
+                if (a === 'down' && sDir.dy !== -1) sNext = { dx: 0, dy: 1 };
+                if (a === 'left' && sDir.dx !== 1) sNext = { dx: -1, dy: 0 };
+                if (a === 'right' && sDir.dx !== -1) sNext = { dx: 1, dy: 0 };
+            }));
+        });
+
+        // === СТАРТ ИГР ===
+        initTetris();
+        tRunning = true;
+        tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
+
+        initSnake();
+    </script>
 </body>
 </html>
