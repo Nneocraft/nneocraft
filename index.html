@@ -10,60 +10,64 @@
            ============================================================ */
         :root {
             --bg: #04040a;
-            --card: rgba(10, 10, 22, 0.78);
+            --card: rgba(8, 8, 20, 0.72);
             --text: #fff;
-            --text-secondary: #999;
-            --border: rgba(255, 255, 255, 0.06);
+            --text-secondary: #aab;
+            --border: rgba(255, 255, 255, 0.04);
             --border-hover: rgba(100, 180, 255, 0.15);
             --accent: #6ab0ff;
-            --accent-glow: rgba(100, 180, 255, 0.1);
-            --shadow: 0 30px 80px rgba(0,0,0,0.7);
-            --glass: rgba(255,255,255,0.03);
-            --glass-hover: rgba(255,255,255,0.06);
+            --accent-soft: rgba(100, 180, 255, 0.12);
+            --accent-glow: rgba(100, 180, 255, 0.08);
+            --shadow: 0 40px 100px rgba(0,0,0,0.8);
+            --glass: rgba(255,255,255,0.02);
+            --glass-hover: rgba(255,255,255,0.05);
             --radius: 24px;
-            --transition: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         [data-theme="light"] {
-            --bg: #f0f4ff;
-            --card: rgba(255, 255, 255, 0.75);
+            --bg: #eef4ff;
+            --card: rgba(255, 255, 255, 0.72);
             --text: #1a1a2e;
-            --text-secondary: #555;
-            --border: rgba(0,0,0,0.06);
+            --text-secondary: #556;
+            --border: rgba(0,0,0,0.05);
             --border-hover: rgba(100, 180, 255, 0.2);
             --accent: #4a7aff;
-            --accent-glow: rgba(100, 180, 255, 0.08);
-            --shadow: 0 30px 80px rgba(100, 150, 255, 0.08);
+            --accent-soft: rgba(74, 122, 255, 0.06);
+            --accent-glow: rgba(74, 122, 255, 0.06);
+            --shadow: 0 40px 100px rgba(100, 150, 255, 0.06);
             --glass: rgba(0,0,0,0.02);
             --glass-hover: rgba(0,0,0,0.04);
         }
 
         [data-theme="blue"] {
-            --bg: #000b1a;
-            --card: rgba(0, 20, 50, 0.8);
-            --text: #c8e6ff;
-            --text-secondary: #6a9bc7;
-            --border: rgba(100, 200, 255, 0.08);
-            --border-hover: rgba(100, 200, 255, 0.2);
+            --bg: #000d1f;
+            --card: rgba(0, 16, 40, 0.78);
+            --text: #d0ecff;
+            --text-secondary: #7aabcf;
+            --border: rgba(100, 200, 255, 0.06);
+            --border-hover: rgba(100, 200, 255, 0.18);
             --accent: #4fc3f7;
-            --accent-glow: rgba(79, 195, 247, 0.1);
-            --shadow: 0 30px 80px rgba(0,50,100,0.7);
-            --glass: rgba(100, 200, 255, 0.03);
-            --glass-hover: rgba(100, 200, 255, 0.06);
+            --accent-soft: rgba(79, 195, 247, 0.08);
+            --accent-glow: rgba(79, 195, 247, 0.06);
+            --shadow: 0 40px 100px rgba(0,40,80,0.6);
+            --glass: rgba(100, 200, 255, 0.02);
+            --glass-hover: rgba(100, 200, 255, 0.05);
         }
 
         [data-theme="purple"] {
-            --bg: #0a0015;
-            --card: rgba(20, 5, 40, 0.8);
-            --text: #f0d6ff;
-            --text-secondary: #a87bc7;
-            --border: rgba(200, 100, 255, 0.08);
-            --border-hover: rgba(200, 100, 255, 0.2);
+            --bg: #0d0020;
+            --card: rgba(18, 4, 40, 0.78);
+            --text: #f0e0ff;
+            --text-secondary: #aa8acf;
+            --border: rgba(200, 100, 255, 0.06);
+            --border-hover: rgba(200, 100, 255, 0.18);
             --accent: #b388ff;
-            --accent-glow: rgba(179, 136, 255, 0.1);
-            --shadow: 0 30px 80px rgba(50,0,100,0.7);
-            --glass: rgba(200, 100, 255, 0.03);
-            --glass-hover: rgba(200, 100, 255, 0.06);
+            --accent-soft: rgba(179, 136, 255, 0.08);
+            --accent-glow: rgba(179, 136, 255, 0.06);
+            --shadow: 0 40px 100px rgba(40,0,80,0.6);
+            --glass: rgba(200, 100, 255, 0.02);
+            --glass-hover: rgba(200, 100, 255, 0.05);
         }
 
         /* ============================================================
@@ -73,6 +77,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -85,21 +92,32 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-            transition: background 0.5s ease, color 0.5s ease;
+            transition: background 0.6s ease, color 0.6s ease;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* ============================================================
-           ФОН
+           ФОН: ТУМАННОСТЬ + ЗВЁЗДЫ + ПАДАЮЩИЕ ЧАСТИЦЫ
            ============================================================ */
-        .bg-gradient {
+        #bgCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-glow {
             position: fixed;
             inset: 0;
             z-index: 0;
             pointer-events: none;
             background:
-                radial-gradient(circle at 15% 20%, rgba(100, 180, 255, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 85% 80%, rgba(100, 180, 255, 0.04) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 30%, rgba(100, 180, 255, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(100, 180, 255, 0.04) 0%, transparent 50%);
+            transition: opacity 0.6s ease;
         }
 
         .bg-grid {
@@ -108,16 +126,9 @@
             z-index: 0;
             pointer-events: none;
             background-image:
-                linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-
-        #weatherCanvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
+                linear-gradient(rgba(255,255,255,0.008) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.008) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
         /* ============================================================
@@ -132,26 +143,32 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            gap: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
-        .loader-spinner {
-            width: 40px;
-            height: 40px;
+        .loader-ring {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             border: 3px solid var(--border);
             border-top-color: var(--accent);
-            border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
         #loader p {
             font-size: 14px;
             color: var(--text-secondary);
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            opacity: 0.7;
         }
 
         /* ============================================================
@@ -163,20 +180,41 @@
             max-width: 960px;
             width: 100%;
             background: var(--card);
-            backdrop-filter: blur(24px);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
             border-radius: var(--radius);
             padding: 40px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s ease;
-            animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.6s ease;
+            animation: cardIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             opacity: 0;
         }
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes cardIn {
+            to { opacity: 1;
+                transform: translateY(0); }
         }
 
-        .card:hover { transform: translateY(-3px); }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.7);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(100, 180, 255, 0.15), rgba(255, 255, 255, 0.03), rgba(100, 180, 255,
+                        0.08));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
+        }
 
         /* ============================================================
            ШАПКА
@@ -187,9 +225,14 @@
             gap: 24px;
             margin-bottom: 28px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
-        .avatar-wrap { position: relative; flex-shrink: 0; }
+        .avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
 
         .avatar {
             width: 100px;
@@ -199,9 +242,13 @@
             display: block;
             border: 3px solid var(--border);
             background: #161622;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 40px rgba(100, 180, 255, 0.04);
         }
-        .avatar:hover { border-color: var(--accent); }
+        .avatar:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 60px var(--accent-glow);
+        }
 
         .online-badge {
             position: absolute;
@@ -212,15 +259,18 @@
             background: #44ff88;
             border-radius: 50%;
             border: 3px solid var(--bg);
+            box-shadow: 0 0 30px rgba(68, 255, 136, 0.15);
             animation: pulse 2s ease-in-out infinite;
         }
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%,
+            100% { transform: scale(1); }
+            50% { transform: scale(1.12);
+                box-shadow: 0 0 40px rgba(68, 255, 136, 0.25); }
         }
 
         .name h1 {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 900;
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
@@ -232,8 +282,13 @@
             font-size: 16px;
             color: var(--text-secondary);
             margin-top: 2px;
+            opacity: 0.8;
         }
-        .name .sub span { color: var(--accent); font-weight: 600; -webkit-text-fill-color: var(--accent); }
+        .name .sub span {
+            color: var(--accent);
+            font-weight: 600;
+            -webkit-text-fill-color: var(--accent);
+        }
 
         .age-chip {
             display: inline-block;
@@ -247,10 +302,12 @@
             margin-top: 6px;
             transition: all 0.3s ease;
             cursor: default;
+            backdrop-filter: blur(8px);
         }
         .age-chip:hover {
             background: var(--glass-hover);
             border-color: var(--border-hover);
+            box-shadow: 0 0 30px var(--accent-glow);
         }
 
         /* ============================================================
@@ -258,12 +315,17 @@
            ============================================================ */
         .bio {
             color: var(--text-secondary);
-            padding: 20px 24px;
+            padding: 22px 26px;
             background: var(--glass);
             border-radius: var(--radius);
             border: 1px solid var(--border);
             margin: 16px 0 24px;
             position: relative;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .bio:hover {
+            border-color: var(--border-hover);
         }
         .bio::before {
             content: '';
@@ -275,19 +337,26 @@
             background: linear-gradient(180deg, var(--accent), #fff);
             border-radius: 0 4px 4px 0;
         }
-        .bio strong { color: var(--text); font-weight: 700; }
-        .bio .hl { color: var(--accent); font-weight: 600; }
+        .bio strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+        .bio .hl {
+            color: var(--accent);
+            font-weight: 600;
+        }
 
         /* ============================================================
            ОБЩИЕ
            ============================================================ */
         .section-title {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #444;
+            letter-spacing: 2.5px;
+            color: #555;
             font-weight: 700;
             margin: 28px 0 14px;
+            opacity: 0.7;
         }
 
         /* ============================================================
@@ -296,11 +365,11 @@
         .tech-wrap {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
         .tech {
             background: var(--glass);
-            padding: 6px 18px;
+            padding: 6px 16px;
             border-radius: 40px;
             font-size: 14px;
             font-weight: 600;
@@ -310,13 +379,15 @@
             cursor: default;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            backdrop-filter: blur(4px);
         }
         .tech:hover {
             background: var(--glass-hover);
             border-color: var(--accent);
             color: var(--text);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 30px var(--accent-glow);
         }
 
         /* ============================================================
@@ -328,10 +399,12 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
         }
         .mc-block:hover {
             background: var(--glass-hover);
             border-color: var(--border-hover);
+            box-shadow: 0 0 40px var(--accent-glow);
         }
 
         .mc-head {
@@ -340,7 +413,9 @@
             gap: 12px;
             margin-bottom: 12px;
         }
-        .mc-icon { font-size: 28px; }
+        .mc-icon {
+            font-size: 28px;
+        }
         .mc-label {
             font-size: 18px;
             font-weight: 800;
@@ -352,17 +427,18 @@
         .mc-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
         .mc-tag {
             background: var(--glass);
-            padding: 4px 16px;
+            padding: 4px 14px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
         .mc-tag:hover {
             background: var(--glass-hover);
@@ -402,12 +478,37 @@
             border-color: rgba(100, 180, 255, 0.08);
         }
 
-        .goal-check { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-        .goal-content { flex: 1; }
-        .goal-title { font-size: 16px; font-weight: 700; color: var(--text); }
-        .goal-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-        .goal-progress { margin-top: 8px; height: 4px; background: var(--glass); border-radius: 4px; overflow: hidden; }
-        .goal-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4a9aff); border-radius: 4px; transition: width 0.6s ease; }
+        .goal-check {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .goal-content {
+            flex: 1;
+        }
+        .goal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .goal-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .goal-progress {
+            margin-top: 8px;
+            height: 4px;
+            background: var(--glass);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .goal-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #4a9aff);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
 
         /* ============================================================
            ВКЛАДКИ
@@ -424,7 +525,8 @@
             flex-wrap: wrap;
         }
         @media (max-width: 600px) { .tabs,
-            .game-tabs { flex-direction: column; border-radius: 20px; } }
+            .game-tabs { flex-direction: column;
+                border-radius: 20px; } }
 
         .tab-btn {
             flex: 1;
@@ -441,16 +543,29 @@
             letter-spacing: 0.3px;
             min-width: 60px;
         }
-        .tab-btn:hover { color: var(--text); background: var(--glass-hover); }
+        .tab-btn:hover {
+            color: var(--text);
+            background: var(--glass-hover);
+        }
         .tab-btn.active {
             background: rgba(100, 180, 255, 0.08);
             color: var(--text);
         }
 
-        .tab-content { display: none; animation: fadeUp 0.3s ease; }
-        .tab-content.active { display: block; }
-        .game-content { display: none; animation: fadeUp 0.3s ease; }
-        .game-content.active { display: block; }
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .game-content {
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+        .game-content.active {
+            display: block;
+        }
 
         /* ============================================================
            ИГРЫ
@@ -481,9 +596,21 @@
             justify-content: center;
         }
 
-        .game-icon { font-size: 36px; display: block; margin-bottom: 4px; }
-        .game-title { font-size: 17px; font-weight: 700; color: var(--text); }
-        .game-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .game-icon {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .game-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .game-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
 
         .game-canvas-wrap {
             display: flex;
@@ -508,7 +635,14 @@
             margin-top: 8px;
             flex-wrap: wrap;
         }
-        .game-status { font-size: 12px; color: var(--text-secondary); padding: 4px 12px; background: var(--glass); border-radius: 20px; border: 1px solid var(--border); }
+        .game-status {
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            background: var(--glass);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
 
         .game-btn {
             padding: 6px 16px;
@@ -522,7 +656,10 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .game-btn:hover { background: var(--glass-hover); border-color: var(--border-hover); }
+        .game-btn:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
         .game-btn.primary {
             border-color: rgba(100, 180, 255, 0.2);
             background: rgba(100, 180, 255, 0.05);
@@ -552,8 +689,13 @@
             user-select: none;
             transition: 0.15s ease;
         }
-        .mobile-controls button:active { transform: scale(0.88); background: rgba(100, 180, 255, 0.1); }
-        .mobile-controls span { visibility: hidden; }
+        .mobile-controls button:active {
+            transform: scale(0.88);
+            background: rgba(100, 180, 255, 0.1);
+        }
+        .mobile-controls span {
+            visibility: hidden;
+        }
         @media (pointer: coarse) { .mobile-controls { display: grid; } }
 
         /* ============================================================
@@ -578,8 +720,12 @@
             outline: none;
             transition: all 0.3s ease;
         }
-        .notes-toolbar input:focus { border-color: var(--accent); }
-        .notes-toolbar input::placeholder { color: var(--text-secondary); }
+        .notes-toolbar input:focus {
+            border-color: var(--accent);
+        }
+        .notes-toolbar input::placeholder {
+            color: var(--text-secondary);
+        }
 
         .notes-action {
             padding: 8px 14px;
@@ -592,7 +738,10 @@
             transition: all 0.3s ease;
             line-height: 1;
         }
-        .notes-action:hover { background: var(--glass-hover); border-color: var(--border-hover); }
+        .notes-action:hover {
+            background: var(--glass-hover);
+            border-color: var(--border-hover);
+        }
 
         .notes-grid {
             display: grid;
@@ -615,10 +764,28 @@
             border-color: var(--border-hover);
             transform: translateY(-2px);
         }
-        .note-card .sticker { font-size: 24px; display: block; margin-bottom: 2px; }
-        .note-card .title { font-size: 16px; font-weight: 700; color: var(--text); }
-        .note-card .content { font-size: 14px; color: var(--text-secondary); margin-top: 2px; line-height: 1.5; }
-        .note-card .date { font-size: 10px; color: var(--text-secondary); opacity: 0.6; margin-top: 6px; }
+        .note-card .sticker {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .note-card .title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .note-card .content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            line-height: 1.5;
+        }
+        .note-card .date {
+            font-size: 10px;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            margin-top: 6px;
+        }
         .note-card .delete-btn {
             position: absolute;
             top: 6px;
@@ -631,7 +798,10 @@
             transition: 0.3s;
             opacity: 0.5;
         }
-        .note-card .delete-btn:hover { opacity: 1; color: #ff6b6b; }
+        .note-card .delete-btn:hover {
+            opacity: 1;
+            color: #ff6b6b;
+        }
 
         .notes-input-row {
             display: flex;
@@ -654,9 +824,15 @@
             min-width: 80px;
         }
         .notes-input-row input:focus,
-        .notes-input-row select:focus { border-color: var(--accent); }
-        .notes-input-row input::placeholder { color: var(--text-secondary); }
-        .notes-input-row select option { background: var(--bg); }
+        .notes-input-row select:focus {
+            border-color: var(--accent);
+        }
+        .notes-input-row input::placeholder {
+            color: var(--text-secondary);
+        }
+        .notes-input-row select option {
+            background: var(--bg);
+        }
         .notes-input-row button {
             padding: 8px 18px;
             border-radius: 20px;
@@ -683,7 +859,9 @@
             padding: 16px 20px;
             border: 1px solid var(--border);
         }
-        .chat-container:hover { border-color: var(--border-hover); }
+        .chat-container:hover {
+            border-color: var(--border-hover);
+        }
 
         .chat-messages {
             max-height: 180px;
@@ -694,9 +872,17 @@
             margin-bottom: 10px;
             padding-right: 4px;
         }
-        .chat-messages::-webkit-scrollbar { width: 4px; }
-        .chat-messages::-webkit-scrollbar-track { background: var(--glass); border-radius: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--glass);
+            border-radius: 4px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
 
         .chat-msg {
             background: var(--glass);
@@ -713,9 +899,20 @@
             background: rgba(100, 180, 255, 0.06);
             border-color: rgba(100, 180, 255, 0.1);
         }
-        .chat-msg .name { font-weight: 700; color: var(--accent); font-size: 13px; }
-        .chat-msg .time { font-size: 10px; color: var(--text-secondary); margin-left: 8px; }
-        .chat-msg .text { color: var(--text-secondary); margin-top: 2px; }
+        .chat-msg .name {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 13px;
+        }
+        .chat-msg .time {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-left: 8px;
+        }
+        .chat-msg .text {
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
 
         .chat-input-row {
             display: flex;
@@ -735,8 +932,12 @@
             outline: none;
             transition: all 0.3s ease;
         }
-        .chat-input-row input:focus { border-color: var(--accent); }
-        .chat-input-row input::placeholder { color: var(--text-secondary); }
+        .chat-input-row input:focus {
+            border-color: var(--accent);
+        }
+        .chat-input-row input::placeholder {
+            color: var(--text-secondary);
+        }
         .chat-input-row button {
             padding: 8px 18px;
             border-radius: 20px;
@@ -755,7 +956,7 @@
         }
 
         /* ============================================================
-           СПОТИФАЙ
+           СПОТИФАЙ С ОБЛОЖКОЙ
            ============================================================ */
         .spotify-real {
             display: flex;
@@ -773,19 +974,29 @@
         }
 
         .spotify-artwork {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 12px;
+            flex-shrink: 0;
             background: var(--glass);
+            border: 1px solid var(--border);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
-            border: 1px solid var(--border);
+            font-size: 28px;
+        }
+        .spotify-artwork img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .spotify-info { flex: 1; min-width: 0; }
+        .spotify-info {
+            flex: 1;
+            min-width: 0;
+        }
         .spotify-track {
             font-size: 16px;
             font-weight: 700;
@@ -809,10 +1020,12 @@
             flex-shrink: 0;
             animation: pulse 1.6s ease-in-out infinite;
         }
-        .spotify-status-dot.paused { background: #ffaa44; }
+        .spotify-status-dot.paused {
+            background: #ffaa44;
+        }
 
         /* ============================================================
-           СТАТУС DISCORD
+           СТАТУС DISCORD С ИКОНКОЙ ИГРЫ
            ============================================================ */
         .discord-status {
             display: flex;
@@ -830,6 +1043,26 @@
             border-color: var(--border-hover);
         }
 
+        .discord-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .discord-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .discord-dot {
             width: 10px;
             height: 10px;
@@ -840,10 +1073,23 @@
             box-shadow: 0 0 20px rgba(100, 180, 255, 0.05);
         }
 
-        .discord-text { color: var(--text-secondary); font-size: 15px; }
-        .discord-text strong { color: var(--text); font-weight: 600; }
-        .discord-text .game { color: var(--accent); font-weight: 700; }
-        .discord-text .details { color: var(--text-secondary); }
+        .discord-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            flex: 1;
+            min-width: 0;
+        }
+        .discord-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .discord-text .game {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .discord-text .details {
+            color: var(--text-secondary);
+        }
 
         /* ============================================================
            ПОГОДА
@@ -865,10 +1111,21 @@
             border-color: var(--border-hover);
         }
 
-        .weather-icon { font-size: 28px; }
-        .weather-city { color: var(--text-secondary); font-size: 15px; }
-        .weather-city strong { color: var(--text); }
-        .weather-temp { color: var(--text); font-weight: 700; font-size: 18px; }
+        .weather-icon {
+            font-size: 28px;
+        }
+        .weather-city {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        .weather-city strong {
+            color: var(--text);
+        }
+        .weather-temp {
+            color: var(--text);
+            font-weight: 700;
+            font-size: 18px;
+        }
         .weather-desc {
             color: var(--text-secondary);
             font-size: 13px;
@@ -894,7 +1151,12 @@
             border-color: var(--border-hover);
         }
 
-        .birthday-label { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; }
+        .birthday-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
         .birthday-time {
             font-size: 24px;
             font-weight: 800;
@@ -902,8 +1164,14 @@
             margin-top: 4px;
             font-variant-numeric: tabular-nums;
         }
-        .birthday-time span { display: inline-block; min-width: 40px; }
-        .birthday-time .sep { color: var(--text-secondary); min-width: 8px; }
+        .birthday-time span {
+            display: inline-block;
+            min-width: 40px;
+        }
+        .birthday-time .sep {
+            color: var(--text-secondary);
+            min-width: 8px;
+        }
 
         /* ============================================================
            ССЫЛКИ
@@ -938,8 +1206,16 @@
             transform: translateY(-2px);
         }
 
-        .link-icon { font-size: 22px; position: relative; z-index: 1; }
-        .link-label { flex: 1; position: relative; z-index: 1; }
+        .link-icon {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+        }
+        .link-label {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
         .link-chip {
             font-size: 12px;
             background: var(--glass);
@@ -949,9 +1225,14 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        .link:hover .link-chip { background: var(--glass-hover); }
+        .link:hover .link-chip {
+            background: var(--glass-hover);
+        }
 
-        .link.full { grid-column: 1 / -1; justify-content: center; }
+        .link.full {
+            grid-column: 1 / -1;
+            justify-content: center;
+        }
 
         /* ============================================================
            ФУТЕР
@@ -969,15 +1250,33 @@
             color: var(--text-secondary);
             transition: border-color 0.5s ease;
         }
-        .footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; font-weight: 500; }
-        .footer a:hover { color: var(--accent); }
-        .footer-social { display: flex; gap: 20px; }
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .footer a:hover {
+            color: var(--accent);
+        }
+        .footer-social {
+            display: flex;
+            gap: 20px;
+        }
 
-        .visitors { display: flex; align-items: center; gap: 6px; }
-        .visitors-count { font-weight: 700; color: var(--accent); font-size: 16px; }
+        .visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .visitors-count {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 16px;
+        }
 
         /* ============================================================
-           КНОПКА ТЕМЫ
+           КНОПКА СМЕНЫ ТЕМЫ
            ============================================================ */
         .theme-toggle {
             position: fixed;
@@ -1004,7 +1303,9 @@
             border-color: var(--border-hover);
             transform: scale(1.03);
         }
-        .theme-toggle .theme-icon { font-size: 16px; }
+        .theme-toggle .theme-icon {
+            font-size: 16px;
+        }
 
         /* ============================================================
            АДАПТИВ
@@ -1012,19 +1313,28 @@
         @media (max-width: 640px) {
             .card { padding: 24px; }
             .header { gap: 16px; }
-            .avatar { width: 76px; height: 76px; }
+            .avatar { width: 76px;
+                height: 76px; }
             .name h1 { font-size: 24px; }
-            .bio { padding: 16px 18px; font-size: 15px; }
-            .link { padding: 10px 14px; font-size: 14px; }
-            .tech { font-size: 13px; padding: 4px 14px; }
-            .footer { flex-direction: column; text-align: center; }
+            .bio { padding: 16px 18px;
+                font-size: 15px; }
+            .link { padding: 10px 14px;
+                font-size: 14px; }
+            .tech { font-size: 13px;
+                padding: 4px 14px; }
+            .footer { flex-direction: column;
+                text-align: center; }
             .mc-block { padding: 14px 16px; }
             .tabs,
-            .game-tabs { flex-direction: column; border-radius: 20px; }
+            .game-tabs { flex-direction: column;
+                border-radius: 20px; }
             .tab-btn { padding: 8px; }
             .game-card { padding: 12px; }
             .game-canvas-wrap canvas { max-width: 200px; }
-            .theme-toggle { top: 12px; right: 12px; padding: 4px 12px; font-size: 12px; }
+            .theme-toggle { top: 12px;
+                right: 12px;
+                padding: 4px 12px;
+                font-size: 12px; }
             .notes-input-row { flex-direction: column; }
             .notes-input-row input,
             .notes-input-row select { min-width: 100%; }
@@ -1032,45 +1342,56 @@
             .chat-input-row input { min-width: 100%; }
             .birthday-time { font-size: 20px; }
             .birthday-time span { min-width: 32px; }
+            .spotify-artwork { width: 44px;
+                height: 44px; }
+            .discord-icon { width: 32px;
+                height: 32px; }
         }
 
         @media (max-width: 400px) {
             .card { padding: 16px; }
             .name h1 { font-size: 20px; }
-            .avatar { width: 60px; height: 60px; }
-            .bio { padding: 12px 14px; font-size: 14px; }
+            .avatar { width: 60px;
+                height: 60px; }
+            .bio { padding: 12px 14px;
+                font-size: 14px; }
             .game-canvas-wrap canvas { max-width: 160px; }
             .birthday-time { font-size: 16px; }
             .birthday-time span { min-width: 24px; }
+            .spotify-artwork { width: 36px;
+                height: 36px; }
+            .discord-icon { width: 28px;
+                height: 28px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== ЭКРАН ЗАГРУЗКИ ===== -->
+    <!-- ===== ФОН (анимированный) ===== -->
+    <canvas id="bgCanvas"></canvas>
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
+
+    <!-- ===== ЗАГРУЗЧИК ===== -->
     <div id="loader">
-        <div class="loader-spinner"></div>
-        <p>Загрузка...</p>
+        <div class="loader-ring"></div>
+        <p>ЗАГРУЗКА...</p>
     </div>
 
-    <!-- ===== ФОН ===== -->
-    <div class="bg-gradient"></div>
-    <div class="bg-grid"></div>
-    <canvas id="weatherCanvas"></canvas>
-
-    <!-- ===== КНОПКА СМЕНЫ ТЕМЫ ===== -->
+    <!-- ===== КНОПКА ТЕМЫ ===== -->
     <button class="theme-toggle" id="themeToggle">
         <span class="theme-icon" id="themeIcon">🌙</span>
         <span id="themeLabel">Тёмная</span>
     </button>
 
-    <!-- ===== ОСНОВНАЯ КАРТОЧКА ===== -->
+    <!-- ===== КАРТОЧКА ===== -->
     <main class="card">
 
         <!-- ШАПКА -->
         <header class="header">
             <div class="avatar-wrap">
-                <img class="avatar" src="avatar.png" alt="Nneocraft" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=6ab0ff&bold=true'">
+                <img class="avatar" src="avatar.png" alt="Nneocraft" loading="lazy"
+                onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=6ab0ff&bold=true'">
                 <span class="online-badge"></span>
             </div>
             <div class="name">
@@ -1262,11 +1583,13 @@
             </div>
         </section>
 
-        <!-- СПОТИФАЙ -->
+        <!-- ===== СПОТИФАЙ С ОБЛОЖКОЙ ===== -->
         <section>
             <h2 class="section-title">🎵 Сейчас играет</h2>
             <div class="spotify-real">
-                <div class="spotify-artwork" id="spotifyArtwork">🎵</div>
+                <div class="spotify-artwork" id="spotifyArtwork">
+                    <span id="spotifyEmoji">🎵</span>
+                </div>
                 <div class="spotify-info">
                     <div class="spotify-track" id="spotifyTrack">Загрузка...</div>
                     <div class="spotify-artist" id="spotifyArtist">—</div>
@@ -1275,9 +1598,10 @@
             </div>
         </section>
 
-        <!-- СТАТУС DISCORD -->
+        <!-- ===== СТАТУС DISCORD С ИКОНКОЙ ИГРЫ ===== -->
         <section>
             <div class="discord-status">
+                <div class="discord-icon" id="discordIcon">🎮</div>
                 <span class="discord-dot" id="discordDot"></span>
                 <p class="discord-text" id="discordText">🔄 Загрузка статуса...</p>
             </div>
@@ -1365,8 +1689,106 @@
 
     </main>
 
-    <!-- ===== СКРИПТ ===== -->
     <script>
+        // ============================================================
+        // === ФОН: ЗВЁЗДЫ + ПАДАЮЩИЕ ЧАСТИЦЫ ===
+        // ============================================================
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // ЗВЁЗДЫ
+        function initStars(count = 140) {
+            stars = [];
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.6 + 0.2,
+                    speed: Math.random() * 0.02 + 0.005,
+                    phase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        initStars();
+
+        // ПАДАЮЩИЕ ЧАСТИЦЫ
+        function initParticles(count = 40) {
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speed: Math.random() * 0.6 + 0.2,
+                    opacity: Math.random() * 0.3 + 0.1,
+                    wobble: Math.random() * 0.02 + 0.005,
+                    phase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        initParticles();
+
+        let time = 0;
+
+        function drawBg() {
+            time += 0.01;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const starColor = isLight ? 'rgba(60, 100, 180, ' : 'rgba(255, 255, 255, ';
+
+            // Рисуем звёзды
+            stars.forEach(star => {
+                const twinkle = Math.sin(time * 1.5 + star.phase) * 0.3 + 0.7;
+                const alpha = star.alpha * twinkle;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+                ctx.fillStyle = starColor + alpha + ')';
+                ctx.fill();
+            });
+
+            // Рисуем падающие частицы
+            const particleColor = isLight ? 'rgba(60, 120, 220, ' : 'rgba(255, 255, 255, ';
+            particles.forEach(p => {
+                p.y += p.speed;
+                p.x += Math.sin(time * p.wobble + p.phase) * 0.2;
+                if (p.y > canvas.height) {
+                    p.y = -p.size;
+                    p.x = Math.random() * canvas.width;
+                }
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = particleColor + p.opacity + ')';
+                ctx.fill();
+
+                // Маленький хвост
+                if (p.size > 1.2) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p.x - p.speed * 4, p.y - p.speed * 4);
+                    ctx.strokeStyle = particleColor + (p.opacity * 0.2) + ')';
+                    ctx.lineWidth = p.size * 0.4;
+                    ctx.stroke();
+                }
+            });
+
+            requestAnimationFrame(drawBg);
+        }
+        drawBg();
+
         // ============================================================
         // === ТЕМЫ ===
         // ============================================================
@@ -1526,7 +1948,7 @@
         })();
 
         // ============================================================
-        // === СПОТИФАЙ И СТАТУС ===
+        // === СПОТИФАЙ + СТАТУС DISCORD (С ИКОНКАМИ) ===
         // ============================================================
         async function fetchSpotifyAndGames() {
             const userId = '994821782819311636';
@@ -1536,25 +1958,52 @@
                 if (!data.success) throw new Error('Lanyard error');
 
                 const status = data.data;
-                // Spotify
                 const spotify = status.spotify;
+                const artworkEl = document.getElementById('spotifyArtwork');
+                const emojiEl = document.getElementById('spotifyEmoji');
+
+                // --- СПОТИФАЙ С ОБЛОЖКОЙ ---
                 if (spotify && spotify.song) {
                     document.getElementById('spotifyTrack').textContent = spotify.song;
                     document.getElementById('spotifyArtist').textContent = spotify.artist;
-                    document.getElementById('spotifyArtwork').textContent = '🎵';
                     document.getElementById('spotifyStatusDot').className = 'spotify-status-dot';
+
+                    // Обложка альбома
+                    if (spotify.album_art_url) {
+                        artworkEl.innerHTML =
+                            `<img src="${spotify.album_art_url}" alt="Обложка" loading="lazy" onerror="this.style.display='none';document.getElementById('spotifyEmoji').style.display='block'">`;
+                        emojiEl.style.display = 'none';
+                    } else {
+                        artworkEl.innerHTML = '<span id="spotifyEmoji">🎵</span>';
+                        emojiEl.style.display = 'block';
+                    }
                 } else {
                     document.getElementById('spotifyTrack').textContent = 'Не играет';
                     document.getElementById('spotifyArtist').textContent = '—';
                     document.getElementById('spotifyStatusDot').className = 'spotify-status-dot paused';
+                    artworkEl.innerHTML = '<span id="spotifyEmoji">🎵</span>';
+                    emojiEl.style.display = 'block';
                 }
 
-                // Discord статус
+                // --- СТАТУС DISCORD С ИКОНКОЙ ИГРЫ ---
                 const activities = status.activities || [];
                 const game = activities.find(a => a.type === 0);
                 const listening = activities.find(a => a.type === 2);
                 const dot = document.getElementById('discordDot');
                 const text = document.getElementById('discordText');
+                const iconEl = document.getElementById('discordIcon');
+
+                // Иконка игры (из Discord CDN)
+                function setGameIcon(iconName) {
+                    if (iconName) {
+                        const iconUrl =
+                            `https://cdn.discordapp.com/app-assets/${game.application_id || '383226320970055681'}/${iconName}.png`;
+                        iconEl.innerHTML =
+                            `<img src="${iconUrl}" alt="Игра" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='🎮'">`;
+                    } else {
+                        iconEl.innerHTML = '🎮';
+                    }
+                }
 
                 switch (status.discord_status) {
                     case 'online':
@@ -1564,28 +2013,42 @@
                             if (game.details) txt += ` · <span class="details">${game.details}</span>`;
                             if (game.state) txt += ` <span class="details">${game.state}</span>`;
                             text.innerHTML = txt;
+                            // Иконка игры
+                            if (game.assets && game.assets.large_image) {
+                                const iconName = game.assets.large_image.replace('spotify:', '').replace('mp:', '');
+                                setGameIcon(iconName);
+                            } else {
+                                iconEl.innerHTML = '🎮';
+                            }
                         } else if (listening) {
                             text.innerHTML = `🎵 <strong>Слушает <span class="game">${listening.name}</span></strong>`;
+                            iconEl.innerHTML = '🎵';
                         } else {
                             text.innerHTML = '🟢 <strong>Онлайн</strong> · Не играет';
+                            iconEl.innerHTML = '🟢';
                         }
                         break;
                     case 'idle':
                         dot.style.background = '#ffaa44';
                         text.innerHTML = '🌙 <strong>Отошёл</strong>';
+                        iconEl.innerHTML = '🌙';
                         break;
                     case 'dnd':
                         dot.style.background = '#ff4444';
                         text.innerHTML = '🔴 <strong>Не беспокоить</strong>';
+                        iconEl.innerHTML = '🔴';
                         break;
                     default:
                         dot.style.background = '#888';
                         text.innerHTML = '⚫ <strong>Офлайн</strong>';
+                        iconEl.innerHTML = '⚫';
                 }
             } catch {
                 document.getElementById('spotifyTrack').textContent = 'Ошибка';
                 document.getElementById('spotifyArtist').textContent = '—';
                 document.getElementById('discordText').innerHTML = '⚠️ Не удалось загрузить';
+                document.getElementById('spotifyArtwork').innerHTML = '<span id="spotifyEmoji">🎵</span>';
+                document.getElementById('spotifyEmoji').style.display = 'block';
             }
         }
 
