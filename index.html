@@ -1023,9 +1023,8 @@
         <div class="header">
             <div class="avatar-wrap">
                 <div class="avatar">
-                    <!-- АВАТАРКА ЧЕРЕЗ DISCORD CDN (работает с твоим ID) -->
-                    <img src="https://cdn.discordapp.com/avatars/994821782819311636/your_avatar_hash_here.webp?size=128"
-                         alt="Nneocraft"
+                    <!-- ===== АВАТАРКА (ЗАГРУЖЕНА НА GITHUB) ===== -->
+                    <img src="avatar.png" alt="Nneocraft"
                          onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=110&background=0a0a16&color=6ab0ff&bold=true'">
                 </div>
                 <div class="online-badge"></div>
@@ -1209,7 +1208,7 @@
             </div>
         </div>
 
-        <!-- ===== СПОТИФАЙ (демо) ===== -->
+        <!-- ===== СПОТИФАЙ ===== -->
         <div class="section-title">🎵 Сейчас играет</div>
         <div class="spotify-real">
             <div class="spotify-artwork" id="spotifyArtwork">🎵</div>
@@ -1220,7 +1219,7 @@
             <div class="spotify-status-dot" id="spotifyStatusDot"></div>
         </div>
 
-        <!-- ===== СТАТУС ИЗ DISCORD (Lanyard API) ===== -->
+        <!-- ===== СТАТУС ИЗ DISCORD ===== -->
         <div class="discord-status" id="discordStatus">
             <div class="discord-dot" id="discordDot"></div>
             <div class="text" id="discordText">🔄 Загрузка статуса...</div>
@@ -1565,7 +1564,7 @@
         });
 
         // ============================================================
-        // === СПОТИФАЙ (демо-режим) ===
+        // === СПОТИФАЙ ===
         // ============================================================
         (function spotifyDemo() {
             const tracks = [
@@ -1598,7 +1597,7 @@
         })();
 
         // ============================================================
-        // === РЕАЛЬНЫЙ СТАТУС ИЗ DISCORD (Lanyard API) ===
+        // === РЕАЛЬНЫЙ СТАТУС ИЗ DISCORD ===
         // ============================================================
         async function fetchDiscordStatus() {
             const userId = '994821782819311636';
@@ -1610,14 +1609,12 @@
                     const status = data.data;
                     const activities = status.activities || [];
                     
-                    // Ищем активную игру (тип 0) или слушание (тип 2)
                     const game = activities.find(a => a.type === 0);
                     const listening = activities.find(a => a.type === 2);
 
                     const dot = document.getElementById('discordDot');
                     const text = document.getElementById('discordText');
 
-                    // Статус онлайн/офлайн
                     if (status.discord_status === 'online') {
                         dot.style.background = '#44ff88';
                         dot.style.boxShadow = '0 0 20px rgba(68, 255, 136, 0.3)';
@@ -1658,7 +1655,6 @@
             }
         }
 
-        // Запускаем сразу и обновляем каждые 15 секунд
         fetchDiscordStatus();
         setInterval(fetchDiscordStatus, 15000);
 
