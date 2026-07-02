@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="avatar.png" />
     <style>
         /* ============================================================
-           ОСНОВНЫЕ СТИЛИ (без изменений)
+           ПЕРЕМЕННЫЕ — СТИЛЬНЫЙ, ВЗРОСЛЫЙ ДИЗАЙН
            ============================================================ */
         :root {
             --bg: #06060e;
@@ -142,9 +142,7 @@
             pointer-events: none;
             display: block;
         }
-        #snowCanvas.hidden {
-            display: none;
-        }
+        #snowCanvas.hidden { display: none; }
 
         /* ============================================================
            КНОПКА ВКЛ/ВЫКЛ СНЕГА
@@ -178,7 +176,7 @@
         .snow-toggle .icon { font-size: 16px; }
 
         /* ============================================================
-           ОСТАЛЬНЫЕ СТИЛИ (БЕЗ ИЗМЕНЕНИЙ)
+           ФОН
            ============================================================ */
         .bg-gradient-animated {
             position: fixed;
@@ -223,6 +221,9 @@
             100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
         }
 
+        /* ============================================================
+           КАРТОЧКА
+           ============================================================ */
         .card {
             position: relative;
             z-index: 1;
@@ -259,6 +260,9 @@
         .left-col { min-width: 0; }
         .right-col { display: flex; flex-direction: column; gap: 12px; }
 
+        /* ============================================================
+           ШАПКА
+           ============================================================ */
         .header {
             display: flex;
             align-items: center;
@@ -331,6 +335,9 @@
         }
         .age-chip:hover { background: var(--glass-hover); border-color: var(--border-hover); }
 
+        /* ============================================================
+           БИО
+           ============================================================ */
         .bio {
             color: var(--text-secondary);
             padding: 18px 22px;
@@ -359,6 +366,9 @@
         .bio strong { color: var(--text); font-weight: 600; }
         .bio .hl { color: var(--accent); font-weight: 500; }
 
+        /* ============================================================
+           ЗАГОЛОВКИ
+           ============================================================ */
         .section-title {
             font-size: 10px;
             text-transform: uppercase;
@@ -369,6 +379,9 @@
             opacity: 0.4;
         }
 
+        /* ============================================================
+           ПРАВАЯ КОЛОНКА — СТАТУСЫ
+           ============================================================ */
         .status-card {
             background: var(--glass);
             border-radius: var(--radius);
@@ -437,6 +450,9 @@
         .spotify-mini .track { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .spotify-mini .artist { font-size: 11px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+        /* ============================================================
+           ТЕХНОЛОГИИ
+           ============================================================ */
         .tech-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
         .tech {
             background: var(--glass);
@@ -462,6 +478,9 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
+        /* ============================================================
+           MINECRAFT
+           ============================================================ */
         .mc-block {
             padding: 14px 18px;
             background: var(--glass);
@@ -494,6 +513,9 @@
         }
         .mc-tag:hover { background: var(--glass-hover); color: var(--text); border-color: var(--border-hover); }
 
+        /* ============================================================
+           ПЛАНЫ
+           ============================================================ */
         .goals-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -520,6 +542,9 @@
         .goal-progress { margin-top: 5px; height: 3px; background: var(--glass); border-radius: 4px; overflow: hidden; }
         .goal-bar { height: 100%; background: linear-gradient(90deg, var(--accent), transparent); border-radius: 4px; transition: width 0.6s ease; }
 
+        /* ============================================================
+           СТАТИСТИКА
+           ============================================================ */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -538,6 +563,9 @@
         .stats-item .number { font-size: 20px; font-weight: 700; color: var(--accent); }
         .stats-item .label { font-size: 9px; color: var(--text-secondary); margin-top: 1px; text-transform: uppercase; letter-spacing: 0.5px; }
 
+        /* ============================================================
+           ЛАЙКИ
+           ============================================================ */
         .like-section {
             display: flex;
             align-items: center;
@@ -564,6 +592,9 @@
         @keyframes likeAnim { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
         .like-count { font-size: 16px; font-weight: 600; color: var(--text); min-width: 20px; }
 
+        /* ============================================================
+           ВКЛАДКИ
+           ============================================================ */
         .tabs, .game-tabs {
             display: flex;
             gap: 2px;
@@ -597,6 +628,9 @@
         .game-content { display: none; animation: fadeUp 0.3s ease; }
         .game-content.active { display: block; }
 
+        /* ============================================================
+           ИГРЫ
+           ============================================================ */
         .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         @media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
         .game-card {
@@ -679,6 +713,9 @@
         .mobile-controls span { visibility: hidden; }
         @media (pointer: coarse) { .mobile-controls { display: grid; } }
 
+        /* ============================================================
+           ЗАМЕТКИ
+           ============================================================ */
         .notes-toolbar { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
         .notes-toolbar input {
             flex: 1; min-width: 80px; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
@@ -743,6 +780,9 @@
         }
         .notes-input-row button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
+        /* ============================================================
+           ЧАТ
+           ============================================================ */
         .chat-container {
             background: var(--glass); border-radius: var(--radius); padding: 12px 16px; border: 1px solid var(--border);
         }
@@ -782,6 +822,9 @@
         }
         .chat-input-row button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
+        /* ============================================================
+           ПОГОДА
+           ============================================================ */
         .weather {
             display: flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--glass);
             border-radius: var(--radius); border: 1px solid var(--border); margin: 4px 0 2px; flex-wrap: wrap;
@@ -794,6 +837,9 @@
         .weather-temp { color: var(--text); font-weight: 600; font-size: 15px; }
         .weather-desc { color: var(--text-secondary); font-size: 11px; background: var(--glass); padding: 1px 10px; border-radius: 30px; }
 
+        /* ============================================================
+           ТАЙМЕР
+           ============================================================ */
         .birthday-timer {
             padding: 10px 14px; background: var(--glass); border-radius: var(--radius); border: 1px solid var(--border);
             text-align: center; margin: 4px 0 2px; transition: all 0.3s ease;
@@ -804,6 +850,9 @@
         .birthday-time span { display: inline-block; min-width: 32px; }
         .birthday-time .sep { color: var(--text-secondary); min-width: 4px; }
 
+        /* ============================================================
+           ССЫЛКИ
+           ============================================================ */
         .links {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -826,6 +875,9 @@
         .link:hover .link-chip { background: var(--glass-hover); }
         .link.full { grid-column: 1 / -1; justify-content: center; }
 
+        /* ============================================================
+           ФУТЕР
+           ============================================================ */
         .footer {
             margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;
@@ -837,6 +889,9 @@
         .visitors { display: flex; align-items: center; gap: 4px; }
         .visitors-count { font-weight: 600; color: var(--accent); font-size: 13px; }
 
+        /* ============================================================
+           УПРАВЛЕНИЕ
+           ============================================================ */
         .theme-toggle, .lang-toggle {
             position: fixed;
             z-index: 100;
@@ -878,6 +933,9 @@
         .color-picker button:hover { transform: scale(1.15); }
         .color-picker button.active { border-color: var(--text); transform: scale(1.1); }
 
+        /* ============================================================
+           ФОРМА ОБРАТНОЙ СВЯЗИ
+           ============================================================ */
         .contact-form {
             background: var(--glass); border-radius: var(--radius); padding: 16px 20px; border: 1px solid var(--border);
             transition: all 0.3s ease; margin: 6px 0 4px;
@@ -903,6 +961,9 @@
         }
         .contact-form button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
+        /* ============================================================
+           ГАЛЕРЕЯ
+           ============================================================ */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -967,6 +1028,9 @@
         }
         .gallery-upload button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
+        /* ============================================================
+           ЗАГРУЗЧИК
+           ============================================================ */
         #loader {
             position: fixed;
             inset: 0;
@@ -995,6 +1059,9 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         #loader p { font-size: 14px; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.7; }
 
+        /* ============================================================
+           АДАПТИВ
+           ============================================================ */
         @media (max-width: 820px) {
             .right-col { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
             .right-col .status-card { margin: 0; }
@@ -1420,12 +1487,364 @@
 
     <script>
         // ============================================================
-        // === СНЕГОПАД (Canvas) ===
+        // === ПЕРЕВОДЫ ===
+        // ============================================================
+        const translations = {
+            ru: {
+                loader: 'ЗАГРУЗКА...',
+                subTitle: '⚡ <span>Тех-админ</span> · <span id="ageDisplay">14</span> лет · Москва',
+                bio: '👋 Привет! Я <strong>Nneocraft</strong> — молодой <span class="hl">тех-админ</span> из Москвы.<br>🎂 Родился <strong>03.12.2011</strong> · сейчас <span id="ageInline2" style="color:var(--accent);font-weight:600;">14</span> лет.<br>⚙️ Занимаюсь <strong>администрированием Minecraft-серверов</strong>, настройкой плагинов, оптимизацией и технической поддержкой.<br>🧠 Люблю разбираться в <strong>инфраструктуре</strong> и делать сервера стабильными и быстрыми.',
+                techTitle: '⚙️ Технологии',
+                mcTitle: '⛏️ Minecraft',
+                mcLabel: 'Тех-администрирование',
+                mcTag1: '🔧 Настройка плагинов',
+                mcTag2: '⚡ Оптимизация',
+                mcTag3: '🖥️ Администрирование',
+                mcTag4: '📊 Мониторинг',
+                mcTag5: '🔒 Безопасность',
+                goalsTitle: '🎯 Планы',
+                goal1Title: 'Научиться программированию',
+                goal1Desc: 'Java, Python, Node.js 🚀',
+                goal2Title: 'Создать сайт-визитку',
+                goal2Desc: 'Сделано! 🔥',
+                statsTitle: '📊 Статистика',
+                statLabel1: 'Посещений',
+                statLabel2: 'Лайков',
+                statLabel3: 'Игр сыграно',
+                statLabel4: 'Заметок',
+                likesLabel: 'лайков',
+                tabGames: '🎮 Игры',
+                tabGallery: '🖼️ Галерея',
+                tabNotes: '📝 Заметки',
+                tabChat: '💬 Чат',
+                tabContact: '📧 Контакты',
+                gameTetris: '🧩 Тетрис',
+                gameSnake: '🐍 Змейка',
+                tetrisScore: 'Счёт: 0',
+                tetrisBestLabel: 'Лучший: <span id="tetrisBest">0</span>',
+                tetrisStatus: '⏸ Ожидание',
+                tetrisPause: '⏸️ Пауза',
+                tetrisSaveStatus: '💾 Сохранено',
+                tetrisNewGame: '🔄 Новая игра',
+                tetrisSave: '💾 Сохранить',
+                tetrisPlay: '▶ Играть',
+                snakeScore: 'Счёт: 0',
+                snakeBestLabel: 'Лучший: <span id="snakeBest">0</span>',
+                snakeStatus: '⏸ Ожидание',
+                snakePause: '⏸️ Пауза',
+                snakeSaveStatus: '💾 Сохранено',
+                snakeNewGame: '🔄 Новая игра',
+                snakeSave: '💾 Сохранить',
+                snakePlay: '▶ Играть',
+                galleryTitle: '🖼️ Галерея скриншотов',
+                galleryUpload: '📤 Загрузить',
+                notesTitle: '📝 Общие заметки',
+                noteSearch: '🔍 Поиск по заметкам...',
+                noteTitlePlaceholder: 'Заголовок',
+                noteContentPlaceholder: 'Текст заметки',
+                noteColorDark: 'Тёмный',
+                noteColorBlue: 'Синий',
+                noteColorPurple: 'Фиолетовый',
+                noteColorRed: 'Красный',
+                noteColorGreen: 'Зелёный',
+                noteColorOrange: 'Оранжевый',
+                noteStickerPlaceholder: 'Стикер',
+                chatTitle: '💬 Общий чат',
+                chatNamePlaceholder: 'Ваше имя',
+                chatInputPlaceholder: 'Напишите сообщение...',
+                contactTitle: '📧 Связаться со мной',
+                contactNamePlaceholder: 'Ваше имя',
+                contactEmailPlaceholder: 'Ваш email',
+                contactMessagePlaceholder: 'Ваше сообщение...',
+                contactSend: '📤 Отправить',
+                visitorsLabel: 'посетителей',
+                themeDark: 'Тёмная',
+                themeLight: 'Светлая',
+                themeBlue: 'Синяя',
+                themePurple: 'Фиолетовая',
+                langToggle: '🌐 RU',
+                noNotes: '📝 Нет заметок. Напиши первую!',
+                noChat: '💬 Напиши первое сообщение!',
+                noGallery: '🖼️ Нет скриншотов. Загрузи свои!',
+                snowLabel: 'Снег',
+                snowOffLabel: 'Снег выкл'
+            },
+            en: {
+                loader: 'LOADING...',
+                subTitle: '⚡ <span>Tech Admin</span> · <span id="ageDisplay">14</span> years · Moscow',
+                bio: '👋 Hello! I\'m <strong>Nneocraft</strong> — a young <span class="hl">tech admin</span> from Moscow.<br>🎂 Born <strong>03.12.2011</strong> · now <span id="ageInline2" style="color:var(--accent);font-weight:600;">14</span> years old.<br>⚙️ I do <strong>Minecraft server administration</strong>, plugin configuration, optimization and technical support.<br>🧠 I love exploring <strong>infrastructure</strong> and making servers stable and fast.',
+                techTitle: '⚙️ Technologies',
+                mcTitle: '⛏️ Minecraft',
+                mcLabel: 'Tech Administration',
+                mcTag1: '🔧 Plugin Config',
+                mcTag2: '⚡ Optimization',
+                mcTag3: '🖥️ Administration',
+                mcTag4: '📊 Monitoring',
+                mcTag5: '🔒 Security',
+                goalsTitle: '🎯 Goals',
+                goal1Title: 'Learn programming',
+                goal1Desc: 'Java, Python, Node.js 🚀',
+                goal2Title: 'Create business card site',
+                goal2Desc: 'Done! 🔥',
+                statsTitle: '📊 Statistics',
+                statLabel1: 'Visits',
+                statLabel2: 'Likes',
+                statLabel3: 'Games played',
+                statLabel4: 'Notes',
+                likesLabel: 'likes',
+                tabGames: '🎮 Games',
+                tabGallery: '🖼️ Gallery',
+                tabNotes: '📝 Notes',
+                tabChat: '💬 Chat',
+                tabContact: '📧 Contact',
+                gameTetris: '🧩 Tetris',
+                gameSnake: '🐍 Snake',
+                tetrisScore: 'Score: 0',
+                tetrisBestLabel: 'Best: <span id="tetrisBest">0</span>',
+                tetrisStatus: '⏸ Waiting',
+                tetrisPause: '⏸️ Pause',
+                tetrisSaveStatus: '💾 Saved',
+                tetrisNewGame: '🔄 New Game',
+                tetrisSave: '💾 Save',
+                tetrisPlay: '▶ Play',
+                snakeScore: 'Score: 0',
+                snakeBestLabel: 'Best: <span id="snakeBest">0</span>',
+                snakeStatus: '⏸ Waiting',
+                snakePause: '⏸️ Pause',
+                snakeSaveStatus: '💾 Saved',
+                snakeNewGame: '🔄 New Game',
+                snakeSave: '💾 Save',
+                snakePlay: '▶ Play',
+                galleryTitle: '🖼️ Screenshot Gallery',
+                galleryUpload: '📤 Upload',
+                notesTitle: '📝 Public Notes',
+                noteSearch: '🔍 Search notes...',
+                noteTitlePlaceholder: 'Title',
+                noteContentPlaceholder: 'Note text',
+                noteColorDark: 'Dark',
+                noteColorBlue: 'Blue',
+                noteColorPurple: 'Purple',
+                noteColorRed: 'Red',
+                noteColorGreen: 'Green',
+                noteColorOrange: 'Orange',
+                noteStickerPlaceholder: 'Sticker',
+                chatTitle: '💬 Public Chat',
+                chatNamePlaceholder: 'Your name',
+                chatInputPlaceholder: 'Write a message...',
+                contactTitle: '📧 Contact Me',
+                contactNamePlaceholder: 'Your name',
+                contactEmailPlaceholder: 'Your email',
+                contactMessagePlaceholder: 'Your message...',
+                contactSend: '📤 Send',
+                visitorsLabel: 'visitors',
+                themeDark: 'Dark',
+                themeLight: 'Light',
+                themeBlue: 'Blue',
+                themePurple: 'Purple',
+                langToggle: '🌐 EN',
+                noNotes: '📝 No notes. Write the first one!',
+                noChat: '💬 Write the first message!',
+                noGallery: '🖼️ No screenshots. Upload yours!',
+                snowLabel: 'Snow',
+                snowOffLabel: 'Snow off'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'ru';
+
+        // ============================================================
+        // === ПРИМЕНЕНИЕ ПЕРЕВОДОВ (с проверками) ===
+        // ============================================================
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            const elements = {
+                loaderText: t.loader,
+                subTitle: t.subTitle,
+                bioParagraph: t.bio,
+                techTitle: t.techTitle,
+                mcTitle: t.mcTitle,
+                mcLabel: t.mcLabel,
+                mcTag1: t.mcTag1,
+                mcTag2: t.mcTag2,
+                mcTag3: t.mcTag3,
+                mcTag4: t.mcTag4,
+                mcTag5: t.mcTag5,
+                goalsTitle: t.goalsTitle,
+                goal1Title: t.goal1Title,
+                goal1Desc: t.goal1Desc,
+                goal2Title: t.goal2Title,
+                goal2Desc: t.goal2Desc,
+                statsTitle: t.statsTitle,
+                statLabel1: t.statLabel1,
+                statLabel2: t.statLabel2,
+                statLabel3: t.statLabel3,
+                statLabel4: t.statLabel4,
+                likesLabel: t.likesLabel,
+                visitorsLabel: t.visitorsLabel,
+                tabGames: t.tabGames,
+                tabGallery: t.tabGallery,
+                tabNotes: t.tabNotes,
+                tabChat: t.tabChat,
+                tabContact: t.tabContact,
+                gameTetris: t.gameTetris,
+                gameSnake: t.gameSnake,
+                tetrisScore: t.tetrisScore,
+                tetrisStatus: t.tetrisStatus,
+                tetrisPause: t.tetrisPause,
+                tetrisSaveStatus: t.tetrisSaveStatus,
+                tetrisReset: t.tetrisNewGame,
+                tetrisSave: t.tetrisSave,
+                tetrisPlay: t.tetrisPlay,
+                snakeScore: t.snakeScore,
+                snakeStatus: t.snakeStatus,
+                snakePause: t.snakePause,
+                snakeSaveStatus: t.snakeSaveStatus,
+                snakeReset: t.snakeNewGame,
+                snakeSave: t.snakeSave,
+                snakePlay: t.snakePlay,
+                galleryTitle: t.galleryTitle,
+                galleryUploadBtn: t.galleryUpload,
+                notesTitle: t.notesTitle,
+                chatTitle: t.chatTitle,
+                contactTitle: t.contactTitle,
+                contactSend: t.contactSend,
+                langToggle: t.langToggle
+            };
+
+            // Применяем текстовые поля
+            for (const [id, value] of Object.entries(elements)) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            }
+
+            // HTML-поля
+            const subTitleEl = document.getElementById('subTitle');
+            if (subTitleEl) subTitleEl.innerHTML = t.subTitle;
+
+            const bioEl = document.getElementById('bioParagraph');
+            if (bioEl) bioEl.innerHTML = t.bio;
+
+            const tetrisBestLabel = document.getElementById('tetrisBestLabel');
+            if (tetrisBestLabel) tetrisBestLabel.innerHTML = t.tetrisBestLabel;
+
+            const snakeBestLabel = document.getElementById('snakeBestLabel');
+            if (snakeBestLabel) snakeBestLabel.innerHTML = t.snakeBestLabel;
+
+            // Плейсхолдеры
+            const noteSearch = document.getElementById('noteSearch');
+            if (noteSearch) noteSearch.placeholder = t.noteSearch;
+            const noteTitle = document.getElementById('noteTitle');
+            if (noteTitle) noteTitle.placeholder = t.noteTitlePlaceholder;
+            const noteContent = document.getElementById('noteContent');
+            if (noteContent) noteContent.placeholder = t.noteContentPlaceholder;
+            const noteSticker = document.getElementById('noteSticker');
+            if (noteSticker) noteSticker.placeholder = t.noteStickerPlaceholder;
+            const chatName = document.getElementById('chatName');
+            if (chatName) chatName.placeholder = t.chatNamePlaceholder;
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) chatInput.placeholder = t.chatInputPlaceholder;
+            const contactName = document.getElementById('contactName');
+            if (contactName) contactName.placeholder = t.contactNamePlaceholder;
+            const contactEmail = document.getElementById('contactEmail');
+            if (contactEmail) contactEmail.placeholder = t.contactEmailPlaceholder;
+            const contactMessage = document.getElementById('contactMessage');
+            if (contactMessage) contactMessage.placeholder = t.contactMessagePlaceholder;
+
+            // Select options
+            const noteColor = document.getElementById('noteColor');
+            if (noteColor && noteColor.options) {
+                if (noteColor.options[0]) noteColor.options[0].text = t.noteColorDark;
+                if (noteColor.options[1]) noteColor.options[1].text = t.noteColorBlue;
+                if (noteColor.options[2]) noteColor.options[2].text = t.noteColorPurple;
+                if (noteColor.options[3]) noteColor.options[3].text = t.noteColorRed;
+                if (noteColor.options[4]) noteColor.options[4].text = t.noteColorGreen;
+                if (noteColor.options[5]) noteColor.options[5].text = t.noteColorOrange;
+            }
+
+            // Снег
+            const snowLabel = document.getElementById('snowLabel');
+            if (snowLabel) {
+                snowLabel.textContent = snowActive ? t.snowLabel : t.snowOffLabel;
+            }
+
+            updateThemeLabel();
+            renderNotes(document.getElementById('noteSearch')?.value || '');
+            renderChat();
+            renderGallery();
+        }
+
+        // ============================================================
+        // === КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ===
+        // ============================================================
+        document.getElementById('langToggle').addEventListener('click', function() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            localStorage.setItem('lang', currentLang);
+            applyLanguage(currentLang);
+            updateAge();
+            updateStats();
+            fetchSpotifyAndGames();
+        });
+
+        // ============================================================
+        // === КУРСОР ===
+        // ============================================================
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            ring.style.left = e.clientX + 'px';
+            ring.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn, .lang-toggle, .snow-toggle')
+            .forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+            });
+
+        // ============================================================
+        // === ЦВЕТА ===
+        // ============================================================
+        document.querySelectorAll('#colorPicker button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#colorPicker button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const color = this.dataset.color;
+                document.documentElement.style.setProperty('--accent', color);
+                document.documentElement.style.setProperty('--accent-glow', color + '33');
+                document.documentElement.style.setProperty('--accent-soft', color + '1a');
+                localStorage.setItem('accentColor', color);
+            });
+        });
+        const savedAccent = localStorage.getItem('accentColor');
+        if (savedAccent) {
+            document.documentElement.style.setProperty('--accent', savedAccent);
+            document.documentElement.style.setProperty('--accent-glow', savedAccent + '33');
+            document.documentElement.style.setProperty('--accent-soft', savedAccent + '1a');
+            document.querySelectorAll('#colorPicker button').forEach(b => {
+                b.classList.toggle('active', b.dataset.color === savedAccent);
+            });
+        }
+
+        // ============================================================
+        // === ЗАГРУЗКА ===
+        // ============================================================
+        window.addEventListener('load', () => {
+            document.getElementById('loader').classList.add('hidden');
+            applyLanguage(currentLang);
+            updateStats();
+            initSnow();
+        });
+
+        // ============================================================
+        // === СНЕГОПАД ===
         // ============================================================
         const snowCanvas = document.getElementById('snowCanvas');
         const ctx = snowCanvas.getContext('2d');
         let snowflakes = [];
-        let snowActive = localStorage.getItem('snowActive') !== 'false'; // по умолчанию включен
+        let snowActive = localStorage.getItem('snowActive') !== 'false';
         let animationFrame;
 
         function resizeCanvas() {
@@ -1465,7 +1884,6 @@
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.fill();
-                // Маленькое свечение
                 if (this.radius > 2.5) {
                     ctx.shadowColor = 'rgba(255, 255, 255, 0.1)';
                     ctx.shadowBlur = 10;
@@ -1473,16 +1891,14 @@
             }
         }
 
-        // Создаём снежинки
         function createSnowflakes(count = 180) {
             snowflakes = [];
             for (let i = 0; i < count; i++) {
                 const flake = new Snowflake();
-                flake.y = Math.random() * snowCanvas.height; // распределяем по всей высоте
+                flake.y = Math.random() * snowCanvas.height;
                 snowflakes.push(flake);
             }
         }
-        createSnowflakes();
 
         function animateSnow() {
             ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
@@ -1495,14 +1911,14 @@
             animationFrame = requestAnimationFrame(animateSnow);
         }
 
-        // Управление снегом
         function toggleSnow(show) {
             snowActive = show;
             localStorage.setItem('snowActive', String(show));
+            const t = translations[currentLang];
             if (show) {
                 snowCanvas.classList.remove('hidden');
                 if (!animationFrame) animateSnow();
-                document.getElementById('snowLabel').textContent = currentLang === 'ru' ? 'Снег' : 'Snow';
+                document.getElementById('snowLabel').textContent = t.snowLabel;
                 document.querySelector('.snow-toggle .icon').textContent = '❄️';
             } else {
                 snowCanvas.classList.add('hidden');
@@ -1510,33 +1926,1074 @@
                     cancelAnimationFrame(animationFrame);
                     animationFrame = null;
                 }
-                document.getElementById('snowLabel').textContent = currentLang === 'ru' ? 'Снег выкл' : 'Snow off';
+                document.getElementById('snowLabel').textContent = t.snowOffLabel;
                 document.querySelector('.snow-toggle .icon').textContent = '☀️';
             }
         }
 
-        // Кнопка включения/выключения
         document.getElementById('snowToggle').addEventListener('click', function() {
             toggleSnow(!snowActive);
         });
 
-        // Старт снега
-        if (snowActive) {
-            snowCanvas.classList.remove('hidden');
-            animateSnow();
-        } else {
-            snowCanvas.classList.add('hidden');
-            document.getElementById('snowLabel').textContent = currentLang === 'ru' ? 'Снег выкл' : 'Snow off';
-            document.querySelector('.snow-toggle .icon').textContent = '☀️';
+        function initSnow() {
+            createSnowflakes();
+            if (snowActive) {
+                snowCanvas.classList.remove('hidden');
+                animateSnow();
+            } else {
+                snowCanvas.classList.add('hidden');
+                const t = translations[currentLang];
+                document.getElementById('snowLabel').textContent = t.snowOffLabel;
+                document.querySelector('.snow-toggle .icon').textContent = '☀️';
+            }
         }
 
         // ============================================================
-        // === ОСТАЛЬНОЙ JS (без изменений, с адаптацией под снег) ===
+        // === СТАТИСТИКА ===
         // ============================================================
-        // ... (весь остальной код из предыдущей версии)
-        // Я сокращу его, чтобы не превышать лимит символов, но он полностью функционален.
-        // В реальном проекте вы скопируете полный JS из предыдущей версии.
-        console.log('✅ Снегопад работает!');
+        function updateStats() {
+            const visits = parseInt(localStorage.getItem('visitorCount') || '0');
+            const likes = parseInt(localStorage.getItem('likes') || '0');
+            const games = parseInt(localStorage.getItem('gamesPlayed') || '0');
+            const notes = JSON.parse(localStorage.getItem('notes') || '[]').length;
+            const statVisits = document.getElementById('statVisits');
+            if (statVisits) statVisits.textContent = visits;
+            const statLikes = document.getElementById('statLikes');
+            if (statLikes) statLikes.textContent = likes;
+            const statGames = document.getElementById('statGames');
+            if (statGames) statGames.textContent = games;
+            const statNotes = document.getElementById('statNotes');
+            if (statNotes) statNotes.textContent = notes;
+            const visitorCount = document.getElementById('visitorCount');
+            if (visitorCount) visitorCount.textContent = visits;
+        }
+
+        // ============================================================
+        // === ЛАЙКИ ===
+        // ============================================================
+        let likes = parseInt(localStorage.getItem('likes') || '0');
+        let userLiked = localStorage.getItem('userLiked') === 'true';
+        const likeCount = document.getElementById('likeCount');
+        if (likeCount) likeCount.textContent = likes;
+        const likeBtn = document.getElementById('likeBtn');
+        if (likeBtn) {
+            if (userLiked) {
+                likeBtn.textContent = '❤️';
+                likeBtn.classList.add('liked');
+            }
+            likeBtn.addEventListener('click', function() {
+                if (userLiked) {
+                    likes--;
+                    userLiked = false;
+                    this.textContent = '🤍';
+                    this.classList.remove('liked');
+                } else {
+                    likes++;
+                    userLiked = true;
+                    this.textContent = '❤️';
+                    this.classList.add('liked');
+                    this.style.animation = 'none';
+                    setTimeout(() => this.style.animation = 'likeAnim 0.4s ease', 10);
+                }
+                localStorage.setItem('likes', String(likes));
+                localStorage.setItem('userLiked', String(userLiked));
+                if (likeCount) likeCount.textContent = likes;
+                updateStats();
+            });
+        }
+
+        // ============================================================
+        // === ВОЗРАСТ ===
+        // ============================================================
+        function updateAge() {
+            const birth = new Date(2011, 11, 3);
+            const now = new Date();
+            let age = now.getFullYear() - birth.getFullYear();
+            const m = now.getMonth() - birth.getMonth();
+            const d = now.getDate() - birth.getDate();
+            if (m < 0 || (m === 0 && d < 0)) age--;
+            ['ageDisplay', 'ageInline', 'ageInline2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = age;
+            });
+        }
+        updateAge();
+        setInterval(updateAge, 60000);
+
+        // ============================================================
+        // === ПОСЕТИТЕЛИ ===
+        // ============================================================
+        (function() {
+            let count = parseInt(localStorage.getItem('visitorCount') || '0');
+            count++;
+            localStorage.setItem('visitorCount', String(count));
+            const visitorCount = document.getElementById('visitorCount');
+            if (visitorCount) visitorCount.textContent = count;
+            updateStats();
+        })();
+
+        // ============================================================
+        // === ТАЙМЕР ===
+        // ============================================================
+        (function() {
+            const birthDay = 3,
+                birthMonth = 11;
+            const elDays = document.getElementById('bDays');
+            const elHours = document.getElementById('bHours');
+            const elMinutes = document.getElementById('bMinutes');
+            const elSeconds = document.getElementById('bSeconds');
+
+            function update() {
+                const now = new Date();
+                let target = new Date(now.getFullYear(), birthMonth, birthDay);
+                if (now > target) target = new Date(now.getFullYear() + 1, birthMonth, birthDay);
+                const diff = target - now;
+                if (diff <= 0) return;
+                if (elDays) elDays.textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                if (elHours) elHours.textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                if (elMinutes) elMinutes.textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                if (elSeconds) elSeconds.textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            }
+            update();
+            setInterval(update, 1000);
+        })();
+
+        // ============================================================
+        // === ПЛАНЫ ===
+        // ============================================================
+        document.querySelectorAll('.goal-item').forEach(el => {
+            el.addEventListener('click', function() {
+                const isCompleted = this.classList.toggle('completed');
+                this.querySelector('.goal-check').textContent = isCompleted ? '✅' : '⬜';
+            });
+        });
+
+        // ============================================================
+        // === ВКЛАДКИ ===
+        // ============================================================
+        document.querySelectorAll('.tabs .tab-btn, .game-tabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.closest('.tabs') || this.closest('.game-tabs');
+                if (!parent) return;
+                parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.dataset.tab || this.dataset.game;
+                if (!targetId) return;
+                const content = this.closest('.card');
+                const prefix = this.closest('.game-tabs') ? 'game-' : 'tab-';
+                content.querySelectorAll(`.${prefix}content`).forEach(el => el.classList.remove('active'));
+                const target = content.querySelector(`#${prefix}${targetId}`);
+                if (target) target.classList.add('active');
+                if (targetId === 'tetris' && tetrisStarted) drawTetris();
+                if (targetId === 'snake' && snakeStarted) drawSnake();
+            });
+        });
+
+        // ============================================================
+        // === ПОГОДА ===
+        // ============================================================
+        (async function getWeather() {
+            try {
+                const res = await fetch('https://wttr.in/Moscow?format=j1&lang=ru');
+                const data = await res.json();
+                const temp = data.current_condition[0].temp_C;
+                const desc = data.current_condition[0].weatherDesc[0].value;
+                const code = data.current_condition[0].weatherCode;
+                const icons = { '113': '☀️', '116': '⛅', '119': '☁️', '122': '☁️', '143': '🌫️', '176': '🌦️', '179': '🌨️',
+                    '182': '🌧️', '185': '🌧️', '200': '⛈️', '227': '❄️', '230': '❄️', '248': '🌫️', '260': '🌫️',
+                    '263': '🌦️', '266': '🌧️', '281': '🌧️', '284': '🌧️', '293': '🌦️', '296': '🌧️', '299': '🌧️',
+                    '302': '🌧️', '305': '🌧️', '308': '🌧️', '311': '🌧️', '314': '🌧️', '317': '🌧️', '320': '🌨️',
+                    '323': '🌨️', '326': '🌨️', '329': '❄️', '332': '❄️', '335': '❄️', '338': '❄️', '350': '🌧️',
+                    '353': '🌦️', '356': '🌧️', '359': '🌧️', '362': '🌨️', '365': '🌨️', '368': '🌨️', '371': '❄️',
+                    '377': '🌧️', '386': '⛈️', '389': '⛈️', '392': '⛈️', '395': '❄️'
+                };
+                const weatherIcon = document.getElementById('weatherIcon');
+                if (weatherIcon) weatherIcon.textContent = icons[code] || '🌍';
+                const weatherTemp = document.getElementById('weatherTemp');
+                if (weatherTemp) weatherTemp.textContent = `${temp}°`;
+                const weatherDesc = document.getElementById('weatherDesc');
+                if (weatherDesc) weatherDesc.textContent = desc;
+            } catch {
+                const weatherDesc = document.getElementById('weatherDesc');
+                if (weatherDesc) weatherDesc.textContent = 'Ошибка';
+            }
+        })();
+
+        // ============================================================
+        // === СПОТИФАЙ + DISCORD ===
+        // ============================================================
+        async function fetchSpotifyAndGames() {
+            const userId = '994821782819311636';
+            try {
+                const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+                const data = await res.json();
+                if (!data.success) throw new Error('Lanyard error');
+                const status = data.data;
+                const spotify = status.spotify;
+                const artworkEl = document.getElementById('spotifyArtwork');
+                const emojiEl = document.getElementById('spotifyEmoji');
+
+                if (spotify && spotify.song) {
+                    const spotifyTrack = document.getElementById('spotifyTrack');
+                    if (spotifyTrack) spotifyTrack.textContent = spotify.song;
+                    const spotifyArtist = document.getElementById('spotifyArtist');
+                    if (spotifyArtist) spotifyArtist.textContent = spotify.artist;
+                    const spotifyStatusDot = document.getElementById('spotifyStatusDot');
+                    if (spotifyStatusDot) spotifyStatusDot.className = 'spotify-status-dot';
+                    if (spotify.album_art_url && artworkEl) {
+                        artworkEl.innerHTML =
+                            `<img src="${spotify.album_art_url}" alt="Обложка" loading="lazy" onerror="this.style.display='none';document.getElementById('spotifyEmoji').style.display='block'">`;
+                        if (emojiEl) emojiEl.style.display = 'none';
+                    } else if (artworkEl) {
+                        artworkEl.innerHTML = '<span id="spotifyEmoji">🎵</span>';
+                        if (emojiEl) emojiEl.style.display = 'block';
+                    }
+                } else {
+                    const spotifyTrack = document.getElementById('spotifyTrack');
+                    if (spotifyTrack) spotifyTrack.textContent = currentLang === 'ru' ? 'Не играет' : 'Not playing';
+                    const spotifyArtist = document.getElementById('spotifyArtist');
+                    if (spotifyArtist) spotifyArtist.textContent = '—';
+                    const spotifyStatusDot = document.getElementById('spotifyStatusDot');
+                    if (spotifyStatusDot) spotifyStatusDot.className = 'spotify-status-dot paused';
+                    if (artworkEl) {
+                        artworkEl.innerHTML = '<span id="spotifyEmoji">🎵</span>';
+                        if (emojiEl) emojiEl.style.display = 'block';
+                    }
+                }
+
+                const activities = status.activities || [];
+                const game = activities.find(a => a.type === 0);
+
+                const dot = document.getElementById('discordDot');
+                const text = document.getElementById('discordText');
+                const gameName = document.getElementById('discordGameName');
+                const gameIcon = document.getElementById('discordGameIcon');
+
+                const isRu = currentLang === 'ru';
+
+                switch (status.discord_status) {
+                    case 'online':
+                        if (dot) dot.className = 'dot online';
+                        if (game) {
+                            if (text) text.innerHTML = `🎮 <strong>${isRu ? 'Играет' : 'Playing'}</strong> <span class="game">${game.name}</span>`;
+                            if (gameName) gameName.textContent = game.name;
+                            if (gameIcon) gameIcon.textContent = '🎮';
+                            if (game.assets && game.assets.large_image && gameIcon) {
+                                const iconName = game.assets.large_image.replace('spotify:', '').replace('mp:', '');
+                                const iconUrl =
+                                    `https://cdn.discordapp.com/app-assets/${game.application_id || '383226320970055681'}/${iconName}.png`;
+                                gameIcon.innerHTML =
+                                    `<img src="${iconUrl}" alt="game" style="width:18px;height:18px;border-radius:4px;vertical-align:middle;" onerror="this.style.display='none';this.parentElement.textContent='🎮'">`;
+                            } else if (gameIcon) {
+                                gameIcon.textContent = '🎮';
+                            }
+                        } else {
+                            if (text) text.innerHTML = `🟢 <strong>${isRu ? 'Онлайн' : 'Online'}</strong>`;
+                            if (gameName) gameName.textContent = '—';
+                            if (gameIcon) gameIcon.textContent = '🟢';
+                        }
+                        break;
+                    case 'idle':
+                        if (dot) dot.className = 'dot idle';
+                        if (text) text.innerHTML = `🌙 <strong>${isRu ? 'Отошёл' : 'Away'}</strong>`;
+                        if (gameName) gameName.textContent = '—';
+                        if (gameIcon) gameIcon.textContent = '🌙';
+                        break;
+                    case 'dnd':
+                        if (dot) dot.className = 'dot dnd';
+                        if (text) text.innerHTML = `🔴 <strong>${isRu ? 'Не беспокоить' : 'DND'}</strong>`;
+                        if (gameName) gameName.textContent = '—';
+                        if (gameIcon) gameIcon.textContent = '🔴';
+                        break;
+                    default:
+                        if (dot) dot.className = 'dot offline';
+                        if (text) text.innerHTML = `⚫ <strong>${isRu ? 'Офлайн' : 'Offline'}</strong>`;
+                        if (gameName) gameName.textContent = '—';
+                        if (gameIcon) gameIcon.textContent = '⚫';
+                }
+            } catch {
+                const spotifyTrack = document.getElementById('spotifyTrack');
+                if (spotifyTrack) spotifyTrack.textContent = 'Ошибка';
+                const spotifyArtist = document.getElementById('spotifyArtist');
+                if (spotifyArtist) spotifyArtist.textContent = '—';
+                const discordText = document.getElementById('discordText');
+                if (discordText) discordText.textContent = '⚠️ Ошибка';
+                const discordGameName = document.getElementById('discordGameName');
+                if (discordGameName) discordGameName.textContent = '—';
+            }
+        }
+        fetchSpotifyAndGames();
+        setInterval(fetchSpotifyAndGames, 15000);
+
+        // ============================================================
+        // === ЗАМЕТКИ ===
+        // ============================================================
+        let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        const notesGrid = document.getElementById('notesGrid');
+        const noteSearch = document.getElementById('noteSearch');
+
+        function renderNotes(filter = '') {
+            const t = translations[currentLang];
+            const filtered = filter ? notes.filter(n =>
+                n.title.toLowerCase().includes(filter.toLowerCase()) ||
+                n.content.toLowerCase().includes(filter.toLowerCase())
+            ) : notes;
+            if (notesGrid) {
+                notesGrid.innerHTML = '';
+                if (!filtered.length) {
+                    notesGrid.innerHTML =
+                        `<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:16px;font-size:13px;">${t.noNotes}</div>`;
+                    return;
+                }
+                filtered.forEach((note, idx) => {
+                    const realIdx = notes.indexOf(note);
+                    const card = document.createElement('div');
+                    card.className = 'note-card';
+                    card.style.borderLeft = `3px solid ${note.color || 'var(--accent)'}`;
+                    const author = note.author || 'Аноним';
+                    card.innerHTML = `
+                        <span class="sticker">${note.sticker || '📌'}</span>
+                        <div class="title">${note.title}</div>
+                        <div class="content">${note.content}</div>
+                        <div class="meta">
+                            <span class="author">👤 ${author}</span>
+                            <span>${note.date}</span>
+                        </div>
+                        <button class="delete-btn" data-idx="${realIdx}">✕</button>
+                    `;
+                    card.querySelector('.delete-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (confirm(currentLang === 'ru' ? 'Удалить заметку?' : 'Delete note?')) {
+                            notes.splice(realIdx, 1);
+                            localStorage.setItem('notes', JSON.stringify(notes));
+                            renderNotes(noteSearch ? noteSearch.value : '');
+                            updateStats();
+                        }
+                    });
+                    notesGrid.appendChild(card);
+                });
+                updateStats();
+            }
+        }
+
+        if (noteSearch) {
+            noteSearch.addEventListener('input', () => renderNotes(noteSearch.value));
+        }
+
+        document.getElementById('noteAdd').addEventListener('click', () => {
+            const title = document.getElementById('noteTitle').value.trim() || (currentLang === 'ru' ? 'Без названия' :
+                'Untitled');
+            const content = document.getElementById('noteContent').value.trim();
+            const color = document.getElementById('noteColor').value;
+            const sticker = document.getElementById('noteSticker').value.trim() || '📌';
+            if (!content) {
+                alert(currentLang === 'ru' ? 'Напиши текст заметки!' : 'Write note text!');
+                return;
+            }
+            const now = new Date();
+            const date = now.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
+                ' ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            const author = document.getElementById('chatName').value.trim() || 'Аноним';
+            notes.unshift({ title, content, color, sticker, date, author });
+            localStorage.setItem('notes', JSON.stringify(notes));
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            document.getElementById('noteSticker').value = '📌';
+            renderNotes(noteSearch ? noteSearch.value : '');
+            updateStats();
+        });
+
+        document.getElementById('notesExport').addEventListener('click', () => {
+            const blob = new Blob([JSON.stringify(notes, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `notes_${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('notesImport').addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = () => {
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (Array.isArray(data)) {
+                            notes = data;
+                            localStorage.setItem('notes', JSON.stringify(notes));
+                            renderNotes(noteSearch ? noteSearch.value : '');
+                            updateStats();
+                        }
+                    } catch { alert(currentLang === 'ru' ? 'Ошибка при импорте' : 'Import error'); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        });
+        renderNotes();
+
+        // ============================================================
+        // === ЧАТ ===
+        // ============================================================
+        let chatMessages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+        const chatContainer = document.getElementById('chatMessages');
+
+        function renderChat() {
+            const t = translations[currentLang];
+            if (chatContainer) {
+                chatContainer.innerHTML = '';
+                if (!chatMessages.length) {
+                    chatContainer.innerHTML =
+                        `<div style="text-align:center;color:var(--text-secondary);padding:10px;font-size:13px;">${t.noChat}</div>`;
+                    return;
+                }
+                chatMessages.forEach(msg => {
+                    const div = document.createElement('div');
+                    div.className = `chat-msg${msg.self ? ' self' : ''}`;
+                    div.innerHTML = `
+                        <span class="name">${msg.name}</span>
+                        <span class="time">${msg.time}</span>
+                        <div class="text">${msg.text}</div>
+                    `;
+                    chatContainer.appendChild(div);
+                });
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+
+        document.getElementById('chatSend').addEventListener('click', () => {
+            const name = document.getElementById('chatName').value.trim() || (currentLang === 'ru' ? 'Аноним' :
+                'Anonymous');
+            const text = document.getElementById('chatInput').value.trim();
+            if (!text) {
+                alert(currentLang === 'ru' ? 'Напиши сообщение!' : 'Write a message!');
+                return;
+            }
+            const now = new Date();
+            const time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            chatMessages.push({ name, text, time, self: name === 'Nneocraft' });
+            localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+            document.getElementById('chatInput').value = '';
+            renderChat();
+        });
+        document.getElementById('chatInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('chatSend').click();
+        });
+        renderChat();
+
+        // ============================================================
+        // === КОНТАКТЫ ===
+        // ============================================================
+        document.getElementById('contactSend').addEventListener('click', function() {
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            if (!message) {
+                document.getElementById('contactStatus').textContent = currentLang === 'ru' ?
+                    '⚠️ Напишите сообщение!' : '⚠️ Write a message!';
+                return;
+            }
+            const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+            contacts.push({ name: name || (currentLang === 'ru' ? 'Аноним' : 'Anonymous'), email, message, date: new Date()
+                    .toLocaleString() });
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            document.getElementById('contactStatus').textContent = currentLang === 'ru' ? '✅ Сообщение отправлено!' :
+                '✅ Message sent!';
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+            setTimeout(() => {
+                document.getElementById('contactStatus').textContent = '';
+            }, 3000);
+        });
+
+        // ============================================================
+        // === ГАЛЕРЕЯ ===
+        // ============================================================
+        let galleryImages = JSON.parse(localStorage.getItem('gallery') || '[]');
+        const galleryGrid = document.getElementById('galleryGrid');
+
+        function renderGallery() {
+            const t = translations[currentLang];
+            if (galleryGrid) {
+                galleryGrid.innerHTML = '';
+                const avatarSrc = localStorage.getItem('avatarImage') || 'avatar.png';
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = 'gallery-item';
+                avatarDiv.style.border = '2px solid var(--accent)';
+                avatarDiv.style.boxShadow = '0 0 30px var(--accent-glow)';
+                avatarDiv.innerHTML = `
+                    <img src="${avatarSrc}" alt="Аватар" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=Nneocraft&size=120&background=0a0a16&color=7abfff&bold=true'">
+                    <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.5);color:#fff;font-size:9px;text-align:center;padding:2px;font-weight:500;letter-spacing:0.5px;">⭐ Аватар</div>
+                `;
+                galleryGrid.appendChild(avatarDiv);
+                if (!galleryImages.length) {
+                    const empty = document.createElement('div');
+                    empty.style.cssText =
+                        'grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:16px;font-size:13px;';
+                    empty.textContent = t.noGallery;
+                    galleryGrid.appendChild(empty);
+                    return;
+                }
+                galleryImages.forEach((img, idx) => {
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `
+                        <img src="${img}" alt="Скриншот ${idx+1}" loading="lazy">
+                        <button class="delete-img" data-idx="${idx}">✕</button>
+                    `;
+                    div.querySelector('.delete-img').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (confirm(currentLang === 'ru' ? 'Удалить скриншот?' :
+                                'Delete screenshot?')) {
+                            galleryImages.splice(idx, 1);
+                            localStorage.setItem('gallery', JSON.stringify(galleryImages));
+                            renderGallery();
+                        }
+                    });
+                    galleryGrid.appendChild(div);
+                });
+            }
+        }
+
+        document.getElementById('galleryUploadBtn').addEventListener('click', function() {
+            const input = document.getElementById('galleryInput');
+            const files = input.files;
+            if (!files.length) {
+                alert(currentLang === 'ru' ? 'Выберите файлы!' : 'Select files!');
+                return;
+            }
+            let loaded = 0;
+            const total = files.length;
+            for (let file of files) {
+                if (!file.type.startsWith('image/')) continue;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const dataUrl = e.target.result;
+                    if (loaded === 0) {
+                        localStorage.setItem('avatarImage', dataUrl);
+                        const avatarImg = document.getElementById('avatarImg');
+                        if (avatarImg) avatarImg.src = dataUrl;
+                    }
+                    galleryImages.push(dataUrl);
+                    loaded++;
+                    if (loaded === total) {
+                        localStorage.setItem('gallery', JSON.stringify(galleryImages));
+                        renderGallery();
+                        input.value = '';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        renderGallery();
+
+        // ============================================================
+        // === ТЕМА ===
+        // ============================================================
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function updateThemeLabel() {
+            const t = translations[currentLang];
+            const labels = { dark: t.themeDark, light: t.themeLight, blue: t.themeBlue, purple: t.themePurple };
+            const themeLabel = document.getElementById('themeLabel');
+            if (themeLabel) themeLabel.textContent = labels[currentTheme] || t.themeDark;
+            const icons = { dark: '🌙', light: '☀️', blue: '🔵', purple: '🟣' };
+            const themeIcon = document.getElementById('themeIcon');
+            if (themeIcon) themeIcon.textContent = icons[currentTheme] || '🌙';
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+            updateThemeLabel();
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const themes = ['dark', 'light', 'blue', 'purple'];
+            let idx = themes.indexOf(currentTheme);
+            idx = (idx + 1) % themes.length;
+            applyTheme(themes[idx]);
+        });
+        applyTheme(currentTheme);
+
+        // ============================================================
+        // === ТЕТРИС ===
+        // ============================================================
+        const tetrisCanvas = document.getElementById('tetrisCanvas');
+        const tctx = tetrisCanvas ? tetrisCanvas.getContext('2d') : null;
+        const COLS = 10,
+            ROWS = 20,
+            BS = tetrisCanvas ? tetrisCanvas.width / COLS : 20;
+        let tBoard = [],
+            tPiece = null,
+            tScore = 0,
+            tBest = parseInt(localStorage.getItem('tetrisBest') || '0');
+        let tInterval = null,
+            tRunning = false,
+            tPaused = false;
+        let tetrisStarted = false;
+        const T_PIECES = [
+            [
+                [1, 1, 1, 1]
+            ],
+            [
+                [1, 1],
+                [1, 1]
+            ],
+            [
+                [0, 1, 0],
+                [1, 1, 1]
+            ],
+            [
+                [1, 0, 0],
+                [1, 1, 1]
+            ],
+            [
+                [0, 0, 1],
+                [1, 1, 1]
+            ],
+            [
+                [0, 1, 1],
+                [1, 1, 0]
+            ],
+            [
+                [1, 1, 0],
+                [0, 1, 1]
+            ]
+        ];
+        const tetrisBest = document.getElementById('tetrisBest');
+        if (tetrisBest) tetrisBest.textContent = tBest;
+
+        function initTetris() {
+            if (!tctx) return;
+            tBoard = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+            tScore = 0;
+            tPaused = false;
+            const t = translations[currentLang];
+            const tetrisScore = document.getElementById('tetrisScore');
+            if (tetrisScore) tetrisScore.textContent = t.tetrisScore;
+            const tetrisStatus = document.getElementById('tetrisStatus');
+            if (tetrisStatus) tetrisStatus.textContent = '▶ Игра идёт';
+            spawnTetris();
+            drawTetris();
+        }
+
+        function spawnTetris() {
+            if (!tctx) return false;
+            const idx = Math.floor(Math.random() * T_PIECES.length);
+            const shape = T_PIECES[idx];
+            tPiece = { shape, x: Math.floor((COLS - shape[0].length) / 2), y: 0 };
+            if (collision(tPiece.shape, tPiece.x, tPiece.y)) {
+                clearInterval(tInterval);
+                tRunning = false;
+                tPiece = null;
+                updateTetrisBest();
+                alert((currentLang === 'ru' ? '💥 Игра окончена! Счёт: ' : '💥 Game over! Score: ') + tScore);
+                return false;
+            }
+            return true;
+        }
+
+        function collision(shape, offX, offY) {
+            for (let r = 0; r < shape.length; r++)
+                for (let c = 0; c < shape[0].length; c++)
+                    if (shape[r][c]) {
+                        const x = offX + c,
+                            y = offY + r;
+                        if (x < 0 || x >= COLS || y >= ROWS || y < 0) return true;
+                        if (y >= 0 && tBoard[y][x]) return true;
+                    }
+            return false;
+        }
+
+        function mergeTetris() {
+            if (!tPiece || !tctx) return;
+            const { shape, x, y } = tPiece;
+            for (let r = 0; r < shape.length; r++)
+                for (let c = 0; c < shape[0].length; c++)
+                    if (shape[r][c]) {
+                        const boardY = y + r,
+                            boardX = x + c;
+                        if (boardY >= 0 && boardY < ROWS && boardX >= 0 && boardX < COLS)
+                            tBoard[boardY][boardX] = 1;
+                    }
+            clearLines();
+            if (!spawnTetris()) { clearInterval(tInterval);
+                tRunning = false; }
+            drawTetris();
+        }
+
+        function clearLines() {
+            let cleared = 0;
+            for (let r = ROWS - 1; r >= 0; r--)
+                if (tBoard[r].every(cell => cell === 1)) {
+                    tBoard.splice(r, 1);
+                    tBoard.unshift(Array(COLS).fill(0));
+                    cleared++;
+                    r++;
+                }
+            if (cleared) {
+                tScore += [0, 100, 300, 500, 800][cleared] || 1000;
+                const t = translations[currentLang];
+                const tetrisScore = document.getElementById('tetrisScore');
+                if (tetrisScore) tetrisScore.textContent = t.tetrisScore.replace('0', tScore);
+                updateTetrisBest();
+                let games = parseInt(localStorage.getItem('gamesPlayed') || '0');
+                games++;
+                localStorage.setItem('gamesPlayed', String(games));
+                updateStats();
+            }
+        }
+
+        function updateTetrisBest() {
+            if (tScore > tBest) {
+                tBest = tScore;
+                localStorage.setItem('tetrisBest', String(tBest));
+                const tetrisBest = document.getElementById('tetrisBest');
+                if (tetrisBest) tetrisBest.textContent = tBest;
+                const tetrisSaveStatus = document.getElementById('tetrisSaveStatus');
+                if (tetrisSaveStatus) {
+                    tetrisSaveStatus.textContent = '🏆 ' + (currentLang === 'ru' ? 'Новый рекорд!' : 'New record!');
+                    setTimeout(() => tetrisSaveStatus.textContent = translations[currentLang].tetrisSaveStatus, 3000);
+                }
+            }
+        }
+
+        function drawTetris() {
+            if (!tctx) return;
+            tctx.clearRect(0, 0, tetrisCanvas.width, tetrisCanvas.height);
+            for (let r = 0; r < ROWS; r++)
+                for (let c = 0; c < COLS; c++) {
+                    tctx.fillStyle = tBoard[r][c] ? 'rgba(120,180,255,0.08)' : 'rgba(255,255,255,0.01)';
+                    tctx.fillRect(c * BS, r * BS, BS - 0.5, BS - 0.5);
+                    if (tBoard[r][c]) {
+                        tctx.fillStyle = 'var(--accent)';
+                        tctx.shadowColor = 'var(--accent-glow)';
+                        tctx.shadowBlur = 6;
+                        tctx.fillRect(c * BS + 2, r * BS + 2, BS - 4, BS - 4);
+                        tctx.shadowBlur = 0;
+                    }
+                }
+            if (tPiece) {
+                const { shape, x, y } = tPiece;
+                for (let r = 0; r < shape.length; r++)
+                    for (let c = 0; c < shape[0].length; c++)
+                        if (shape[r][c]) {
+                            tctx.fillStyle = '#fff';
+                            tctx.shadowColor = 'rgba(120,180,255,0.2)';
+                            tctx.shadowBlur = 10;
+                            tctx.fillRect((x + c) * BS + 2, (y + r) * BS + 2, BS - 4, BS - 4);
+                            tctx.shadowBlur = 0;
+                        }
+            }
+        }
+
+        function moveTetris(dx, dy) {
+            if (!tPiece || !tRunning || tPaused) return;
+            if (!collision(tPiece.shape, tPiece.x + dx, tPiece.y + dy)) {
+                tPiece.x += dx;
+                tPiece.y += dy;
+                drawTetris();
+            } else if (dy === 1) mergeTetris();
+        }
+
+        function rotateTetris() {
+            if (!tPiece || !tRunning || tPaused) return;
+            const shape = tPiece.shape;
+            const rotated = shape[0].map((_, idx) => shape.map(row => row[idx]).reverse());
+            if (!collision(rotated, tPiece.x, tPiece.y)) { tPiece.shape = rotated;
+                drawTetris(); }
+        }
+
+        function dropTetris() {
+            if (!tPiece || !tRunning || tPaused) return;
+            while (!collision(tPiece.shape, tPiece.x, tPiece.y + 1)) tPiece.y++;
+            mergeTetris();
+            drawTetris();
+        }
+
+        document.getElementById('tetrisPlay').addEventListener('click', function() {
+            if (tetrisStarted) return;
+            tetrisStarted = true;
+            this.style.display = 'none';
+            const tetrisPause = document.getElementById('tetrisPause');
+            if (tetrisPause) tetrisPause.style.display = 'inline-block';
+            const tetrisReset = document.getElementById('tetrisReset');
+            if (tetrisReset) tetrisReset.style.display = 'inline-block';
+            const tetrisSave = document.getElementById('tetrisSave');
+            if (tetrisSave) tetrisSave.style.display = 'inline-block';
+            const tetrisMobile = document.getElementById('tetrisMobile');
+            if (tetrisMobile) tetrisMobile.style.display = 'grid';
+            const tetrisPlaceholder = document.getElementById('tetrisPlaceholder');
+            if (tetrisPlaceholder) tetrisPlaceholder.style.display = 'none';
+            if (tetrisCanvas) tetrisCanvas.classList.add('active');
+            const tetrisStatus = document.getElementById('tetrisStatus');
+            if (tetrisStatus) tetrisStatus.textContent = '▶ Игра идёт';
+            initTetris();
+            tRunning = true;
+            tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
+        });
+
+        document.getElementById('tetrisPause').addEventListener('click', function() {
+            if (!tRunning) return;
+            tPaused = !tPaused;
+            const t = translations[currentLang];
+            const tetrisStatus = document.getElementById('tetrisStatus');
+            if (tetrisStatus) {
+                tetrisStatus.textContent = tPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' : 'Paused') : '▶ Игра идёт';
+            }
+        });
+
+        document.getElementById('tetrisReset').addEventListener('click', function() {
+            if (tInterval) clearInterval(tInterval);
+            tRunning = true;
+            tPaused = false;
+            initTetris();
+            tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
+        });
+
+        document.getElementById('tetrisSave').addEventListener('click', function() {
+            localStorage.setItem('tetrisBest', String(tBest));
+            const tetrisSaveStatus = document.getElementById('tetrisSaveStatus');
+            if (tetrisSaveStatus) {
+                tetrisSaveStatus.textContent = '✅ ' + (currentLang === 'ru' ? 'Сохранено!' : 'Saved!');
+                setTimeout(() => tetrisSaveStatus.textContent = translations[currentLang].tetrisSaveStatus, 2000);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('tab-games')?.classList.contains('active')) return;
+            if (document.getElementById('game-tetris')?.classList.contains('active') && tetrisStarted) {
+                if (e.key === 'ArrowLeft') { e.preventDefault();
+                    moveTetris(-1, 0); }
+                if (e.key === 'ArrowRight') { e.preventDefault();
+                    moveTetris(1, 0); }
+                if (e.key === 'ArrowDown') { e.preventDefault();
+                    moveTetris(0, 1); }
+                if (e.key === 'ArrowUp') { e.preventDefault();
+                    rotateTetris(); }
+                if (e.key === ' ') { e.preventDefault();
+                    dropTetris(); }
+            }
+        });
+        document.querySelectorAll('[data-tetris]').forEach(btn => {
+            ['touchstart', 'mousedown'].forEach(ev => btn.addEventListener(ev, (e) => {
+                e.preventDefault();
+                if (!tetrisStarted) return;
+                const a = btn.dataset.tetris;
+                if (a === 'left') moveTetris(-1, 0);
+                if (a === 'right') moveTetris(1, 0);
+                if (a === 'down') moveTetris(0, 1);
+                if (a === 'rotate') rotateTetris();
+                if (a === 'drop') dropTetris();
+            }));
+        });
+
+        // ============================================================
+        // === ЗМЕЙКА ===
+        // ============================================================
+        const snakeCanvas = document.getElementById('snakeCanvas');
+        const sctx = snakeCanvas ? snakeCanvas.getContext('2d') : null;
+        const SZ = 15;
+        const S_COLS = snakeCanvas ? Math.floor(snakeCanvas.width / SZ) : 20;
+        const S_ROWS = snakeCanvas ? Math.floor(snakeCanvas.height / SZ) : 20;
+        let snake = [],
+            sDir = { dx: 1, dy: 0 },
+            sNext = { dx: 1, dy: 0 },
+            sFood = null;
+        let sScore = 0,
+            sBest = parseInt(localStorage.getItem('snakeBest') || '0');
+        let sRunning = false,
+            sPaused = false,
+            sInterval = null;
+        let snakeStarted = false;
+        const snakeBest = document.getElementById('snakeBest');
+        if (snakeBest) snakeBest.textContent = sBest;
+
+        function initSnake() {
+            if (!sctx) return;
+            const mx = Math.floor(S_COLS / 2),
+                my = Math.floor(S_ROWS / 2);
+            snake = [{ x: mx, y: my }, { x: mx - 1, y: my }, { x: mx - 2, y: my }];
+            sDir = { dx: 1, dy: 0 };
+            sNext = { dx: 1, dy: 0 };
+            sScore = 0;
+            sPaused = false;
+            const t = translations[currentLang];
+            const snakeScore = document.getElementById('snakeScore');
+            if (snakeScore) snakeScore.textContent = t.snakeScore;
+            const snakeStatus = document.getElementById('snakeStatus');
+            if (snakeStatus) snakeStatus.textContent = '▶ Игра идёт';
+            spawnFoodSnake();
+            drawSnake();
+        }
+
+        function spawnFoodSnake() {
+            let pos, attempts = 0;
+            do {
+                pos = { x: Math.floor(Math.random() * S_COLS), y: Math.floor(Math.random() * S_ROWS) };
+                attempts++;
+            } while (snake.some(s => s.x === pos.x && s.y === pos.y) && attempts < 100);
+            sFood = pos;
+        }
+
+        function drawSnake() {
+            if (!sctx) return;
+            sctx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            if (sFood) {
+                sctx.fillStyle = '#ff6b6b';
+                sctx.shadowColor = 'rgba(255,100,100,0.15)';
+                sctx.shadowBlur = 12;
+                sctx.beginPath();
+                sctx.arc(sFood.x * SZ + SZ / 2, sFood.y * SZ + SZ / 2, SZ / 2 - 2, 0, Math.PI * 2);
+                sctx.fill();
+                sctx.shadowBlur = 0;
+            }
+            snake.forEach((seg, idx) => {
+                const isHead = idx === 0;
+                sctx.fillStyle = isHead ? '#fff' : 'var(--accent)';
+                sctx.shadowColor = `rgba(120,180,255,${isHead ? 0.15 : 0.03})`;
+                sctx.shadowBlur = isHead ? 12 : 4;
+                sctx.fillRect(seg.x * SZ + 1, seg.y * SZ + 1, SZ - 2, SZ - 2);
+                sctx.shadowBlur = 0;
+            });
+        }
+
+        function moveSnake() {
+            if (!sRunning || sPaused) return;
+            sDir = { ...sNext };
+            const head = { ...snake[0] };
+            head.x += sDir.dx;
+            head.y += sDir.dy;
+            if (head.x < 0 || head.x >= S_COLS || head.y < 0 || head.y >= S_ROWS) { gameOverSnake(); return; }
+            if (snake.some((seg, idx) => idx > 0 && seg.x === head.x && seg.y === head.y)) { gameOverSnake(); return; }
+            snake.unshift(head);
+            if (sFood && head.x === sFood.x && head.y === sFood.y) {
+                sScore += 10;
+                const t = translations[currentLang];
+                const snakeScore = document.getElementById('snakeScore');
+                if (snakeScore) snakeScore.textContent = t.snakeScore.replace('0', sScore);
+                updateSnakeBest();
+                spawnFoodSnake();
+            } else snake.pop();
+            drawSnake();
+        }
+
+        function updateSnakeBest() {
+            if (sScore > sBest) {
+                sBest = sScore;
+                localStorage.setItem('snakeBest', String(sBest));
+                const snakeBest = document.getElementById('snakeBest');
+                if (snakeBest) snakeBest.textContent = sBest;
+                const snakeSaveStatus = document.getElementById('snakeSaveStatus');
+                if (snakeSaveStatus) {
+                    snakeSaveStatus.textContent = '🏆 ' + (currentLang === 'ru' ? 'Новый рекорд!' : 'New record!');
+                    setTimeout(() => snakeSaveStatus.textContent = translations[currentLang].snakeSaveStatus, 3000);
+                }
+                let games = parseInt(localStorage.getItem('gamesPlayed') || '0');
+                games++;
+                localStorage.setItem('gamesPlayed', String(games));
+                updateStats();
+            }
+        }
+
+        function gameOverSnake() {
+            clearInterval(sInterval);
+            sRunning = false;
+            alert((currentLang === 'ru' ? '💥 Игра окончена! Счёт: ' : '💥 Game over! Score: ') + sScore);
+            initSnake();
+            sRunning = true;
+            sInterval = setInterval(moveSnake, 130);
+        }
+
+        document.getElementById('snakePlay').addEventListener('click', function() {
+            if (snakeStarted) return;
+            snakeStarted = true;
+            this.style.display = 'none';
+            const snakePause = document.getElementById('snakePause');
+            if (snakePause) snakePause.style.display = 'inline-block';
+            const snakeReset = document.getElementById('snakeReset');
+            if (snakeReset) snakeReset.style.display = 'inline-block';
+            const snakeSave = document.getElementById('snakeSave');
+            if (snakeSave) snakeSave.style.display = 'inline-block';
+            const snakeMobile = document.getElementById('snakeMobile');
+            if (snakeMobile) snakeMobile.style.display = 'grid';
+            const snakePlaceholder = document.getElementById('snakePlaceholder');
+            if (snakePlaceholder) snakePlaceholder.style.display = 'none';
+            if (snakeCanvas) snakeCanvas.classList.add('active');
+            const snakeStatus = document.getElementById('snakeStatus');
+            if (snakeStatus) snakeStatus.textContent = '▶ Игра идёт';
+            initSnake();
+            sRunning = true;
+            sInterval = setInterval(moveSnake, 130);
+        });
+
+        document.getElementById('snakePause').addEventListener('click', function() {
+            if (!sRunning) return;
+            sPaused = !sPaused;
+            const t = translations[currentLang];
+            const snakeStatus = document.getElementById('snakeStatus');
+            if (snakeStatus) {
+                snakeStatus.textContent = sPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' : 'Paused') : '▶ Игра идёт';
+            }
+        });
+
+        document.getElementById('snakeReset').addEventListener('click', function() {
+            if (sInterval) clearInterval(sInterval);
+            sRunning = true;
+            sPaused = false;
+            initSnake();
+            sInterval = setInterval(moveSnake, 130);
+        });
+
+        document.getElementById('snakeSave').addEventListener('click', function() {
+            localStorage.setItem('snakeBest', String(sBest));
+            const snakeSaveStatus = document.getElementById('snakeSaveStatus');
+            if (snakeSaveStatus) {
+                snakeSaveStatus.textContent = '✅ ' + (currentLang === 'ru' ? 'Сохранено!' : 'Saved!');
+                setTimeout(() => snakeSaveStatus.textContent = translations[currentLang].snakeSaveStatus, 2000);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('tab-games')?.classList.contains('active')) return;
+            if (document.getElementById('game-snake')?.classList.contains('active') && snakeStarted) {
+                e.preventDefault();
+                if (e.key === 'ArrowUp' && sDir.dy !== 1) sNext = { dx: 0, dy: -1 };
+                if (e.key === 'ArrowDown' && sDir.dy !== -1) sNext = { dx: 0, dy: 1 };
+                if (e.key === 'ArrowLeft' && sDir.dx !== 1) sNext = { dx: -1, dy: 0 };
+                if (e.key === 'ArrowRight' && sDir.dx !== -1) sNext = { dx: 1, dy: 0 };
+                if (!sRunning) {
+                    sRunning = true;
+                    if (sInterval) clearInterval(sInterval);
+                    sInterval = setInterval(moveSnake, 130);
+                }
+            }
+        });
+        document.querySelectorAll('[data-snake]').forEach(btn => {
+            ['touchstart', 'mousedown'].forEach(ev => btn.addEventListener(ev, (e) => {
+                e.preventDefault();
+                if (!snakeStarted) return;
+                if (!sRunning) {
+                    sRunning = true;
+                    if (sInterval) clearInterval(sInterval);
+                    sInterval = setInterval(moveSnake, 130);
+                }
+                const a = btn.dataset.snake;
+                if (a === 'up' && sDir.dy !== 1) sNext = { dx: 0, dy: -1 };
+                if (a === 'down' && sDir.dy !== -1) sNext = { dx: 0, dy: 1 };
+                if (a === 'left' && sDir.dx !== 1) sNext = { dx: -1, dy: 0 };
+                if (a === 'right' && sDir.dx !== -1) sNext = { dx: 1, dy: 0 };
+            }));
+        });
     </script>
 </body>
 </html>
