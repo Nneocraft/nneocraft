@@ -5,10 +5,15 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+# Разрешаем деплой
 permissions:
   contents: read
   pages: write
   id-token: write
+
+# Тестируем Node 24 (рекомендация от GitHub)
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   deploy:
