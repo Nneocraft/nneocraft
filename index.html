@@ -9,9 +9,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-icon" href="avatar.png" />
     <style>
-        /* ============================================================
-           ПЕРЕМЕННЫЕ — СТИЛЬНЫЙ, ВЗРОСЛЫЙ ДИЗАЙН
-           ============================================================ */
         :root {
             --bg: #06060e;
             --card: rgba(10, 10, 24, 0.78);
@@ -75,9 +72,6 @@
             --glass-hover: rgba(200, 100, 255, 0.03);
         }
 
-        /* ============================================================
-           БАЗА
-           ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
@@ -98,9 +92,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ============================================================
-           КУРСОР
-           ============================================================ */
         .cursor-dot {
             position: fixed;
             width: 6px;
@@ -129,9 +120,6 @@
         a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn,
         .theme-toggle, .lang-toggle, .like-btn, .notes-action, .snow-toggle { cursor: none; }
 
-        /* ============================================================
-           СНЕГОПАД
-           ============================================================ */
         #snowCanvas {
             position: fixed;
             top: 0;
@@ -144,9 +132,6 @@
         }
         #snowCanvas.hidden { display: none; }
 
-        /* ============================================================
-           КНОПКА ВКЛ/ВЫКЛ СНЕГА
-           ============================================================ */
         .snow-toggle {
             position: fixed;
             bottom: 16px;
@@ -175,9 +160,6 @@
         }
         .snow-toggle .icon { font-size: 16px; }
 
-        /* ============================================================
-           ФОН
-           ============================================================ */
         .bg-gradient-animated {
             position: fixed;
             inset: 0;
@@ -221,9 +203,6 @@
             100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
         }
 
-        /* ============================================================
-           КАРТОЧКА
-           ============================================================ */
         .card {
             position: relative;
             z-index: 1;
@@ -260,9 +239,6 @@
         .left-col { min-width: 0; }
         .right-col { display: flex; flex-direction: column; gap: 12px; }
 
-        /* ============================================================
-           ШАПКА
-           ============================================================ */
         .header {
             display: flex;
             align-items: center;
@@ -335,9 +311,6 @@
         }
         .age-chip:hover { background: var(--glass-hover); border-color: var(--border-hover); }
 
-        /* ============================================================
-           БИО
-           ============================================================ */
         .bio {
             color: var(--text-secondary);
             padding: 18px 22px;
@@ -366,9 +339,6 @@
         .bio strong { color: var(--text); font-weight: 600; }
         .bio .hl { color: var(--accent); font-weight: 500; }
 
-        /* ============================================================
-           ЗАГОЛОВКИ
-           ============================================================ */
         .section-title {
             font-size: 10px;
             text-transform: uppercase;
@@ -379,9 +349,6 @@
             opacity: 0.4;
         }
 
-        /* ============================================================
-           ПРАВАЯ КОЛОНКА — СТАТУСЫ
-           ============================================================ */
         .status-card {
             background: var(--glass);
             border-radius: var(--radius);
@@ -450,9 +417,6 @@
         .spotify-mini .track { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .spotify-mini .artist { font-size: 11px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* ============================================================
-           ТЕХНОЛОГИИ
-           ============================================================ */
         .tech-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
         .tech {
             background: var(--glass);
@@ -478,9 +442,6 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
-        /* ============================================================
-           MINECRAFT
-           ============================================================ */
         .mc-block {
             padding: 14px 18px;
             background: var(--glass);
@@ -513,9 +474,6 @@
         }
         .mc-tag:hover { background: var(--glass-hover); color: var(--text); border-color: var(--border-hover); }
 
-        /* ============================================================
-           ПЛАНЫ
-           ============================================================ */
         .goals-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -542,9 +500,6 @@
         .goal-progress { margin-top: 5px; height: 3px; background: var(--glass); border-radius: 4px; overflow: hidden; }
         .goal-bar { height: 100%; background: linear-gradient(90deg, var(--accent), transparent); border-radius: 4px; transition: width 0.6s ease; }
 
-        /* ============================================================
-           СТАТИСТИКА
-           ============================================================ */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -563,9 +518,6 @@
         .stats-item .number { font-size: 20px; font-weight: 700; color: var(--accent); }
         .stats-item .label { font-size: 9px; color: var(--text-secondary); margin-top: 1px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* ============================================================
-           ЛАЙКИ
-           ============================================================ */
         .like-section {
             display: flex;
             align-items: center;
@@ -592,9 +544,6 @@
         @keyframes likeAnim { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
         .like-count { font-size: 16px; font-weight: 600; color: var(--text); min-width: 20px; }
 
-        /* ============================================================
-           ВКЛАДКИ
-           ============================================================ */
         .tabs, .game-tabs {
             display: flex;
             gap: 2px;
@@ -628,9 +577,6 @@
         .game-content { display: none; animation: fadeUp 0.3s ease; }
         .game-content.active { display: block; }
 
-        /* ============================================================
-           ИГРЫ
-           ============================================================ */
         .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         @media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
         .game-card {
@@ -713,9 +659,6 @@
         .mobile-controls span { visibility: hidden; }
         @media (pointer: coarse) { .mobile-controls { display: grid; } }
 
-        /* ============================================================
-           ЗАМЕТКИ
-           ============================================================ */
         .notes-toolbar { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
         .notes-toolbar input {
             flex: 1; min-width: 80px; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
@@ -780,9 +723,6 @@
         }
         .notes-input-row button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* ============================================================
-           ЧАТ
-           ============================================================ */
         .chat-container {
             background: var(--glass); border-radius: var(--radius); padding: 12px 16px; border: 1px solid var(--border);
         }
@@ -822,9 +762,6 @@
         }
         .chat-input-row button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* ============================================================
-           ПОГОДА
-           ============================================================ */
         .weather {
             display: flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--glass);
             border-radius: var(--radius); border: 1px solid var(--border); margin: 4px 0 2px; flex-wrap: wrap;
@@ -837,9 +774,6 @@
         .weather-temp { color: var(--text); font-weight: 600; font-size: 15px; }
         .weather-desc { color: var(--text-secondary); font-size: 11px; background: var(--glass); padding: 1px 10px; border-radius: 30px; }
 
-        /* ============================================================
-           ТАЙМЕР
-           ============================================================ */
         .birthday-timer {
             padding: 10px 14px; background: var(--glass); border-radius: var(--radius); border: 1px solid var(--border);
             text-align: center; margin: 4px 0 2px; transition: all 0.3s ease;
@@ -850,9 +784,6 @@
         .birthday-time span { display: inline-block; min-width: 32px; }
         .birthday-time .sep { color: var(--text-secondary); min-width: 4px; }
 
-        /* ============================================================
-           ССЫЛКИ
-           ============================================================ */
         .links {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -875,9 +806,6 @@
         .link:hover .link-chip { background: var(--glass-hover); }
         .link.full { grid-column: 1 / -1; justify-content: center; }
 
-        /* ============================================================
-           ФУТЕР
-           ============================================================ */
         .footer {
             margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;
@@ -889,9 +817,6 @@
         .visitors { display: flex; align-items: center; gap: 4px; }
         .visitors-count { font-weight: 600; color: var(--accent); font-size: 13px; }
 
-        /* ============================================================
-           УПРАВЛЕНИЕ
-           ============================================================ */
         .theme-toggle, .lang-toggle {
             position: fixed;
             z-index: 100;
@@ -933,9 +858,6 @@
         .color-picker button:hover { transform: scale(1.15); }
         .color-picker button.active { border-color: var(--text); transform: scale(1.1); }
 
-        /* ============================================================
-           ФОРМА ОБРАТНОЙ СВЯЗИ
-           ============================================================ */
         .contact-form {
             background: var(--glass); border-radius: var(--radius); padding: 16px 20px; border: 1px solid var(--border);
             transition: all 0.3s ease; margin: 6px 0 4px;
@@ -961,9 +883,6 @@
         }
         .contact-form button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* ============================================================
-           ГАЛЕРЕЯ
-           ============================================================ */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -1028,9 +947,6 @@
         }
         .gallery-upload button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
-        /* ============================================================
-           ЗАГРУЗЧИК
-           ============================================================ */
         #loader {
             position: fixed;
             inset: 0;
@@ -1059,9 +975,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         #loader p { font-size: 14px; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.7; }
 
-        /* ============================================================
-           АДАПТИВ
-           ============================================================ */
         @media (max-width: 820px) {
             .right-col { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
             .right-col .status-card { margin: 0; }
@@ -1139,8 +1052,6 @@
         <span class="theme-icon" id="themeIcon">🌙</span>
         <span id="themeLabel">Тёмная</span>
     </button>
-
-    <!-- КНОПКА ВКЛ/ВЫКЛ СНЕГА -->
     <button class="snow-toggle" id="snowToggle">
         <span class="icon">❄️</span>
         <span id="snowLabel">Снег</span>
@@ -1653,193 +1564,7 @@
         let currentLang = localStorage.getItem('lang') || 'ru';
 
         // ============================================================
-        // === ПРИМЕНЕНИЕ ПЕРЕВОДОВ (с проверками) ===
-        // ============================================================
-        function applyLanguage(lang) {
-            const t = translations[lang];
-            if (!t) return;
-
-            const elements = {
-                loaderText: t.loader,
-                subTitle: t.subTitle,
-                bioParagraph: t.bio,
-                techTitle: t.techTitle,
-                mcTitle: t.mcTitle,
-                mcLabel: t.mcLabel,
-                mcTag1: t.mcTag1,
-                mcTag2: t.mcTag2,
-                mcTag3: t.mcTag3,
-                mcTag4: t.mcTag4,
-                mcTag5: t.mcTag5,
-                goalsTitle: t.goalsTitle,
-                goal1Title: t.goal1Title,
-                goal1Desc: t.goal1Desc,
-                goal2Title: t.goal2Title,
-                goal2Desc: t.goal2Desc,
-                statsTitle: t.statsTitle,
-                statLabel1: t.statLabel1,
-                statLabel2: t.statLabel2,
-                statLabel3: t.statLabel3,
-                statLabel4: t.statLabel4,
-                likesLabel: t.likesLabel,
-                visitorsLabel: t.visitorsLabel,
-                tabGames: t.tabGames,
-                tabGallery: t.tabGallery,
-                tabNotes: t.tabNotes,
-                tabChat: t.tabChat,
-                tabContact: t.tabContact,
-                gameTetris: t.gameTetris,
-                gameSnake: t.gameSnake,
-                tetrisScore: t.tetrisScore,
-                tetrisStatus: t.tetrisStatus,
-                tetrisPause: t.tetrisPause,
-                tetrisSaveStatus: t.tetrisSaveStatus,
-                tetrisReset: t.tetrisNewGame,
-                tetrisSave: t.tetrisSave,
-                tetrisPlay: t.tetrisPlay,
-                snakeScore: t.snakeScore,
-                snakeStatus: t.snakeStatus,
-                snakePause: t.snakePause,
-                snakeSaveStatus: t.snakeSaveStatus,
-                snakeReset: t.snakeNewGame,
-                snakeSave: t.snakeSave,
-                snakePlay: t.snakePlay,
-                galleryTitle: t.galleryTitle,
-                galleryUploadBtn: t.galleryUpload,
-                notesTitle: t.notesTitle,
-                chatTitle: t.chatTitle,
-                contactTitle: t.contactTitle,
-                contactSend: t.contactSend,
-                langToggle: t.langToggle
-            };
-
-            // Применяем текстовые поля
-            for (const [id, value] of Object.entries(elements)) {
-                const el = document.getElementById(id);
-                if (el) el.textContent = value;
-            }
-
-            // HTML-поля
-            const subTitleEl = document.getElementById('subTitle');
-            if (subTitleEl) subTitleEl.innerHTML = t.subTitle;
-
-            const bioEl = document.getElementById('bioParagraph');
-            if (bioEl) bioEl.innerHTML = t.bio;
-
-            const tetrisBestLabel = document.getElementById('tetrisBestLabel');
-            if (tetrisBestLabel) tetrisBestLabel.innerHTML = t.tetrisBestLabel;
-
-            const snakeBestLabel = document.getElementById('snakeBestLabel');
-            if (snakeBestLabel) snakeBestLabel.innerHTML = t.snakeBestLabel;
-
-            // Плейсхолдеры
-            const noteSearch = document.getElementById('noteSearch');
-            if (noteSearch) noteSearch.placeholder = t.noteSearch;
-            const noteTitle = document.getElementById('noteTitle');
-            if (noteTitle) noteTitle.placeholder = t.noteTitlePlaceholder;
-            const noteContent = document.getElementById('noteContent');
-            if (noteContent) noteContent.placeholder = t.noteContentPlaceholder;
-            const noteSticker = document.getElementById('noteSticker');
-            if (noteSticker) noteSticker.placeholder = t.noteStickerPlaceholder;
-            const chatName = document.getElementById('chatName');
-            if (chatName) chatName.placeholder = t.chatNamePlaceholder;
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) chatInput.placeholder = t.chatInputPlaceholder;
-            const contactName = document.getElementById('contactName');
-            if (contactName) contactName.placeholder = t.contactNamePlaceholder;
-            const contactEmail = document.getElementById('contactEmail');
-            if (contactEmail) contactEmail.placeholder = t.contactEmailPlaceholder;
-            const contactMessage = document.getElementById('contactMessage');
-            if (contactMessage) contactMessage.placeholder = t.contactMessagePlaceholder;
-
-            // Select options
-            const noteColor = document.getElementById('noteColor');
-            if (noteColor && noteColor.options) {
-                if (noteColor.options[0]) noteColor.options[0].text = t.noteColorDark;
-                if (noteColor.options[1]) noteColor.options[1].text = t.noteColorBlue;
-                if (noteColor.options[2]) noteColor.options[2].text = t.noteColorPurple;
-                if (noteColor.options[3]) noteColor.options[3].text = t.noteColorRed;
-                if (noteColor.options[4]) noteColor.options[4].text = t.noteColorGreen;
-                if (noteColor.options[5]) noteColor.options[5].text = t.noteColorOrange;
-            }
-
-            // Снег
-            const snowLabel = document.getElementById('snowLabel');
-            if (snowLabel) {
-                snowLabel.textContent = snowActive ? t.snowLabel : t.snowOffLabel;
-            }
-
-            updateThemeLabel();
-            renderNotes(document.getElementById('noteSearch')?.value || '');
-            renderChat();
-            renderGallery();
-        }
-
-        // ============================================================
-        // === КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ===
-        // ============================================================
-        document.getElementById('langToggle').addEventListener('click', function() {
-            currentLang = currentLang === 'ru' ? 'en' : 'ru';
-            localStorage.setItem('lang', currentLang);
-            applyLanguage(currentLang);
-            updateAge();
-            updateStats();
-            fetchSpotifyAndGames();
-        });
-
-        // ============================================================
-        // === КУРСОР ===
-        // ============================================================
-        const dot = document.getElementById('cursorDot');
-        const ring = document.getElementById('cursorRing');
-        document.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
-            ring.style.left = e.clientX + 'px';
-            ring.style.top = e.clientY + 'px';
-        });
-        document.querySelectorAll('a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn, .lang-toggle, .snow-toggle')
-            .forEach(el => {
-                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-            });
-
-        // ============================================================
-        // === ЦВЕТА ===
-        // ============================================================
-        document.querySelectorAll('#colorPicker button').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#colorPicker button').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const color = this.dataset.color;
-                document.documentElement.style.setProperty('--accent', color);
-                document.documentElement.style.setProperty('--accent-glow', color + '33');
-                document.documentElement.style.setProperty('--accent-soft', color + '1a');
-                localStorage.setItem('accentColor', color);
-            });
-        });
-        const savedAccent = localStorage.getItem('accentColor');
-        if (savedAccent) {
-            document.documentElement.style.setProperty('--accent', savedAccent);
-            document.documentElement.style.setProperty('--accent-glow', savedAccent + '33');
-            document.documentElement.style.setProperty('--accent-soft', savedAccent + '1a');
-            document.querySelectorAll('#colorPicker button').forEach(b => {
-                b.classList.toggle('active', b.dataset.color === savedAccent);
-            });
-        }
-
-        // ============================================================
-        // === ЗАГРУЗКА ===
-        // ============================================================
-        window.addEventListener('load', () => {
-            document.getElementById('loader').classList.add('hidden');
-            applyLanguage(currentLang);
-            updateStats();
-            initSnow();
-        });
-
-        // ============================================================
-        // === СНЕГОПАД ===
+        // === СНЕГОПАД (запускается сразу) ===
         // ============================================================
         const snowCanvas = document.getElementById('snowCanvas');
         const ctx = snowCanvas.getContext('2d');
@@ -1935,18 +1660,196 @@
             toggleSnow(!snowActive);
         });
 
-        function initSnow() {
-            createSnowflakes();
-            if (snowActive) {
-                snowCanvas.classList.remove('hidden');
-                animateSnow();
-            } else {
-                snowCanvas.classList.add('hidden');
-                const t = translations[currentLang];
-                document.getElementById('snowLabel').textContent = t.snowOffLabel;
-                document.querySelector('.snow-toggle .icon').textContent = '☀️';
-            }
+        // Сразу запускаем снег
+        createSnowflakes();
+        if (snowActive) {
+            snowCanvas.classList.remove('hidden');
+            animateSnow();
+        } else {
+            snowCanvas.classList.add('hidden');
+            document.getElementById('snowLabel').textContent = translations[currentLang].snowOffLabel;
+            document.querySelector('.snow-toggle .icon').textContent = '☀️';
         }
+
+        // ============================================================
+        // === ПРИМЕНЕНИЕ ПЕРЕВОДОВ ===
+        // ============================================================
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            const elements = {
+                loaderText: t.loader,
+                subTitle: t.subTitle,
+                bioParagraph: t.bio,
+                techTitle: t.techTitle,
+                mcTitle: t.mcTitle,
+                mcLabel: t.mcLabel,
+                mcTag1: t.mcTag1,
+                mcTag2: t.mcTag2,
+                mcTag3: t.mcTag3,
+                mcTag4: t.mcTag4,
+                mcTag5: t.mcTag5,
+                goalsTitle: t.goalsTitle,
+                goal1Title: t.goal1Title,
+                goal1Desc: t.goal1Desc,
+                goal2Title: t.goal2Title,
+                goal2Desc: t.goal2Desc,
+                statsTitle: t.statsTitle,
+                statLabel1: t.statLabel1,
+                statLabel2: t.statLabel2,
+                statLabel3: t.statLabel3,
+                statLabel4: t.statLabel4,
+                likesLabel: t.likesLabel,
+                visitorsLabel: t.visitorsLabel,
+                tabGames: t.tabGames,
+                tabGallery: t.tabGallery,
+                tabNotes: t.tabNotes,
+                tabChat: t.tabChat,
+                tabContact: t.tabContact,
+                gameTetris: t.gameTetris,
+                gameSnake: t.gameSnake,
+                tetrisScore: t.tetrisScore,
+                tetrisStatus: t.tetrisStatus,
+                tetrisPause: t.tetrisPause,
+                tetrisSaveStatus: t.tetrisSaveStatus,
+                tetrisReset: t.tetrisNewGame,
+                tetrisSave: t.tetrisSave,
+                tetrisPlay: t.tetrisPlay,
+                snakeScore: t.snakeScore,
+                snakeStatus: t.snakeStatus,
+                snakePause: t.snakePause,
+                snakeSaveStatus: t.snakeSaveStatus,
+                snakeReset: t.snakeNewGame,
+                snakeSave: t.snakeSave,
+                snakePlay: t.snakePlay,
+                galleryTitle: t.galleryTitle,
+                galleryUploadBtn: t.galleryUpload,
+                notesTitle: t.notesTitle,
+                chatTitle: t.chatTitle,
+                contactTitle: t.contactTitle,
+                contactSend: t.contactSend,
+                langToggle: t.langToggle
+            };
+
+            for (const [id, value] of Object.entries(elements)) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            }
+
+            const subTitleEl = document.getElementById('subTitle');
+            if (subTitleEl) subTitleEl.innerHTML = t.subTitle;
+
+            const bioEl = document.getElementById('bioParagraph');
+            if (bioEl) bioEl.innerHTML = t.bio;
+
+            const tetrisBestLabel = document.getElementById('tetrisBestLabel');
+            if (tetrisBestLabel) tetrisBestLabel.innerHTML = t.tetrisBestLabel;
+
+            const snakeBestLabel = document.getElementById('snakeBestLabel');
+            if (snakeBestLabel) snakeBestLabel.innerHTML = t.snakeBestLabel;
+
+            const noteSearch = document.getElementById('noteSearch');
+            if (noteSearch) noteSearch.placeholder = t.noteSearch;
+            const noteTitle = document.getElementById('noteTitle');
+            if (noteTitle) noteTitle.placeholder = t.noteTitlePlaceholder;
+            const noteContent = document.getElementById('noteContent');
+            if (noteContent) noteContent.placeholder = t.noteContentPlaceholder;
+            const noteSticker = document.getElementById('noteSticker');
+            if (noteSticker) noteSticker.placeholder = t.noteStickerPlaceholder;
+            const chatName = document.getElementById('chatName');
+            if (chatName) chatName.placeholder = t.chatNamePlaceholder;
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) chatInput.placeholder = t.chatInputPlaceholder;
+            const contactName = document.getElementById('contactName');
+            if (contactName) contactName.placeholder = t.contactNamePlaceholder;
+            const contactEmail = document.getElementById('contactEmail');
+            if (contactEmail) contactEmail.placeholder = t.contactEmailPlaceholder;
+            const contactMessage = document.getElementById('contactMessage');
+            if (contactMessage) contactMessage.placeholder = t.contactMessagePlaceholder;
+
+            const noteColor = document.getElementById('noteColor');
+            if (noteColor && noteColor.options) {
+                if (noteColor.options[0]) noteColor.options[0].text = t.noteColorDark;
+                if (noteColor.options[1]) noteColor.options[1].text = t.noteColorBlue;
+                if (noteColor.options[2]) noteColor.options[2].text = t.noteColorPurple;
+                if (noteColor.options[3]) noteColor.options[3].text = t.noteColorRed;
+                if (noteColor.options[4]) noteColor.options[4].text = t.noteColorGreen;
+                if (noteColor.options[5]) noteColor.options[5].text = t.noteColorOrange;
+            }
+
+            const snowLabel = document.getElementById('snowLabel');
+            if (snowLabel) {
+                snowLabel.textContent = snowActive ? t.snowLabel : t.snowOffLabel;
+            }
+
+            updateThemeLabel();
+            renderNotes(document.getElementById('noteSearch')?.value || '');
+            renderChat();
+            renderGallery();
+        }
+
+        // ============================================================
+        // === КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ===
+        // ============================================================
+        document.getElementById('langToggle').addEventListener('click', function() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            localStorage.setItem('lang', currentLang);
+            applyLanguage(currentLang);
+            updateAge();
+            updateStats();
+            fetchSpotifyAndGames();
+        });
+
+        // ============================================================
+        // === КУРСОР ===
+        // ============================================================
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            ring.style.left = e.clientX + 'px';
+            ring.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .link, .tab-btn, .game-btn, .goal-item, .tech, .note-card, .chat-msg, .link-btn, .lang-toggle, .snow-toggle')
+            .forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+            });
+
+        // ============================================================
+        // === ЦВЕТА ===
+        // ============================================================
+        document.querySelectorAll('#colorPicker button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#colorPicker button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const color = this.dataset.color;
+                document.documentElement.style.setProperty('--accent', color);
+                document.documentElement.style.setProperty('--accent-glow', color + '33');
+                document.documentElement.style.setProperty('--accent-soft', color + '1a');
+                localStorage.setItem('accentColor', color);
+            });
+        });
+        const savedAccent = localStorage.getItem('accentColor');
+        if (savedAccent) {
+            document.documentElement.style.setProperty('--accent', savedAccent);
+            document.documentElement.style.setProperty('--accent-glow', savedAccent + '33');
+            document.documentElement.style.setProperty('--accent-soft', savedAccent + '1a');
+            document.querySelectorAll('#colorPicker button').forEach(b => {
+                b.classList.toggle('active', b.dataset.color === savedAccent);
+            });
+        }
+
+        // ============================================================
+        // === ЗАГРУЗКА ===
+        // ============================================================
+        window.addEventListener('load', () => {
+            document.getElementById('loader').classList.add('hidden');
+            applyLanguage(currentLang);
+            updateStats();
+        });
 
         // ============================================================
         // === СТАТИСТИКА ===
