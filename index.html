@@ -197,9 +197,6 @@
         @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
         .card:hover { transform: translateY(-3px); box-shadow: 0 50px 140px rgba(0,0,0,0.8); }
 
-        /* ============================================================
-           ГЛАВНАЯ СЕТКА: ЛЕВАЯ (основная) + ПРАВАЯ (статусы)
-           ============================================================ */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 280px;
@@ -207,6 +204,11 @@
         }
         @media (max-width: 820px) {
             .main-grid { grid-template-columns: 1fr; }
+            .right-col { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+            .right-col .status-card:last-child { grid-column: 1 / -1; }
+        }
+        @media (max-width: 640px) {
+            .right-col { grid-template-columns: 1fr; }
         }
 
         .left-col { min-width: 0; }
@@ -383,7 +385,6 @@
         .status-card .value .dot.dnd { background: #ff4444; }
         .status-card .value .dot.offline { background: #666; }
 
-        /* СПОТИФАЙ В ПРАВОЙ КОЛОНКЕ */
         .spotify-mini {
             display: flex;
             align-items: center;
@@ -603,7 +604,13 @@
         .game-icon { font-size: 28px; display: block; margin-bottom: 2px; }
         .game-title { font-size: 15px; font-weight: 600; color: var(--text); }
         .game-desc { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
-        .game-canvas-wrap { display: flex; justify-content: center; margin-top: 6px; }
+        .game-canvas-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 6px;
+            min-height: 200px;
+            align-items: center;
+        }
         .game-canvas-wrap canvas {
             border-radius: 12px;
             background: rgba(10, 10, 22, 0.4);
@@ -613,9 +620,24 @@
             height: auto;
             aspect-ratio: 1 / 1;
             image-rendering: pixelated;
+            display: none;
+        }
+        .game-canvas-wrap canvas.active { display: block; }
+        .game-canvas-wrap .game-placeholder {
+            font-size: 14px;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            padding: 20px;
         }
         .game-controls { display: flex; gap: 4px; justify-content: center; margin-top: 6px; flex-wrap: wrap; }
-        .game-status { font-size: 10px; color: var(--text-secondary); padding: 2px 8px; background: var(--glass); border-radius: 20px; border: 1px solid var(--border); }
+        .game-status {
+            font-size: 10px;
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            background: var(--glass);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
         .game-btn {
             padding: 3px 12px;
             border-radius: 20px;
@@ -629,8 +651,22 @@
             transition: all 0.3s ease;
         }
         .game-btn:hover { background: var(--glass-hover); border-color: var(--border-hover); }
-        .game-btn.primary { border-color: rgba(120, 180, 255, 0.12); background: rgba(120, 180, 255, 0.02); color: var(--accent); }
+        .game-btn.primary {
+            border-color: rgba(120, 180, 255, 0.12);
+            background: rgba(120, 180, 255, 0.02);
+            color: var(--accent);
+        }
         .game-btn.primary:hover { background: rgba(120, 180, 255, 0.06); border-color: rgba(120, 180, 255, 0.15); }
+        .game-btn.play-btn {
+            border-color: var(--accent);
+            background: rgba(120, 180, 255, 0.04);
+            color: var(--accent);
+            font-weight: 600;
+            padding: 6px 20px;
+            font-size: 13px;
+        }
+        .game-btn.play-btn:hover { background: rgba(120, 180, 255, 0.1); box-shadow: 0 0 30px var(--accent-glow); }
+
         .mobile-controls {
             display: none;
             grid-template-columns: repeat(3, 1fr);
@@ -655,7 +691,7 @@
         @media (pointer: coarse) { .mobile-controls { display: grid; } }
 
         /* ============================================================
-           ЗАМЕТКИ
+           ЗАМЕТКИ — ОБЩИЕ (все видят)
            ============================================================ */
         .notes-toolbar { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
         .notes-toolbar input {
@@ -670,7 +706,17 @@
             color: var(--text); font-size: 14px; cursor: pointer; transition: all 0.3s ease; line-height: 1;
         }
         .notes-action:hover { background: var(--glass-hover); border-color: var(--border-hover); }
-        .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0; }
+        .notes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 4px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .notes-grid::-webkit-scrollbar { width: 3px; }
+        .notes-grid::-webkit-scrollbar-track { background: var(--glass); border-radius: 4px; }
+        .notes-grid::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
         @media (max-width: 540px) { .notes-grid { grid-template-columns: 1fr; } }
         .note-card {
             background: var(--glass); border-radius: var(--radius); padding: 10px 12px; border: 1px solid var(--border);
@@ -680,7 +726,16 @@
         .note-card .sticker { font-size: 18px; display: block; margin-bottom: 1px; }
         .note-card .title { font-size: 14px; font-weight: 600; color: var(--text); }
         .note-card .content { font-size: 12px; color: var(--text-secondary); margin-top: 1px; line-height: 1.5; }
-        .note-card .date { font-size: 9px; color: var(--text-secondary); opacity: 0.5; margin-top: 3px; }
+        .note-card .meta {
+            font-size: 10px;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            margin-top: 3px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .note-card .meta .author { color: var(--accent); opacity: 0.7; }
         .note-card .delete-btn {
             position: absolute; top: 3px; right: 5px; background: none; border: none; color: var(--text-secondary);
             cursor: pointer; font-size: 11px; transition: 0.3s; opacity: 0.3;
@@ -703,15 +758,20 @@
         .notes-input-row button:hover { background: rgba(120, 180, 255, 0.06); box-shadow: 0 0 40px var(--accent-glow); }
 
         /* ============================================================
-           ЧАТ
+           ЧАТ — ОБЩИЙ (все видят)
            ============================================================ */
         .chat-container {
             background: var(--glass); border-radius: var(--radius); padding: 12px 16px; border: 1px solid var(--border);
         }
         .chat-container:hover { border-color: var(--border-hover); }
         .chat-messages {
-            max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px;
-            margin-bottom: 6px; padding-right: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 6px;
+            padding-right: 4px;
         }
         .chat-messages::-webkit-scrollbar { width: 3px; }
         .chat-messages::-webkit-scrollbar-track { background: var(--glass); border-radius: 4px; }
@@ -883,6 +943,7 @@
             .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
             .links { grid-template-columns: 1fr; }
             .footer { flex-direction: column; text-align: center; }
+            .notes-grid { max-height: 200px; }
         }
         @media (max-width: 400px) {
             .card { padding: 14px; }
@@ -1075,12 +1136,14 @@
                                 <p class="game-desc">← → ↓ | Пробел</p>
                                 <div class="game-canvas-wrap">
                                     <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+                                    <div class="game-placeholder" id="tetrisPlaceholder">▶ Нажмите «Играть»</div>
                                 </div>
                                 <div class="game-controls">
-                                    <button class="game-btn" id="tetrisPause">⏸️ Пауза</button>
+                                    <button class="game-btn play-btn" id="tetrisPlay">▶ Играть</button>
+                                    <button class="game-btn" id="tetrisPause" style="display:none;">⏸️ Пауза</button>
                                     <span class="game-status" id="tetrisSaveStatus">💾 Сохранено</span>
                                 </div>
-                                <div class="mobile-controls" id="tetrisMobile">
+                                <div class="mobile-controls" id="tetrisMobile" style="display:none;">
                                     <button data-tetris="left">◀</button>
                                     <button data-tetris="rotate">🔄</button>
                                     <button data-tetris="right">▶</button>
@@ -1093,9 +1156,9 @@
                                 <span class="game-icon">📊</span>
                                 <div class="game-title" id="tetrisScore">Счёт: 0</div>
                                 <p class="game-desc" id="tetrisBestLabel">Лучший: <span id="tetrisBest">0</span></p>
-                                <p class="game-status" id="tetrisStatus">▶ Игра идёт</p>
-                                <button class="game-btn primary" id="tetrisReset">🔄 Новая игра</button>
-                                <button class="game-btn" id="tetrisSave">💾 Сохранить</button>
+                                <p class="game-status" id="tetrisStatus">⏸ Ожидание</p>
+                                <button class="game-btn primary" id="tetrisReset" style="display:none;">🔄 Новая игра</button>
+                                <button class="game-btn" id="tetrisSave" style="display:none;">💾 Сохранить</button>
                             </div>
                         </div>
                     </div>
@@ -1108,12 +1171,14 @@
                                 <p class="game-desc">↑ ↓ ← →</p>
                                 <div class="game-canvas-wrap">
                                     <canvas id="snakeCanvas" width="300" height="300"></canvas>
+                                    <div class="game-placeholder" id="snakePlaceholder">▶ Нажмите «Играть»</div>
                                 </div>
                                 <div class="game-controls">
-                                    <button class="game-btn" id="snakePause">⏸️ Пауза</button>
+                                    <button class="game-btn play-btn" id="snakePlay">▶ Играть</button>
+                                    <button class="game-btn" id="snakePause" style="display:none;">⏸️ Пауза</button>
                                     <span class="game-status" id="snakeSaveStatus">💾 Сохранено</span>
                                 </div>
-                                <div class="mobile-controls" id="snakeMobile">
+                                <div class="mobile-controls" id="snakeMobile" style="display:none;">
                                     <button data-snake="up">▲</button>
                                     <button data-snake="left">◀</button>
                                     <button data-snake="down">▼</button>
@@ -1124,9 +1189,9 @@
                                 <span class="game-icon">🎯</span>
                                 <div class="game-title" id="snakeScore">Счёт: 0</div>
                                 <p class="game-desc" id="snakeBestLabel">Лучший: <span id="snakeBest">0</span></p>
-                                <p class="game-status" id="snakeStatus">▶ Игра идёт</p>
-                                <button class="game-btn primary" id="snakeReset">🔄 Новая игра</button>
-                                <button class="game-btn" id="snakeSave">💾 Сохранить</button>
+                                <p class="game-status" id="snakeStatus">⏸ Ожидание</p>
+                                <button class="game-btn primary" id="snakeReset" style="display:none;">🔄 Новая игра</button>
+                                <button class="game-btn" id="snakeSave" style="display:none;">💾 Сохранить</button>
                             </div>
                         </div>
                     </div>
@@ -1142,13 +1207,13 @@
                     </div>
                 </section>
 
-                <!-- ЗАМЕТКИ -->
+                <!-- ЗАМЕТКИ — ОБЩИЕ -->
                 <section class="tab-content" id="tab-notes">
-                    <h2 class="section-title" id="notesTitle">📝 Мои личные заметки</h2>
+                    <h2 class="section-title" id="notesTitle">📝 Общие заметки</h2>
                     <div class="notes-toolbar">
                         <input type="text" id="noteSearch" placeholder="🔍 Поиск по заметкам...">
-                        <button class="notes-action" id="notesExport" title="Экспорт">📤</button>
-                        <button class="notes-action" id="notesImport" title="Импорт">📥</button>
+                        <button class="notes-action" id="notesExport">📤</button>
+                        <button class="notes-action" id="notesImport">📥</button>
                     </div>
                     <div class="notes-grid" id="notesGrid"></div>
                     <div class="notes-input-row">
@@ -1165,11 +1230,12 @@
                         <input type="text" id="noteSticker" placeholder="Стикер" maxlength="2" value="📌">
                         <button id="noteAdd">➕</button>
                     </div>
+                    <div style="font-size:10px;color:var(--text-secondary);opacity:0.4;margin-top:4px;">📌 Все заметки видны всем посетителям</div>
                 </section>
 
-                <!-- ЧАТ -->
+                <!-- ЧАТ — ОБЩИЙ -->
                 <section class="tab-content" id="tab-chat">
-                    <h2 class="section-title" id="chatTitle">💬 Чат</h2>
+                    <h2 class="section-title" id="chatTitle">💬 Общий чат</h2>
                     <div class="chat-container">
                         <div class="chat-messages" id="chatMessages"></div>
                         <div class="chat-input-row">
@@ -1177,6 +1243,7 @@
                             <input type="text" id="chatInput" placeholder="Напишите сообщение..." maxlength="200">
                             <button id="chatSend">📤</button>
                         </div>
+                        <div style="font-size:10px;color:var(--text-secondary);opacity:0.4;margin-top:4px;">💬 Все сообщения видны всем посетителям</div>
                     </div>
                 </section>
 
@@ -1199,7 +1266,6 @@
 
             <!-- ===== ПРАВАЯ КОЛОНКА — СТАТУСЫ ===== -->
             <div class="right-col">
-                <!-- Discord статус -->
                 <div class="status-card">
                     <div class="label">Discord</div>
                     <div class="value" id="discordStatusValue">
@@ -1208,7 +1274,6 @@
                     </div>
                 </div>
 
-                <!-- Spotify -->
                 <div class="status-card">
                     <div class="label">Сейчас играет</div>
                     <div class="spotify-mini">
@@ -1221,7 +1286,6 @@
                     </div>
                 </div>
 
-                <!-- Игра в Discord -->
                 <div class="status-card">
                     <div class="label">Играет</div>
                     <div class="value" id="discordGameValue">
@@ -1230,7 +1294,6 @@
                     </div>
                 </div>
 
-                <!-- Погода -->
                 <div class="status-card">
                     <div class="label">Погода в Москве</div>
                     <div class="value" id="weatherValue">
@@ -1240,7 +1303,6 @@
                     </div>
                 </div>
 
-                <!-- Таймер до ДР -->
                 <div class="status-card">
                     <div class="label">До дня рождения</div>
                     <div class="value" style="font-size:18px;font-weight:700;color:var(--accent);" id="birthdayTimer">
@@ -1251,7 +1313,6 @@
                     </div>
                 </div>
 
-                <!-- Ссылки -->
                 <div class="status-card" style="padding:12px 14px;">
                     <div class="label">Быстрые ссылки</div>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
@@ -1264,7 +1325,6 @@
             </div>
         </div>
 
-        <!-- ФУТЕР (под сеткой) -->
         <footer class="footer">
             <span>© 2026 · @Nneocraft</span>
             <div class="visitors">
@@ -1315,21 +1375,23 @@
                 gameSnake: '🐍 Змейка',
                 tetrisScore: 'Счёт: 0',
                 tetrisBestLabel: 'Лучший: <span id="tetrisBest">0</span>',
-                tetrisStatus: '▶ Игра идёт',
+                tetrisStatus: '⏸ Ожидание',
                 tetrisPause: '⏸️ Пауза',
                 tetrisSaveStatus: '💾 Сохранено',
                 tetrisNewGame: '🔄 Новая игра',
                 tetrisSave: '💾 Сохранить',
+                tetrisPlay: '▶ Играть',
                 snakeScore: 'Счёт: 0',
                 snakeBestLabel: 'Лучший: <span id="snakeBest">0</span>',
-                snakeStatus: '▶ Игра идёт',
+                snakeStatus: '⏸ Ожидание',
                 snakePause: '⏸️ Пауза',
                 snakeSaveStatus: '💾 Сохранено',
                 snakeNewGame: '🔄 Новая игра',
                 snakeSave: '💾 Сохранить',
+                snakePlay: '▶ Играть',
                 galleryTitle: '🖼️ Галерея скриншотов',
                 galleryUpload: '📤 Загрузить',
-                notesTitle: '📝 Мои личные заметки',
+                notesTitle: '📝 Общие заметки',
                 noteSearch: '🔍 Поиск по заметкам...',
                 noteTitlePlaceholder: 'Заголовок',
                 noteContentPlaceholder: 'Текст заметки',
@@ -1340,7 +1402,7 @@
                 noteColorGreen: 'Зелёный',
                 noteColorOrange: 'Оранжевый',
                 noteStickerPlaceholder: 'Стикер',
-                chatTitle: '💬 Чат',
+                chatTitle: '💬 Общий чат',
                 chatNamePlaceholder: 'Ваше имя',
                 chatInputPlaceholder: 'Напишите сообщение...',
                 contactTitle: '📧 Связаться со мной',
@@ -1354,7 +1416,7 @@
                 themeBlue: 'Синяя',
                 themePurple: 'Фиолетовая',
                 langToggle: '🌐 RU',
-                noNotes: '📝 Нет заметок',
+                noNotes: '📝 Нет заметок. Напиши первую!',
                 noChat: '💬 Напиши первое сообщение!',
                 noGallery: '🖼️ Нет скриншотов. Загрузи свои!'
             },
@@ -1390,21 +1452,23 @@
                 gameSnake: '🐍 Snake',
                 tetrisScore: 'Score: 0',
                 tetrisBestLabel: 'Best: <span id="tetrisBest">0</span>',
-                tetrisStatus: '▶ Playing',
+                tetrisStatus: '⏸ Waiting',
                 tetrisPause: '⏸️ Pause',
                 tetrisSaveStatus: '💾 Saved',
                 tetrisNewGame: '🔄 New Game',
                 tetrisSave: '💾 Save',
+                tetrisPlay: '▶ Play',
                 snakeScore: 'Score: 0',
                 snakeBestLabel: 'Best: <span id="snakeBest">0</span>',
-                snakeStatus: '▶ Playing',
+                snakeStatus: '⏸ Waiting',
                 snakePause: '⏸️ Pause',
                 snakeSaveStatus: '💾 Saved',
                 snakeNewGame: '🔄 New Game',
                 snakeSave: '💾 Save',
+                snakePlay: '▶ Play',
                 galleryTitle: '🖼️ Screenshot Gallery',
                 galleryUpload: '📤 Upload',
-                notesTitle: '📝 My Notes',
+                notesTitle: '📝 Public Notes',
                 noteSearch: '🔍 Search notes...',
                 noteTitlePlaceholder: 'Title',
                 noteContentPlaceholder: 'Note text',
@@ -1415,7 +1479,7 @@
                 noteColorGreen: 'Green',
                 noteColorOrange: 'Orange',
                 noteStickerPlaceholder: 'Sticker',
-                chatTitle: '💬 Chat',
+                chatTitle: '💬 Public Chat',
                 chatNamePlaceholder: 'Your name',
                 chatInputPlaceholder: 'Write a message...',
                 contactTitle: '📧 Contact Me',
@@ -1429,7 +1493,7 @@
                 themeBlue: 'Blue',
                 themePurple: 'Purple',
                 langToggle: '🌐 EN',
-                noNotes: '📝 No notes',
+                noNotes: '📝 No notes. Write the first one!',
                 noChat: '💬 Write the first message!',
                 noGallery: '🖼️ No screenshots. Upload yours!'
             }
@@ -1477,6 +1541,7 @@
             document.getElementById('tetrisSaveStatus').textContent = t.tetrisSaveStatus;
             document.getElementById('tetrisReset').textContent = t.tetrisNewGame;
             document.getElementById('tetrisSave').textContent = t.tetrisSave;
+            document.getElementById('tetrisPlay').textContent = t.tetrisPlay;
             document.getElementById('snakeScore').textContent = t.snakeScore;
             document.getElementById('snakeBestLabel').innerHTML = t.snakeBestLabel;
             document.getElementById('snakeStatus').textContent = t.snakeStatus;
@@ -1484,6 +1549,7 @@
             document.getElementById('snakeSaveStatus').textContent = t.snakeSaveStatus;
             document.getElementById('snakeReset').textContent = t.snakeNewGame;
             document.getElementById('snakeSave').textContent = t.snakeSave;
+            document.getElementById('snakePlay').textContent = t.snakePlay;
             document.getElementById('galleryTitle').textContent = t.galleryTitle;
             document.getElementById('galleryUploadBtn').textContent = t.galleryUpload;
             document.getElementById('notesTitle').textContent = t.notesTitle;
@@ -1696,8 +1762,6 @@
                 content.querySelectorAll(`.${prefix}content`).forEach(el => el.classList.remove('active'));
                 const target = content.querySelector(`#${prefix}${targetId}`);
                 if (target) target.classList.add('active');
-                if (targetId === 'tetris') drawTetris();
-                if (targetId === 'snake') drawSnake();
             });
         });
 
@@ -1811,7 +1875,7 @@
         setInterval(fetchSpotifyAndGames, 15000);
 
         // ============================================================
-        // === ЗАМЕТКИ ===
+        // === ЗАМЕТКИ — ОБЩИЕ (все видят) ===
         // ============================================================
         let notes = JSON.parse(localStorage.getItem('notes') || '[]');
         const notesGrid = document.getElementById('notesGrid');
@@ -1833,11 +1897,15 @@
                 const card = document.createElement('div');
                 card.className = 'note-card';
                 card.style.borderLeft = `3px solid ${note.color || 'var(--accent)'}`;
+                const author = note.author || 'Аноним';
                 card.innerHTML = `
                     <span class="sticker">${note.sticker || '📌'}</span>
                     <div class="title">${note.title}</div>
                     <div class="content">${note.content}</div>
-                    <div class="date">${note.date}</div>
+                    <div class="meta">
+                        <span class="author">👤 ${author}</span>
+                        <span>${note.date}</span>
+                    </div>
                     <button class="delete-btn" data-idx="${realIdx}">✕</button>
                 `;
                 card.querySelector('.delete-btn').addEventListener('click', (e) => {
@@ -1865,7 +1933,8 @@
             const now = new Date();
             const date = now.toLocaleDateString('ru-RU', { day:'2-digit', month:'2-digit', year:'numeric' }) +
                 ' ' + now.toLocaleTimeString('ru-RU', { hour:'2-digit', minute:'2-digit' });
-            notes.unshift({ title, content, color, sticker, date });
+            const author = document.getElementById('chatName').value.trim() || 'Аноним';
+            notes.unshift({ title, content, color, sticker, date, author });
             localStorage.setItem('notes', JSON.stringify(notes));
             document.getElementById('noteTitle').value = '';
             document.getElementById('noteContent').value = '';
@@ -1910,7 +1979,7 @@
         renderNotes();
 
         // ============================================================
-        // === ЧАТ ===
+        // === ЧАТ — ОБЩИЙ (все видят) ===
         // ============================================================
         let chatMessages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
         const chatContainer = document.getElementById('chatMessages');
@@ -2071,13 +2140,14 @@
         applyTheme(currentTheme);
 
         // ============================================================
-        // === ТЕТРИС ===
+        // === ТЕТРИС — С КНОПКОЙ ИГРАТЬ ===
         // ============================================================
         const tetrisCanvas = document.getElementById('tetrisCanvas');
         const tctx = tetrisCanvas.getContext('2d');
         const COLS = 10, ROWS = 20, BS = tetrisCanvas.width / COLS;
         let tBoard = [], tPiece = null, tScore = 0, tBest = parseInt(localStorage.getItem('tetrisBest') || '0');
         let tInterval = null, tRunning = false, tPaused = false;
+        let tetrisStarted = false;
         const T_PIECES = [
             [[1,1,1,1]], [[1,1],[1,1]], [[0,1,0],[1,1,1]],
             [[1,0,0],[1,1,1]], [[0,0,1],[1,1,1]], [[0,1,1],[1,1,0]], [[1,1,0],[0,1,1]]
@@ -2089,7 +2159,7 @@
             tScore = 0; tPaused = false;
             const t = translations[currentLang];
             document.getElementById('tetrisScore').textContent = t.tetrisScore;
-            document.getElementById('tetrisStatus').textContent = t.tetrisStatus;
+            document.getElementById('tetrisStatus').textContent = '▶ Игра идёт';
             spawnTetris(); drawTetris();
         }
         function spawnTetris() {
@@ -2198,26 +2268,47 @@
             while (!collision(tPiece.shape, tPiece.x, tPiece.y + 1)) tPiece.y++;
             mergeTetris(); drawTetris();
         }
-        document.getElementById('tetrisPause').addEventListener('click', () => {
+
+        // Кнопка Играть для Тетриса
+        document.getElementById('tetrisPlay').addEventListener('click', function() {
+            if (tetrisStarted) return;
+            tetrisStarted = true;
+            this.style.display = 'none';
+            document.getElementById('tetrisPause').style.display = 'inline-block';
+            document.getElementById('tetrisReset').style.display = 'inline-block';
+            document.getElementById('tetrisSave').style.display = 'inline-block';
+            document.getElementById('tetrisMobile').style.display = 'grid';
+            document.getElementById('tetrisPlaceholder').style.display = 'none';
+            tetrisCanvas.classList.add('active');
+            document.getElementById('tetrisStatus').textContent = '▶ Игра идёт';
+            initTetris();
+            tRunning = true;
+            tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
+        });
+
+        document.getElementById('tetrisPause').addEventListener('click', function() {
             if (!tRunning) return;
             tPaused = !tPaused;
             const t = translations[currentLang];
-            document.getElementById('tetrisStatus').textContent = tPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' : 'Paused') : t.tetrisStatus;
+            document.getElementById('tetrisStatus').textContent = tPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' : 'Paused') : '▶ Игра идёт';
         });
-        document.getElementById('tetrisReset').addEventListener('click', () => {
+
+        document.getElementById('tetrisReset').addEventListener('click', function() {
             if (tInterval) clearInterval(tInterval);
             tRunning = true; tPaused = false;
             initTetris();
             tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
         });
-        document.getElementById('tetrisSave').addEventListener('click', () => {
+
+        document.getElementById('tetrisSave').addEventListener('click', function() {
             localStorage.setItem('tetrisBest', String(tBest));
             document.getElementById('tetrisSaveStatus').textContent = '✅ ' + (currentLang === 'ru' ? 'Сохранено!' : 'Saved!');
             setTimeout(() => document.getElementById('tetrisSaveStatus').textContent = translations[currentLang].tetrisSaveStatus, 2000);
         });
+
         document.addEventListener('keydown', (e) => {
             if (!document.getElementById('tab-games').classList.contains('active')) return;
-            if (document.getElementById('game-tetris').classList.contains('active')) {
+            if (document.getElementById('game-tetris').classList.contains('active') && tetrisStarted) {
                 if (e.key === 'ArrowLeft') { e.preventDefault(); moveTetris(-1, 0); }
                 if (e.key === 'ArrowRight') { e.preventDefault(); moveTetris(1, 0); }
                 if (e.key === 'ArrowDown') { e.preventDefault(); moveTetris(0, 1); }
@@ -2228,6 +2319,7 @@
         document.querySelectorAll('[data-tetris]').forEach(btn => {
             ['touchstart','mousedown'].forEach(ev => btn.addEventListener(ev, (e) => {
                 e.preventDefault();
+                if (!tetrisStarted) return;
                 const a = btn.dataset.tetris;
                 if (a === 'left') moveTetris(-1, 0);
                 if (a === 'right') moveTetris(1, 0);
@@ -2238,7 +2330,7 @@
         });
 
         // ============================================================
-        // === ЗМЕЙКА ===
+        // === ЗМЕЙКА — С КНОПКОЙ ИГРАТЬ ===
         // ============================================================
         const snakeCanvas = document.getElementById('snakeCanvas');
         const sctx = snakeCanvas.getContext('2d');
@@ -2248,6 +2340,7 @@
         let snake = [], sDir = { dx: 1, dy: 0 }, sNext = { dx: 1, dy: 0 }, sFood = null;
         let sScore = 0, sBest = parseInt(localStorage.getItem('snakeBest') || '0');
         let sRunning = false, sPaused = false, sInterval = null;
+        let snakeStarted = false;
         document.getElementById('snakeBest').textContent = sBest;
 
         function initSnake() {
@@ -2256,7 +2349,7 @@
             sDir = { dx: 1, dy: 0 }; sNext = { dx: 1, dy: 0 }; sScore = 0; sPaused = false;
             const t = translations[currentLang];
             document.getElementById('snakeScore').textContent = t.snakeScore;
-            document.getElementById('snakeStatus').textContent = t.snakeStatus;
+            document.getElementById('snakeStatus').textContent = '▶ Игра идёт';
             spawnFood(); drawSnake();
         }
         function spawnFood() {
@@ -2318,25 +2411,46 @@
             alert((currentLang === 'ru' ? '💥 Игра окончена! Счёт: ' : '💥 Game over! Score: ') + sScore);
             initSnake(); sRunning = true; sInterval = setInterval(moveSnake, 130);
         }
-        document.getElementById('snakePause').addEventListener('click', () => {
+
+        document.getElementById('snakePlay').addEventListener('click', function() {
+            if (snakeStarted) return;
+            snakeStarted = true;
+            this.style.display = 'none';
+            document.getElementById('snakePause').style.display = 'inline-block';
+            document.getElementById('snakeReset').style.display = 'inline-block';
+            document.getElementById('snakeSave').style.display = 'inline-block';
+            document.getElementById('snakeMobile').style.display = 'grid';
+            document.getElementById('snakePlaceholder').style.display = 'none';
+            snakeCanvas.classList.add('active');
+            document.getElementById('snakeStatus').textContent = '▶ Игра идёт';
+            initSnake();
+            sRunning = true;
+            sInterval = setInterval(moveSnake, 130);
+        });
+
+        document.getElementById('snakePause').addEventListener('click', function() {
             if (!sRunning) return;
             sPaused = !sPaused;
             const t = translations[currentLang];
-            document.getElementById('snakeStatus').textContent = sPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' : 'Paused') : t.snakeStatus;
+            document.getElementById('snakeStatus').textContent = sPaused ? '⏸ ' + (currentLang === 'ru' ? 'Пауза' : 'Paused') : '▶ Игра идёт';
         });
-        document.getElementById('snakeReset').addEventListener('click', () => {
+
+        document.getElementById('snakeReset').addEventListener('click', function() {
             if (sInterval) clearInterval(sInterval);
             sRunning = true; sPaused = false;
-            initSnake(); sInterval = setInterval(moveSnake, 130);
+            initSnake();
+            sInterval = setInterval(moveSnake, 130);
         });
-        document.getElementById('snakeSave').addEventListener('click', () => {
+
+        document.getElementById('snakeSave').addEventListener('click', function() {
             localStorage.setItem('snakeBest', String(sBest));
             document.getElementById('snakeSaveStatus').textContent = '✅ ' + (currentLang === 'ru' ? 'Сохранено!' : 'Saved!');
             setTimeout(() => document.getElementById('snakeSaveStatus').textContent = translations[currentLang].snakeSaveStatus, 2000);
         });
+
         document.addEventListener('keydown', (e) => {
             if (!document.getElementById('tab-games').classList.contains('active')) return;
-            if (document.getElementById('game-snake').classList.contains('active')) {
+            if (document.getElementById('game-snake').classList.contains('active') && snakeStarted) {
                 e.preventDefault();
                 if (e.key === 'ArrowUp' && sDir.dy !== 1) sNext = { dx: 0, dy: -1 };
                 if (e.key === 'ArrowDown' && sDir.dy !== -1) sNext = { dx: 0, dy: 1 };
@@ -2348,6 +2462,7 @@
         document.querySelectorAll('[data-snake]').forEach(btn => {
             ['touchstart','mousedown'].forEach(ev => btn.addEventListener(ev, (e) => {
                 e.preventDefault();
+                if (!snakeStarted) return;
                 if (!sRunning) { sRunning = true; if (sInterval) clearInterval(sInterval); sInterval = setInterval(moveSnake, 130); }
                 const a = btn.dataset.snake;
                 if (a === 'up' && sDir.dy !== 1) sNext = { dx: 0, dy: -1 };
@@ -2356,14 +2471,6 @@
                 if (a === 'right' && sDir.dx !== -1) sNext = { dx: 1, dy: 0 };
             }));
         });
-
-        // === СТАРТ ===
-        initTetris();
-        tRunning = true;
-        tInterval = setInterval(() => { if (tRunning && !tPaused) moveTetris(0, 1); }, 300);
-        initSnake();
-        sRunning = true;
-        sInterval = setInterval(moveSnake, 130);
     </script>
 </body>
 </html>
