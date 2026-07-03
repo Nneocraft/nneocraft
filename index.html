@@ -9,6 +9,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-icon" href="avatar.png" />
     <style>
+        /* ============================================================
+           ВСЕ СТИЛИ (те же, что были ранее)
+           ============================================================ */
         :root {
             --bg: #06060e;
             --card: rgba(10, 10, 24, 0.78);
@@ -1564,20 +1567,20 @@
         let currentLang = localStorage.getItem('lang') || 'ru';
 
         // ============================================================
-        // === СНЕГОПАД (запускается сразу) ===
+        // === СНЕГОПАД (запускается после загрузки страницы) ===
         // ============================================================
+        let snowActive = localStorage.getItem('snowActive') !== 'false';
+        let snowflakes = [];
+        let animationFrame = null;
         const snowCanvas = document.getElementById('snowCanvas');
         const ctx = snowCanvas.getContext('2d');
-        let snowflakes = [];
-        let snowActive = localStorage.getItem('snowActive') !== 'false';
-        let animationFrame;
 
-        function resizeCanvas() {
+        function resizeSnowCanvas() {
             snowCanvas.width = window.innerWidth;
             snowCanvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resizeSnowCanvas);
+        resizeSnowCanvas();
 
         class Snowflake {
             constructor() {
@@ -1659,17 +1662,6 @@
         document.getElementById('snowToggle').addEventListener('click', function() {
             toggleSnow(!snowActive);
         });
-
-        // Сразу запускаем снег
-        createSnowflakes();
-        if (snowActive) {
-            snowCanvas.classList.remove('hidden');
-            animateSnow();
-        } else {
-            snowCanvas.classList.add('hidden');
-            document.getElementById('snowLabel').textContent = translations[currentLang].snowOffLabel;
-            document.querySelector('.snow-toggle .icon').textContent = '☀️';
-        }
 
         // ============================================================
         // === ПРИМЕНЕНИЕ ПЕРЕВОДОВ ===
@@ -1790,6 +1782,22 @@
         }
 
         // ============================================================
+        // === ЗАПУСК СНЕГА ПОСЛЕ ЗАГРУЗКИ СТРАНИЦЫ ===
+        // ============================================================
+        function initSnow() {
+            createSnowflakes();
+            if (snowActive) {
+                snowCanvas.classList.remove('hidden');
+                animateSnow();
+            } else {
+                snowCanvas.classList.add('hidden');
+                const t = translations[currentLang];
+                document.getElementById('snowLabel').textContent = t.snowOffLabel;
+                document.querySelector('.snow-toggle .icon').textContent = '☀️';
+            }
+        }
+
+        // ============================================================
         // === КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ===
         // ============================================================
         document.getElementById('langToggle').addEventListener('click', function() {
@@ -1845,9 +1853,17 @@
         // ============================================================
         // === ЗАГРУЗКА ===
         // ============================================================
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function() {
+            // Скрываем загрузчик
             document.getElementById('loader').classList.add('hidden');
+
+            // Запускаем снег
+            initSnow();
+
+            // Применяем язык
             applyLanguage(currentLang);
+
+            // Обновляем статистику
             updateStats();
         });
 
@@ -2897,6 +2913,36 @@
                 if (a === 'right' && sDir.dx !== -1) sNext = { dx: 1, dy: 0 };
             }));
         });
+
+        // ============================================================
+        // === ДОБАВЛЯЕМ ССЫЛКУ НА DONATION ALERTS ===
+        // ============================================================
+        // Добавляем ссылку в блок быстрых ссылок (правая колонка)
+        const quickLinks = document.querySelector('.status-card:last-child div');
+        if (quickLinks) {
+            const daLink = document.createElement('a');
+            daLink.href = 'https://www.donationalerts.com/r/trutor';
+            daLink.target = '_blank';
+            daLink.style.cssText =
+                'color:var(--accent);text-decoration:none;font-size:12px;font-weight:500;';
+            daLink.textContent = '💝 Donation Alerts';
+            quickLinks.appendChild(daLink);
+        }
+
+        // Также добавляем в основной блок ссылок (внизу страницы)
+        const linksContainer = document.querySelector('.links');
+        if (linksContainer) {
+            const daLinkFull = document.createElement('a');
+            daLinkFull.href = 'https://www.donationalerts.com/r/trutor';
+            daLinkFull.target = '_blank';
+            daLinkFull.className = 'link full';
+            daLinkFull.innerHTML = `
+                <span class="link-icon">💝</span>
+                <span class="link-label">Donation Alerts</span>
+                <span class="link-chip">поддержать</span>
+            `;
+            linksContainer.appendChild(daLinkFull);
+        }
     </script>
 </body>
 </html>
