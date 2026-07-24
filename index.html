@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Server Royale — Правила ивента</title>
+    <title>Server Royale — Правила</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Orbitron:wght@400..900&display=swap" rel="stylesheet"/>
     <style>
         * {
             margin: 0;
@@ -12,57 +13,63 @@
         }
 
         body {
-            background: #0a0a0f;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #e0e0e0;
-            padding: 30px 20px;
-            line-height: 1.7;
+            background: #0b0b0f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #d1d1e0;
+            padding: 40px 20px;
+            line-height: 1.6;
+            font-weight: 400;
         }
 
         .container {
-            max-width: 950px;
+            max-width: 920px;
             margin: 0 auto;
-            background: #14141c;
-            padding: 40px 35px;
-            border-radius: 20px;
-            border: 1px solid #2a2a3a;
-            box-shadow: 0 0 60px rgba(100, 70, 255, 0.05);
+            background: #12121a;
+            padding: 50px 45px;
+            border-radius: 24px;
+            border: 1px solid #262633;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #2a2a3a;
-            padding-bottom: 25px;
+            margin-bottom: 45px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #222233;
         }
 
         .header h1 {
-            font-size: 38px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
+            font-family: 'Orbitron', 'Inter', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
+        .header h1 span {
+            color: #7a7aa0;
+            font-weight: 300;
+        }
+
         .header .sub {
-            color: #8888aa;
-            font-size: 16px;
-            margin-top: 6px;
-            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+            color: #7a7a99;
+            font-size: 15px;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            font-weight: 400;
         }
 
         .header .sub span {
-            color: #ffd200;
-            font-weight: 600;
+            color: #c0c0dd;
+            font-weight: 500;
         }
 
         .section {
-            margin-bottom: 32px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #1e1e2e;
+            margin-bottom: 28px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #1c1c2a;
         }
 
         .section:last-child {
@@ -71,86 +78,86 @@
         }
 
         .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #ffd200;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #eaeaff;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
         }
 
-        .section-title .badge {
-            background: #ffd200;
-            color: #0a0a0f;
-            font-size: 13px;
-            font-weight: 800;
-            padding: 0 12px;
-            border-radius: 30px;
-            line-height: 24px;
+        .section-title .marker {
+            color: #7a7aaa;
+            margin-right: 6px;
+            font-weight: 400;
         }
 
         .rule-item {
-            padding: 4px 0 4px 20px;
+            padding: 3px 0 3px 18px;
             border-left: 2px solid transparent;
-            transition: 0.2s;
+            transition: 0.15s;
+            color: #c8c8dd;
+            font-weight: 400;
         }
 
         .rule-item:hover {
-            border-left-color: #ffd200;
-            padding-left: 25px;
+            border-left-color: #7a7aaa;
+            padding-left: 22px;
         }
 
         .rule-item strong {
-            color: #f0e6b0;
+            color: #f0f0ff;
+            font-weight: 600;
         }
 
         .rule-item .highlight {
-            color: #ff6b6b;
-            font-weight: 600;
+            color: #8a8aff;
+            font-weight: 500;
         }
 
         .badge-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px 12px;
-            margin: 10px 0 6px 20px;
-            padding: 10px 15px;
-            background: #1a1a26;
+            gap: 4px 10px;
+            margin: 10px 0 4px 18px;
+            padding: 10px 14px;
+            background: #16161f;
             border-radius: 12px;
-            border: 1px solid #2a2a3e;
+            border: 1px solid #252535;
         }
 
         .badge-list span {
-            background: #2a2a40;
-            padding: 2px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #d0d0e0;
-            font-family: 'Courier New', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background: #1e1e2b;
+            padding: 2px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            color: #b8b8d0;
+            font-weight: 400;
         }
 
         .badge-list .danger {
-            background: #3a1a1a;
-            color: #ff8a8a;
-            border: 1px solid #5a2a2a;
+            background: #221a1a;
+            color: #e08080;
+            border: 1px solid #3d2a2a;
         }
 
         .zone-table {
-            margin: 12px 0 6px 20px;
+            margin: 10px 0 4px 18px;
             background: #0f0f18;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid #252535;
-            max-width: 450px;
+            border: 1px solid #202030;
+            max-width: 420px;
         }
 
         .zone-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 20px;
-            border-bottom: 1px solid #1a1a28;
-            font-size: 15px;
+            padding: 7px 18px;
+            border-bottom: 1px solid #161625;
+            font-size: 14px;
+            font-weight: 400;
         }
 
         .zone-row:last-child {
@@ -158,38 +165,41 @@
         }
 
         .zone-row .time {
-            color: #8888bb;
+            color: #7a7a99;
         }
 
         .zone-row .size {
-            color: #ffd200;
-            font-weight: 600;
+            color: #c8c8f0;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .zone-row.final {
-            background: #2a1a0a;
+            background: #1a1a2a;
         }
 
         .zone-row.final .size {
-            color: #ff6b35;
-            font-size: 18px;
+            color: #e0a0a0;
+            font-weight: 600;
         }
 
         .mod-list {
-            margin: 8px 0 4px 20px;
-            padding: 12px 18px;
+            margin: 8px 0 4px 18px;
+            padding: 12px 16px;
             background: #0f0f18;
             border-radius: 12px;
-            border-left: 3px solid #ff6b6b;
+            border-left: 3px solid #6a6a8a;
         }
 
         .mod-list .category {
-            color: #ffb347;
-            font-weight: 700;
-            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: #b0b0d0;
+            font-weight: 600;
+            font-size: 14px;
             display: block;
-            margin-top: 14px;
-            margin-bottom: 4px;
+            margin-top: 12px;
+            margin-bottom: 3px;
+            letter-spacing: 0.3px;
         }
 
         .mod-list .category:first-child {
@@ -197,14 +207,16 @@
         }
 
         .mod-list .mods {
-            color: #c0c0d5;
-            font-size: 14px;
+            color: #b0b0c8;
+            font-size: 13px;
             line-height: 1.8;
-            padding-left: 10px;
+            padding-left: 8px;
+            font-weight: 400;
         }
 
         .mod-list .mods .bad {
-            color: #ff7a7a;
+            font-family: 'JetBrains Mono', monospace;
+            color: #d08080;
             font-weight: 500;
         }
 
@@ -212,64 +224,65 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #1e1e2e;
-            color: #555577;
-            font-size: 14px;
+            border-top: 1px solid #1c1c2a;
+            color: #5a5a7a;
+            font-size: 13px;
+            font-weight: 400;
         }
 
         .footer a {
-            color: #8888cc;
+            color: #7a7aaa;
             text-decoration: none;
         }
 
         .footer a:hover {
-            color: #ffd200;
+            color: #b0b0d0;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px 15px;
-            }
+        .spacer {
+            margin-top: 10px;
+        }
 
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 12px;
+            }
+            .container {
+                padding: 24px 16px;
+            }
             .header h1 {
                 font-size: 26px;
+                letter-spacing: 1.5px;
             }
-
             .section-title {
                 font-size: 18px;
             }
-
             .rule-item {
                 padding-left: 12px;
                 font-size: 14px;
             }
-
             .badge-list {
-                padding: 8px 12px;
-                gap: 4px 8px;
+                padding: 8px 10px;
+                gap: 4px 6px;
+                margin-left: 8px;
             }
-
             .badge-list span {
-                font-size: 12px;
-                padding: 1px 10px;
+                font-size: 11px;
+                padding: 1px 8px;
             }
-
             .zone-table {
-                margin-left: 10px;
+                margin-left: 8px;
             }
-
             .zone-row {
-                padding: 6px 14px;
+                padding: 6px 12px;
                 font-size: 13px;
             }
-
             .mod-list {
-                margin-left: 8px;
+                margin-left: 6px;
                 padding: 10px 12px;
             }
-
             .mod-list .mods {
-                font-size: 13px;
+                font-size: 12px;
             }
         }
     </style>
@@ -279,40 +292,32 @@
 <div class="container">
 
     <div class="header">
-        <h1>⚔ SERVER ROYALE</h1>
-        <div class="sub">Официальные правила ивента · <span>Королевская битва серверов</span></div>
+        <h1>⚔ SERVER <span>ROYALE</span></h1>
+        <div class="sub">Правила ивента · <span>королевская битва серверов</span></div>
     </div>
 
-    <!-- ========== [1] ========== -->
+    <!-- 1 -->
     <div class="section">
-        <div class="section-title">🔘 [1] ОБЩИЕ ПОЛОЖЕНИЯ</div>
+        <div class="section-title"><span class="marker">[1]</span> Общие положения</div>
 
-        <div class="rule-item"><strong>1.1</strong> Участвуя в ивенте или находясь на сервере Discord, вы автоматически принимаете все нижеперечисленные правила и обязуетесь их соблюдать.</div>
-
-        <div class="rule-item"><strong>1.2</strong> Администрация мероприятия оставляет за собой право применять любые меры наказания без предварительного уведомления.</div>
-
-        <div class="rule-item"><strong>1.3</strong> Средства, переданные в поддержку проекта, не подлежат возврату вне зависимости от причин (нарушение правил, блокировка аккаунта или личное желание игрока).</div>
-
-        <div class="rule-item"><strong>1.4</strong> По требованию организаторов участник обязан пройти проверку на использование стороннего ПО. Отказ приравнивается к признанию вины и влечёт блокировку на срок, аналогичный наказанию за использование читов.</div>
-
-        <div class="rule-item"><strong>1.5</strong> Систематические или преднамеренные нарушения настоящих правил влекут за собой блокировку или ограничение функционала аккаунта на неопределённый срок.</div>
+        <div class="rule-item"><strong>1.1</strong> Участвуя в ивенте или находясь в дискорде, вы автоматически соглашаетесь со всеми правилами.</div>
+        <div class="rule-item"><strong>1.2</strong> Администрация вправе выдать любое наказание без предварительного уведомления.</div>
+        <div class="rule-item"><strong>1.3</strong> Пожертвования не возвращаются — ни при нарушении, ни при блокировке, ни по желанию игрока.</div>
+        <div class="rule-item"><strong>1.4</strong> По запросу администрации участник обязан пройти проверку на читы. Отказ = бан на срок, аналогичный наказанию за читы.</div>
+        <div class="rule-item"><strong>1.5</strong> Систематические или умышленные нарушения караются баном или ограничением аккаунта на неопределённый срок.</div>
     </div>
 
-    <!-- ========== [2] ========== -->
+    <!-- 2 -->
     <div class="section">
-        <div class="section-title">🔘 [2] ПОВЕДЕНИЕ В ЧАТАХ И ГОЛОСОВЫХ КАНАЛАХ</div>
+        <div class="section-title"><span class="marker">[2]</span> Поведение в чатах и голосовых каналах</div>
 
-        <div class="rule-item"><strong>2.1</strong> Агрессивное общение, провокации и систематическое нарушение атмосферы мероприятия пресекаются ограничением прав или блокировкой.</div>
+        <div class="rule-item"><strong>2.1</strong> Токсичность, провокации и систематическое нарушение атмосферы пресекаются блокировкой или мутом.</div>
+        <div class="rule-item"><strong>2.2</strong> Реклама запрещена. Исключение — официальные сервера-участники и стримеры ивента.</div>
+        <div class="rule-item"><strong>2.3</strong> Оскорбления и разжигание конфликтов влекут санкции.</div>
+        <div class="rule-item"><strong>2.4</strong> Флуд, спам, NSFW-контент — под запретом.</div>
+        <div class="rule-item"><strong>2.5</strong> Высказывания по национальному, расовому или политическому признаку, а также экстремистская символика запрещены.</div>
 
-        <div class="rule-item"><strong>2.2</strong> Размещение рекламной информации без согласования запрещено. Исключение составляют участники-сервера и официальные стримеры ивента.</div>
-
-        <div class="rule-item"><strong>2.3</strong> Личные оскорбления и целенаправленное разжигание конфликтов преследуются по установленным санкциям.</div>
-
-        <div class="rule-item"><strong>2.4</strong> Чрезмерное повторение сообщений, засорение эфира и публикация контента 18+ влекут за собой меры воздействия.</div>
-
-        <div class="rule-item"><strong>2.5</strong> Высказывания, унижающие достоинство по национальному, расовому или политическому признаку, а также использование символики экстремистской направленности строго запрещены.</div>
-
-        <div class="rule-item"><strong>2.6</strong> В присутствии стримеров действуют повышенные требования к лексике. Полный перечень недопустимых слов включает оскорбительные и дискриминационные формулировки на русском и английском языках. Скрытые формы подобных выражений также трактуются как нарушение. Фиксация нарушения осуществляется на основании подтверждения со стрима.</div>
+        <div class="rule-item"><strong>2.6</strong> В присутствии стримеров действуют повышенные требования к лексике. Завуалированные формы тоже считаются нарушением. Фиксация — по стриму.</div>
 
         <div class="badge-list">
             <span class="danger">nigger</span><span class="danger">nigga</span><span class="danger">naga</span>
@@ -328,137 +333,121 @@
             <span class="danger">cunt</span><span class="danger">пизда</span><span class="danger">куколд</span>
         </div>
 
-        <div class="rule-item"><strong>2.7</strong> Публикация шокирующих материалов, сцен насилия и жестокости запрещена.</div>
-
-        <div class="rule-item"><strong>2.8</strong> Ники, содержащие нецензурную лексику или оскорбления, должны быть изменены до начала ивента.</div>
-
-        <div class="rule-item"><strong>2.9</strong> Раскрытие личной информации о других участниках без их явного согласия является серьёзным нарушением.</div>
+        <div class="rule-item"><strong>2.7</strong> Шокирующие материалы, сцены насилия и жестокости запрещены.</div>
+        <div class="rule-item"><strong>2.8</strong> Ники с нецензурной лексикой или оскорблениями нужно сменить до старта.</div>
+        <div class="rule-item"><strong>2.9</strong> Распространение личной информации без согласия — серьёзное нарушение.</div>
     </div>
 
-    <!-- ========== [3] ========== -->
+    <!-- 3 -->
     <div class="section">
-        <div class="section-title">🔘 [3] ИГРОВЫЕ ПРАВИЛА</div>
+        <div class="section-title"><span class="marker">[3]</span> Игровые правила</div>
 
-        <div class="rule-item"><strong>3.1</strong> Запрещено использование любых модификаций, клиентов или ресурспаков, предоставляющих преимущество над другими игроками. Нарушение влечёт блокировку.</div>
-
-        <div class="rule-item"><strong>3.2</strong> Применение программ для автоматизации действий (кликеры, скрипты, макросы) с целью получения ресурсов в автоматическом режиме запрещено.</div>
-
-        <div class="rule-item"><strong>3.3</strong> Каждый участник имеет право использовать только один аккаунт. Мультиаккаунтинг строго запрещён.</div>
-
-        <div class="rule-item"><strong>3.4</strong> Использование запрещённой символики или жестов в эфире стримеров влечёт предупреждение или блокировку.</div>
+        <div class="rule-item"><strong>3.1</strong> Любые модификации, клиенты или ресурспаки, дающие преимущество, запрещены. Нарушение = бан.</div>
+        <div class="rule-item"><strong>3.2</strong> Автоматизация (кликеры, скрипты, макросы) для получения ресурсов запрещена.</div>
+        <div class="rule-item"><strong>3.3</strong> Один игрок — один аккаунт. Мультиаккаунтинг запрещён.</div>
+        <div class="rule-item"><strong>3.4</strong> Запрещённая символика или жесты в эфире стримеров — предупреждение или бан.</div>
     </div>
 
-    <!-- ========== [4] ========== -->
+    <!-- 4 -->
     <div class="section">
-        <div class="section-title">🔘 [4] МЕХАНИКА ИВЕНТА — SERVER ROYALE</div>
+        <div class="section-title"><span class="marker">[4]</span> Механика ивента — Server Royale</div>
 
-        <div class="rule-item"><strong>4.1</strong> <strong>Формат:</strong> Королевская битва между командами различных серверов. Размер карты — 5000×5000 блоков. Общая длительность: 24 часа + фаза сжатия. Победителем признаётся сервер, чья команда останется последней.</div>
-
-        <div class="rule-item"><strong>4.2</strong> Каждый сервер формирует команду. Ориентировочный размер команды — <span class="highlight">15 человек</span>. Точное количество участников будет утверждено после завершения регистрации и зависит от общего числа команд. Все игроки должны находиться в голосовом канале Discord своей команды.</div>
-
-        <div class="rule-item"><strong>4.3</strong> <strong>Старт:</strong> команды появляются в случайных точках карты. Первые 5 минут — <span class="highlight">период тишины</span>: PvP запрещён. Далее — полная свобода действий.</div>
-
-        <div class="rule-item"><strong>4.4</strong> Участники могут добывать ресурсы, строить базы, крафтить снаряжение, исследовать карту и находить сундуки с лутом. На карте присутствуют NPC-торговцы с редкими предметами.</div>
-
-        <div class="rule-item"><strong>4.5</strong> <span class="highlight">Разрешено:</span> PvP, грабёж тел, разрушение построек, использование TNT. Временные союзы допускаются, но победитель останется только один.</div>
-
-        <div class="rule-item"><strong>4.6</strong> <span class="highlight">Запрещено:</span> намеренное затягивание игры (укрытие в обсидиановых коробках, недоступных местах). Использование багов и глитчей карты запрещено.</div>
+        <div class="rule-item"><strong>4.1</strong> <strong>Формат:</strong> королевская битва между командами серверов. Карта — 5000×5000 блоков. Длительность — 24 часа + сжатие. Победитель — последняя команда.</div>
+        <div class="rule-item"><strong>4.2</strong> Каждый сервер формирует команду. Ориентировочно — <span class="highlight">15 человек</span>. Точное количество утверждается после регистрации. Все игроки должны быть в голосовом канале своей команды.</div>
+        <div class="rule-item"><strong>4.3</strong> <strong>Старт:</strong> команды появляются в случайных точках. Первые 5 минут — <span class="highlight">период тишины</span>: PvP запрещён. Дальше — полная свобода.</div>
+        <div class="rule-item"><strong>4.4</strong> Можно добывать ресурсы, строить, крафтить, исследовать карту, находить сундуки с лутом. На карте есть NPC-торговцы.</div>
+        <div class="rule-item"><strong>4.5</strong> <span class="highlight">Разрешено:</span> PvP, грабёж, разрушение построек, TNT. Союзы допускаются, но победитель будет только один.</div>
+        <div class="rule-item"><strong>4.6</strong> <span class="highlight">Запрещено:</span> намеренное затягивание игры (укрытие в обсидиановых коробках, недоступных местах), использование багов и глитчей.</div>
     </div>
 
-    <!-- ========== [5] ========== -->
+    <!-- 5 -->
     <div class="section">
-        <div class="section-title">🔘 [5] СЖАТИЕ КАРТЫ (HARDCORE)</div>
+        <div class="section-title"><span class="marker">[5]</span> Сжатие карты (хардкор)</div>
 
-        <div class="rule-item"><strong>5.1</strong> Через день после старта в <span class="highlight">18:00 МСК</span> активируется Hardcore-режим: возрождение невозможно. Убитый игрок покидает ивент. Начинается сжатие игровой зоны.</div>
+        <div class="rule-item"><strong>5.1</strong> На второй день в <span class="highlight">18:00 МСК</span> включается хардкор: возрождение невозможно. Убитый игрок покидает ивент. Начинается сжатие зоны.</div>
 
         <div class="rule-item"><strong>5.2</strong> Этапы сжатия:</div>
 
         <div class="zone-table">
             <div class="zone-row"><span class="time">Старт хардкора</span><span class="size">5000 × 5000</span></div>
-            <div class="zone-row"><span class="time">+ 30 минут</span><span class="size">2000 × 2000</span></div>
-            <div class="zone-row"><span class="time">+ 60 минут</span><span class="size">1000 × 1000</span></div>
-            <div class="zone-row"><span class="time">+ 90 минут</span><span class="size">500 × 500</span></div>
-            <div class="zone-row"><span class="time">+ 120 минут</span><span class="size">200 × 200</span></div>
-            <div class="zone-row"><span class="time">+ 150 минут</span><span class="size">100 × 100</span></div>
+            <div class="zone-row"><span class="time">+ 30 мин</span><span class="size">2000 × 2000</span></div>
+            <div class="zone-row"><span class="time">+ 60 мин</span><span class="size">1000 × 1000</span></div>
+            <div class="zone-row"><span class="time">+ 90 мин</span><span class="size">500 × 500</span></div>
+            <div class="zone-row"><span class="time">+ 120 мин</span><span class="size">200 × 200</span></div>
+            <div class="zone-row"><span class="time">+ 150 мин</span><span class="size">100 × 100</span></div>
             <div class="zone-row final"><span class="time">Финал</span><span class="size">10 × 10</span></div>
         </div>
 
-        <div class="rule-item"><strong>5.3</strong> Игроки за пределами зоны получают урон. Граница отображается на карте и мини-карте.</div>
+        <div class="rule-item"><strong>5.3</strong> Игроки за пределами зоны получают урон. Граница видна на карте и мини-карте.</div>
     </div>
 
-    <!-- ========== [6] ========== -->
+    <!-- 6 -->
     <div class="section">
-        <div class="section-title">🔘 [6] ПОБЕДИТЕЛЬ И ПРИЗЫ</div>
+        <div class="section-title"><span class="marker">[6]</span> Победитель и призы</div>
 
-        <div class="rule-item"><strong>6.1</strong> Победителем становится сервер, чья команда останется последней на карте.</div>
-
+        <div class="rule-item"><strong>6.1</strong> Победитель — сервер, чья команда останется последней на карте.</div>
         <div class="rule-item"><strong>6.2</strong> Победитель получает титул: <span class="highlight">«Самый сильный сервер»</span>.</div>
     </div>
 
-    <!-- ========== [7] ========== -->
+    <!-- 7 -->
     <div class="section">
-        <div class="section-title">🔘 [7] ТЕХНИЧЕСКАЯ ЧАСТЬ</div>
+        <div class="section-title"><span class="marker">[7]</span> Техническая часть</div>
 
         <div class="rule-item"><strong>7.1</strong> Версия Minecraft: <span class="highlight">1.21.11</span></div>
         <div class="rule-item"><strong>7.2</strong> Хостинг: ивент проводится при поддержке <strong>SakuraNet</strong></div>
-        <div class="rule-item"><strong>7.3</strong> IP-адрес сервера будет выдан участникам за 1 час до старта.</div>
-        <div class="rule-item"><strong>7.4</strong> Все участники обязаны находиться в Discord организаторов.</div>
-        <div class="rule-item"><strong>7.5</strong> Стриминг разрешён с <span class="highlight">задержкой не менее 2 минут</span> во избежание спойлеров и стримснайпинга.</div>
+        <div class="rule-item"><strong>7.3</strong> IP сервера выдаётся за 1 час до старта.</div>
+        <div class="rule-item"><strong>7.4</strong> Все участники обязаны быть в дискорде организаторов.</div>
+        <div class="rule-item"><strong>7.5</strong> Стриминг разрешён с задержкой <span class="highlight">не менее 2 минут</span>.</div>
     </div>
 
-    <!-- ========== [8] ========== -->
+    <!-- 8 -->
     <div class="section">
-        <div class="section-title">🔘 [8] ДОПОЛНИТЕЛЬНЫЕ ПОЛОЖЕНИЯ</div>
+        <div class="section-title"><span class="marker">[8]</span> Дополнительные положения</div>
 
-        <div class="rule-item"><strong>8.1</strong> Решения организаторов являются <span class="highlight">окончательными</span> и обсуждению не подлежат.</div>
-
-        <div class="rule-item"><strong>8.2</strong> Администрация оставляет за собой право вносить изменения в правила в экстренных ситуациях (технические сбои, атаки и т.п.).</div>
-
-        <div class="rule-item"><strong>8.3</strong> Участие в ивенте подразумевает автоматическое согласие со всеми пунктами правил.</div>
+        <div class="rule-item"><strong>8.1</strong> Решения организаторов — <span class="highlight">окончательны</span>.</div>
+        <div class="rule-item"><strong>8.2</strong> Администрация может менять правила в экстренных ситуациях.</div>
+        <div class="rule-item"><strong>8.3</strong> Участие в ивенте = автоматическое согласие со всеми правилами.</div>
     </div>
 
-    <!-- ========== БАН-ЛИСТ ========== -->
+    <!-- Бан-лист -->
     <div class="section">
-        <div class="section-title">🔘 ЗАПРЕЩЁННЫЕ МОДИФИКАЦИИ И КЛИЕНТЫ</div>
+        <div class="section-title"><span class="marker">▸</span> Запрещённые модификации и клиенты</div>
 
         <div class="mod-list">
-            <span class="category">🧊 Чит-клиенты и сборки:</span>
+            <span class="category">Чит-клиенты и сборки</span>
             <div class="mods">
-                <span class="bad">Wurst</span>, Aristois, Impact, Inertia, Sigma, Meteor, BleachHack, Jello, Apollon, Toolbox, Badlion Client (запрещённые функции), LiquidBounce, Ares, Remix, Nachtmahr, Spidermod, Huzuni, Wolfram, Salhack, KamiBlue, Phobos, GameSense, Konas, Novoline, FDPClient, Rise, MoonX, Koid, Xatz, Glow, R.I.P, ForgeHax, Myau, Gs2, Crypt, YR, Flux, Eternal, ZeroDay, ExLoader, Astolfo, Lime, Exibition, Corrosion, D3, Skeleton, Cokkie, WeepCraft, Seppuku, Pyro, Prophunt, CheatBreaker (запрещённые функции).
+                <span class="bad">Wurst</span>, Aristois, Impact, Inertia, Sigma, Meteor, BleachHack, Jello, Apollon, Toolbox, Badlion Client (запрещённые функции), LiquidBounce, Ares, Remix, Nachtmahr, Spidermod, Huzuni, Wolfram, Salhack, KamiBlue, Phobos, GameSense, Konas, Novoline, FDPClient, Rise, MoonX, Koid, Xatz, Glow, R.I.P, ForgeHax, Myau, Gs2, Crypt, YR, Flux, Eternal, ZeroDay, ExLoader, Astolfo, Lime, Exibition, Corrosion, D3, Skeleton, Cokkie, WeepCraft, Seppuku, Pyro, Prophunt, CheatBreaker.
             </div>
 
-            <span class="category">👁 X-Ray и подсветка:</span>
+            <span class="category">X-Ray и подсветка</span>
             <div class="mods">
-                <span class="bad">X-Ray</span> (все версии и ресурспаки), DiamondGen, TrueSight, FreeCam, Player Spotlight, AucHelper, ChestTracker, Friend Highlighter, AntiInvis, RemoveBlindness, FullBright (отдельные виды), Wallhack, CaveFinder, EntityTracker, StorageESP, InventoryViewer, Orespawn, Minimap (с подсветкой игроков/существ).
+                <span class="bad">X-Ray</span> (любые версии и ресурспаки), DiamondGen, TrueSight, FreeCam, Player Spotlight, AucHelper, ChestTracker, Friend Highlighter, AntiInvis, RemoveBlindness, FullBright (отдельные виды), Wallhack, CaveFinder, EntityTracker, StorageESP, InventoryViewer, Orespawn, Minimap (с подсветкой игроков).
             </div>
 
-            <span class="category">🤖 Автоматизация и боты:</span>
+            <span class="category">Автоматизация и боты</span>
             <div class="mods">
-                <span class="bad">Baritone</span>, Fabaritone, Tweakeroo (запрещённые функции), AutoMining, AutoHarvest, ReplantingCrops, AutoFish, AutoEat, Printer (Litematica), AutoBridge, ScaffoldWalk, AutoBuild, FastPlace, AutoClicker, ButterflyClicker, DragClicker, JitterClicker, MacroMod, MacroKey, Macro, Scripts, AutoSprint, SprintToggle (отдельные), AutoSneak, AutoJump, AutoStep, AntiAFK, AutoRespawn, AutoReconnect, AutoTotem, AutoGapple, AutoPot, AutoSoup, AutoPearl, AutoCrystal, AutoWeb, AutoTrap, AntiKnockback, Velocity, AimAssist, KillAura, TriggerBot, Reach, HitBox, AntiFall, NoFall, Step, HighJump, Speed, Fly, BHop, Jesus, Spider, LongJump, AirJump, NoSlowdown, NoWeb, AntiVoid, SafeWalk, Phase, NoClip, GhostHand, Nuker, TNTExploit, BedExploit, Anchor, CevBreaker, AutoBreak, VeinMiner (запрещённые функции), TreeCapitator (запрещённые), OreVeinMiner.
+                <span class="bad">Baritone</span>, Fabaritone, Tweakeroo (запрещённые функции), AutoMining, AutoHarvest, ReplantingCrops, AutoFish, AutoEat, Printer (Litematica), AutoBridge, ScaffoldWalk, AutoBuild, FastPlace, AutoClicker, ButterflyClicker, DragClicker, JitterClicker, MacroMod, MacroKey, Macro, Scripts, AutoSprint, SprintToggle (отдельные), AutoSneak, AutoJump, AutoStep, AntiAFK, AutoRespawn, AutoReconnect, AutoTotem, AutoGapple, AutoPot, AutoSoup, AutoPearl, AutoCrystal, AutoWeb, AutoTrap, AntiKnockback, Velocity, AimAssist, KillAura, TriggerBot, Reach, HitBox, AntiFall, NoFall, Step, HighJump, Speed, Fly, BHop, Jesus, Spider, LongJump, AirJump, NoSlowdown, NoWeb, AntiVoid, SafeWalk, Phase, NoClip, GhostHand, Nuker, TNTExploit, BedExploit, Anchor, CevBreaker, AutoBreak, VeinMiner (запрещённые), TreeCapitator, OreVeinMiner.
             </div>
 
-            <span class="category">⚠️ Прочие запрещённые утилиты:</span>
+            <span class="category">Прочие утилиты</span>
             <div class="mods">
-                BetterPing, PacketCanceller, PacketFly, Timer, TPSHack, ReachMod, HitSpoof, NoPitchLimit, NoRotation, AntiHunger, AntiBlind, AntiLevitation, AntiShulker, AntiWither, NameProtect (вредоносное), Capes (читерские), Safewalk, ParkourMod (запрещенные функции), ElytraFly, ElytraTricks, BoatFly, GuiMove (запрещённые), InventorySort (запрещённые), MouseTweaks (запрещённые), ItemScroller (запрещённые), Mouser, Tabtweaks, PingDisplay, CoordinatesDisplay (отдельные), Waypoints (с подсветкой игроков), VoxelMap (с подсветкой игроков), JourneyMap (с подсветкой игроков), XaeroMinimap (с подсветкой игроков), ZanMinimap (с подсветкой игроков).
+                BetterPing, PacketCanceller, PacketFly, Timer, TPSHack, ReachMod, HitSpoof, NoPitchLimit, NoRotation, AntiHunger, AntiBlind, AntiLevitation, AntiShulker, AntiWither, NameProtect, Capes (читерские), Safewalk, ParkourMod (запрещённые), ElytraFly, ElytraTricks, BoatFly, GuiMove, InventorySort, MouseTweaks, ItemScroller, Mouser, Tabtweaks, PingDisplay, CoordinatesDisplay (отдельные), Waypoints (с подсветкой), VoxelMap, JourneyMap, XaeroMinimap, ZanMinimap.
             </div>
 
-            <div style="margin-top:14px; color:#8888aa; font-size:14px; border-top:1px solid #1e1e30; padding-top:12px;">
-                ⚠️ Любые моды, не указанные в списке, но дающие преимущество над другими игроками, могут быть запрещены по усмотрению администрации.
+            <div style="margin-top:14px; color:#6a6a8a; font-size:13px; border-top:1px solid #1a1a2a; padding-top:12px;">
+                Любые другие моды, дающие преимущество, могут быть запрещены администрацией.
             </div>
         </div>
     </div>
 
+    <!-- Футер -->
     <div class="footer">
-        Server Royale · Правила ивента · <span id="year"></span>
-        <br />
-        <span style="font-size:13px; color:#444466;">Организаторы оставляют за собой право изменять правила</span>
+        Server Royale · Правила ивента · 2026
+        <br>
+        <span style="color:#4a4a6a; font-size:12px;">Организаторы оставляют за собой право изменять правила</span>
     </div>
 
 </div>
-
-<script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-</script>
 
 </body>
 </html>
