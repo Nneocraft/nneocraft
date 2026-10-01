@@ -1,453 +1,239 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Server Royale — Правила</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Orbitron:wght@400..900&display=swap" rel="stylesheet"/>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Вова и Егор — на пробу в профильное программирование</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --ink: #14213d;
+  --muted: #55607a;
+  --line: #cfd6e4;
+  --vova: #ff5a1f;
+  --egor: #1f6bff;
+  --on-accent: #ffffff;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1626; --surface: #18213a; --ink: #eef1f8; --muted: #a2adc7; --line: #2b3656;
+    --vova: #ff7a45; --egor: #5b93ff;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1626; --surface: #18213a; --ink: #eef1f8; --muted: #a2adc7; --line: #2b3656;
+  --vova: #ff7a45; --egor: #5b93ff;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Onest", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px; line-height: 1.6;
+}
+h1, h2, h3 { font-family: "Unbounded", "Onest", system-ui, sans-serif; line-height: 1.12; margin: 0; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--egor); outline-offset: 3px; }
 
-        body {
-            background: #0b0b0f;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #d1d1e0;
-            padding: 40px 20px;
-            line-height: 1.6;
-            font-weight: 400;
-        }
+/* hero */
+.hero { padding: 64px 0 40px; }
+.hero h1 { font-size: clamp(34px, 8vw, 76px); font-weight: 700; letter-spacing: -0.02em; }
+.hero h1 .v { color: var(--vova); }
+.hero h1 .e { color: var(--egor); }
+.hero p { max-width: 56ch; color: var(--muted); margin: 22px 0 0; font-size: 1.1rem; }
 
-        .container {
-            max-width: 920px;
-            margin: 0 auto;
-            background: #12121a;
-            padding: 50px 45px;
-            border-radius: 24px;
-            border: 1px solid #262633;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-        }
+/* two people */
+.people { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 24px 0 8px; }
+.card {
+  background: var(--surface); border: 2px solid var(--line); border-radius: 18px;
+  padding: 26px; border-top: 10px solid var(--accent);
+}
+.card.v { --accent: var(--vova); }
+.card.e { --accent: var(--egor); }
+.card h2 { font-size: 1.9rem; }
+.role { color: var(--muted); margin: 6px 0 18px; }
+.skill { margin: 14px 0; }
+.skill-top { display: flex; justify-content: space-between; font-weight: 500; font-size: .95rem; }
+.bar { height: 10px; border-radius: 6px; background: var(--bg); overflow: hidden; margin-top: 6px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 6px; transition: width .9s cubic-bezier(.2,.8,.2,1); }
+.card p.quote { margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); }
 
-        .header {
-            text-align: center;
-            margin-bottom: 45px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #222233;
-        }
+/* sections */
+section { padding: 48px 0 8px; }
+section h2 { font-size: clamp(24px, 4.5vw, 36px); margin-bottom: 22px; }
+.why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.why div { border-left: 4px solid var(--line); padding: 2px 0 2px 16px; }
+.why h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.why p { margin: 0; color: var(--muted); font-size: .98rem; }
 
-        .header h1 {
-            font-family: 'Orbitron', 'Inter', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+/* trial plan: real sequence */
+.plan { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.plan li {
+  counter-increment: step; position: relative; padding: 0 0 26px 62px;
+}
+.plan li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--ink); color: var(--bg);
+  display: grid; place-items: center; font-family: "Unbounded", sans-serif; font-weight: 700;
+}
+.plan li::after { content: ""; position: absolute; left: 20px; top: 46px; bottom: 4px; width: 2px; background: var(--line); }
+.plan li:last-child::after { display: none; }
+.plan h3 { font-size: 1.05rem; margin-bottom: 4px; }
+.plan p { margin: 0; color: var(--muted); }
 
-        .header h1 span {
-            color: #7a7aa0;
-            font-weight: 300;
-        }
+/* CTA */
+.cta { margin: 40px 0 0; background: var(--ink); color: var(--bg); border-radius: 22px; padding: 34px 28px; }
+.cta h2 { font-size: clamp(22px, 4vw, 32px); margin-bottom: 10px; }
+.cta p { margin: 0 0 22px; max-width: 54ch; opacity: .85; }
+.btns { display: flex; flex-wrap: wrap; gap: 12px; }
+button {
+  font: inherit; font-weight: 600; cursor: pointer; border: 0; border-radius: 12px;
+  padding: 14px 22px; color: var(--on-accent);
+}
+#yes { background: var(--vova); }
+#later { background: transparent; color: var(--bg); border: 2px solid currentColor; }
+#answer { margin-top: 18px; min-height: 1.6em; font-weight: 500; }
+footer { padding: 30px 0 40px; color: var(--muted); font-size: .9rem; }
 
-        .header .sub {
-            font-family: 'Inter', sans-serif;
-            color: #7a7a99;
-            font-size: 15px;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
-            font-weight: 400;
-        }
+/* кнопка внизу экрана, видна только на телефоне */
+.sticky {
+  display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--bg); border-top: 1px solid var(--line);
+  transition: transform .25s ease;
+}
+.sticky.off { transform: translateY(110%); }
+.sticky button { width: 100%; min-height: 52px; background: var(--vova); }
 
-        .header .sub span {
-            color: #c0c0dd;
-            font-weight: 500;
-        }
-
-        .section {
-            margin-bottom: 28px;
-            padding-bottom: 22px;
-            border-bottom: 1px solid #1c1c2a;
-        }
-
-        .section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .section-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: #eaeaff;
-            margin-bottom: 14px;
-            letter-spacing: 0.3px;
-        }
-
-        .section-title .marker {
-            color: #7a7aaa;
-            margin-right: 6px;
-            font-weight: 400;
-        }
-
-        .rule-item {
-            padding: 3px 0 3px 18px;
-            border-left: 2px solid transparent;
-            transition: 0.15s;
-            color: #c8c8dd;
-            font-weight: 400;
-        }
-
-        .rule-item:hover {
-            border-left-color: #7a7aaa;
-            padding-left: 22px;
-        }
-
-        .rule-item strong {
-            color: #f0f0ff;
-            font-weight: 600;
-        }
-
-        .rule-item .highlight {
-            color: #8a8aff;
-            font-weight: 500;
-        }
-
-        .badge-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 10px;
-            margin: 10px 0 4px 18px;
-            padding: 10px 14px;
-            background: #16161f;
-            border-radius: 12px;
-            border: 1px solid #252535;
-        }
-
-        .badge-list span {
-            font-family: 'JetBrains Mono', 'Courier New', monospace;
-            background: #1e1e2b;
-            padding: 2px 12px;
-            border-radius: 16px;
-            font-size: 13px;
-            color: #b8b8d0;
-            font-weight: 400;
-        }
-
-        .badge-list .danger {
-            background: #221a1a;
-            color: #e08080;
-            border: 1px solid #3d2a2a;
-        }
-
-        .zone-table {
-            margin: 10px 0 4px 18px;
-            background: #0f0f18;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #202030;
-            max-width: 420px;
-        }
-
-        .zone-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 7px 18px;
-            border-bottom: 1px solid #161625;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .zone-row:last-child {
-            border-bottom: none;
-        }
-
-        .zone-row .time {
-            color: #7a7a99;
-        }
-
-        .zone-row .size {
-            color: #c8c8f0;
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .zone-row.final {
-            background: #1a1a2a;
-        }
-
-        .zone-row.final .size {
-            color: #e0a0a0;
-            font-weight: 600;
-        }
-
-        .mod-list {
-            margin: 8px 0 4px 18px;
-            padding: 12px 16px;
-            background: #0f0f18;
-            border-radius: 12px;
-            border-left: 3px solid #6a6a8a;
-        }
-
-        .mod-list .category {
-            font-family: 'Inter', sans-serif;
-            color: #b0b0d0;
-            font-weight: 600;
-            font-size: 14px;
-            display: block;
-            margin-top: 12px;
-            margin-bottom: 3px;
-            letter-spacing: 0.3px;
-        }
-
-        .mod-list .category:first-child {
-            margin-top: 0;
-        }
-
-        .mod-list .mods {
-            color: #b0b0c8;
-            font-size: 13px;
-            line-height: 1.8;
-            padding-left: 8px;
-            font-weight: 400;
-        }
-
-        .mod-list .mods .bad {
-            font-family: 'JetBrains Mono', monospace;
-            color: #d08080;
-            font-weight: 500;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #1c1c2a;
-            color: #5a5a7a;
-            font-size: 13px;
-            font-weight: 400;
-        }
-
-        .footer a {
-            color: #7a7aaa;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            color: #b0b0d0;
-        }
-
-        .spacer {
-            margin-top: 10px;
-        }
-
-        @media (max-width: 640px) {
-            body {
-                padding: 20px 12px;
-            }
-            .container {
-                padding: 24px 16px;
-            }
-            .header h1 {
-                font-size: 26px;
-                letter-spacing: 1.5px;
-            }
-            .section-title {
-                font-size: 18px;
-            }
-            .rule-item {
-                padding-left: 12px;
-                font-size: 14px;
-            }
-            .badge-list {
-                padding: 8px 10px;
-                gap: 4px 6px;
-                margin-left: 8px;
-            }
-            .badge-list span {
-                font-size: 11px;
-                padding: 1px 8px;
-            }
-            .zone-table {
-                margin-left: 8px;
-            }
-            .zone-row {
-                padding: 6px 12px;
-                font-size: 13px;
-            }
-            .mod-list {
-                margin-left: 6px;
-                padding: 10px 12px;
-            }
-            .mod-list .mods {
-                font-size: 12px;
-            }
-        }
-    </style>
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 16px; }
+  .people, .why { grid-template-columns: 1fr; }
+  .hero { padding: 32px 0 20px; }
+  .hero h1 { font-size: clamp(28px, 9vw, 42px); overflow-wrap: break-word; }
+  .hero p { font-size: 1rem; margin-top: 16px; }
+  .people { gap: 14px; padding-top: 16px; }
+  .card { padding: 20px; border-radius: 16px; border-top-width: 8px; }
+  .card h2 { font-size: 1.6rem; }
+  section { padding-top: 36px; }
+  section h2 { margin-bottom: 16px; }
+  .plan li { padding-left: 54px; padding-bottom: 22px; }
+  .plan li::before { width: 36px; height: 36px; }
+  .plan li::after { left: 17px; top: 40px; }
+  .cta { padding: 26px 20px; border-radius: 18px; margin-top: 28px; }
+  .btns { flex-direction: column; }
+  .btns button { width: 100%; min-height: 52px; }
+  footer { padding-bottom: 100px; }
+  .sticky { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bar i { transition: none; }
+}
+</style>
 </head>
 <body>
+<main class="wrap">
+  <header class="hero">
+    <h1>Возьмите <span class="v">Вову</span> и <span class="e">Егора</span> на пробу</h1>
+    <p>Два сильных кандидата для профильного программирования. Предлагаем короткий пробный период: за четыре недели станет понятно, подходят ли они вам по задачам и по команде.</p>
+  </header>
 
-<div class="container">
+  <div class="people">
+    <article class="card v">
+      <h2>Вова</h2>
+      <p class="role">Логика, алгоритмы, серверная часть</p>
+      <div class="skill"><div class="skill-top"><span>Алгоритмы</span><span>85%</span></div><div class="bar"><i data-w="85"></i></div></div>
+      <div class="skill"><div class="skill-top"><span>Python</span><span>80%</span></div><div class="bar"><i data-w="80"></i></div></div>
+      <div class="skill"><div class="skill-top"><span>Базы данных</span><span>65%</span></div><div class="bar"><i data-w="65"></i></div></div>
+      <p class="quote">Любит разбирать задачу до конца и не бросает, пока решение не заработает.</p>
+    </article>
 
-    <div class="header">
-        <h1>⚔ SERVER <span>ROYALE</span></h1>
-        <div class="sub">Правила ивента · <span>королевская битва серверов</span></div>
+    <article class="card e">
+      <h2>Егор</h2>
+      <p class="role">Интерфейсы, веб, быстрая сборка проектов</p>
+      <div class="skill"><div class="skill-top"><span>HTML и CSS</span><span>85%</span></div><div class="bar"><i data-w="85"></i></div></div>
+      <div class="skill"><div class="skill-top"><span>JavaScript</span><span>75%</span></div><div class="bar"><i data-w="75"></i></div></div>
+      <div class="skill"><div class="skill-top"><span>Командная работа</span><span>80%</span></div><div class="bar"><i data-w="80"></i></div></div>
+      <p class="quote">Быстро делает рабочие прототипы и умеет объяснить, как они устроены.</p>
+    </article>
+  </div>
+
+  <section>
+    <h2>Почему именно они</h2>
+    <div class="why">
+      <div><h3>Дополняют друг друга</h3><p>Вова сильнее в логике и данных, Егор — в интерфейсе. Вместе закрывают проект целиком.</p></div>
+      <div><h3>Быстро учатся</h3><p>Новые инструменты осваивают на практике, а не только по учебникам.</p></div>
+      <div><h3>Доводят до результата</h3><p>Каждое задание заканчивается работающей программой, а не черновиком.</p></div>
     </div>
+  </section>
 
-    <!-- 1 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[1]</span> Общие положения</div>
+  <section>
+    <h2>Как пройдёт проба</h2>
+    <ol class="plan">
+      <li><h3>Знакомство с задачами</h3><p>Разбираем, чем занимается команда, и выбираем стартовое задание для каждого.</p></li>
+      <li><h3>Первое маленькое задание</h3><p>Вова и Егор работают самостоятельно, задают вопросы, показывают промежуточный результат.</p></li>
+      <li><h3>Общий мини-проект</h3><p>Работают вдвоём: Вова делает логику, Егор — интерфейс.</p></li>
+      <li><h3>Итоги и решение</h3><p>Смотрим результат, обсуждаем плюсы и решаем, оставлять ли их в профильной программе.</p></li>
+    </ol>
+  </section>
 
-        <div class="rule-item"><strong>1.1</strong> Участвуя в ивенте или находясь в дискорде, вы автоматически соглашаетесь со всеми правилами.</div>
-        <div class="rule-item"><strong>1.2</strong> Администрация вправе выдать любое наказание без предварительного уведомления.</div>
-        <div class="rule-item"><strong>1.3</strong> Пожертвования не возвращаются — ни при нарушении, ни при блокировке, ни по желанию игрока.</div>
-        <div class="rule-item"><strong>1.4</strong> По запросу администрации участник обязан пройти проверку на читы. Отказ = бан на срок, аналогичный наказанию за читы.</div>
-        <div class="rule-item"><strong>1.5</strong> Систематические или умышленные нарушения караются баном или ограничением аккаунта на неопределённый срок.</div>
+  <div class="cta">
+    <h2>Дадим им шанс?</h2>
+    <p>Пробный период ни к чему не обязывает. Нажмите кнопку, чтобы согласовать старт.</p>
+    <div class="btns">
+      <button id="yes" type="button">Берём на пробу</button>
+      <button id="later" type="button">Подумать ещё</button>
     </div>
+    <div id="answer" aria-live="polite"></div>
+  </div>
+</main>
+<footer class="wrap">Страница-рекомендация: Вова и Егор, профильное программирование.</footer>
+<div class="sticky" id="stickybar"><button id="yes2" type="button">Берём на пробу</button></div>
 
-    <!-- 2 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[2]</span> Поведение в чатах и голосовых каналах</div>
+<script>
+  var bars = document.querySelectorAll('.bar i');
+  function fill() { bars.forEach(function (b) { b.style.width = b.dataset.w + '%'; }); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { fill(); io.disconnect(); } });
+    }, { threshold: 0.3 });
+    io.observe(document.querySelector('.people'));
+  } else { fill(); }
 
-        <div class="rule-item"><strong>2.1</strong> Токсичность, провокации и систематическое нарушение атмосферы пресекаются блокировкой или мутом.</div>
-        <div class="rule-item"><strong>2.2</strong> Реклама запрещена. Исключение — официальные сервера-участники и стримеры ивента.</div>
-        <div class="rule-item"><strong>2.3</strong> Оскорбления и разжигание конфликтов влекут санкции.</div>
-        <div class="rule-item"><strong>2.4</strong> Флуд, спам, NSFW-контент — под запретом.</div>
-        <div class="rule-item"><strong>2.5</strong> Высказывания по национальному, расовому или политическому признаку, а также экстремистская символика запрещены.</div>
+  var answer = document.getElementById('answer');
+  function accept() {
+    answer.textContent = 'Отлично! Вова и Егор приглашены на пробный период.';
+  }
+  document.getElementById('yes').addEventListener('click', accept);
 
-        <div class="rule-item"><strong>2.6</strong> В присутствии стримеров действуют повышенные требования к лексике. Завуалированные формы тоже считаются нарушением. Фиксация — по стриму.</div>
-
-        <div class="badge-list">
-            <span class="danger">nigger</span><span class="danger">nigga</span><span class="danger">naga</span>
-            <span class="danger">ниггер</span><span class="danger">нига</span>
-            <span class="danger">faggot</span><span class="danger">пидор</span><span class="danger">пидорас</span>
-            <span class="danger">педик</span><span class="danger">гомик</span>
-            <span class="danger">хохол</span><span class="danger">чурка</span><span class="danger">чушка</span>
-            <span class="danger">хач</span><span class="danger">жид</span><span class="danger">хиджаб</span>
-            <span class="danger">москаль</span><span class="danger">пендос</span>
-            <span class="danger">даун</span><span class="danger">аутист</span><span class="danger">retard</span>
-            <span class="danger">virgin</span><span class="danger">simp</span><span class="danger">incel</span>
-            <span class="danger">cимп</span><span class="danger">инцел</span>
-            <span class="danger">cunt</span><span class="danger">пизда</span><span class="danger">куколд</span>
-        </div>
-
-        <div class="rule-item"><strong>2.7</strong> Шокирующие материалы, сцены насилия и жестокости запрещены.</div>
-        <div class="rule-item"><strong>2.8</strong> Ники с нецензурной лексикой или оскорблениями нужно сменить до старта.</div>
-        <div class="rule-item"><strong>2.9</strong> Распространение личной информации без согласия — серьёзное нарушение.</div>
-    </div>
-
-    <!-- 3 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[3]</span> Игровые правила</div>
-
-        <div class="rule-item"><strong>3.1</strong> Любые модификации, клиенты или ресурспаки, дающие преимущество, запрещены. Нарушение = бан.</div>
-        <div class="rule-item"><strong>3.2</strong> Автоматизация (кликеры, скрипты, макросы) для получения ресурсов запрещена.</div>
-        <div class="rule-item"><strong>3.3</strong> Один игрок — один аккаунт. Мультиаккаунтинг запрещён.</div>
-        <div class="rule-item"><strong>3.4</strong> Запрещённая символика или жесты в эфире стримеров — предупреждение или бан.</div>
-    </div>
-
-    <!-- 4 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[4]</span> Механика ивента — Server Royale</div>
-
-        <div class="rule-item"><strong>4.1</strong> <strong>Формат:</strong> королевская битва между командами серверов. Карта — 5000×5000 блоков. Длительность — 24 часа + сжатие. Победитель — последняя команда.</div>
-        <div class="rule-item"><strong>4.2</strong> Каждый сервер формирует команду. Ориентировочно — <span class="highlight">15 человек</span>. Точное количество утверждается после регистрации. Все игроки должны быть в голосовом канале своей команды.</div>
-        <div class="rule-item"><strong>4.3</strong> <strong>Старт:</strong> команды появляются в случайных точках. Первые 5 минут — <span class="highlight">период тишины</span>: PvP запрещён. Дальше — полная свобода.</div>
-        <div class="rule-item"><strong>4.4</strong> Можно добывать ресурсы, строить, крафтить, исследовать карту, находить сундуки с лутом. На карте есть NPC-торговцы.</div>
-        <div class="rule-item"><strong>4.5</strong> <span class="highlight">Разрешено:</span> PvP, грабёж, разрушение построек, TNT. Союзы допускаются, но победитель будет только один.</div>
-        <div class="rule-item"><strong>4.6</strong> <span class="highlight">Запрещено:</span> намеренное затягивание игры (укрытие в обсидиановых коробках, недоступных местах), использование багов и глитчей.</div>
-    </div>
-
-    <!-- 5 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[5]</span> Сжатие карты (хардкор)</div>
-
-        <div class="rule-item"><strong>5.1</strong> На второй день в <span class="highlight">18:00 МСК</span> включается хардкор: возрождение невозможно. Убитый игрок покидает ивент. Начинается сжатие зоны.</div>
-
-        <div class="rule-item"><strong>5.2</strong> Этапы сжатия:</div>
-
-        <div class="zone-table">
-            <div class="zone-row"><span class="time">Старт хардкора</span><span class="size">5000 × 5000</span></div>
-            <div class="zone-row"><span class="time">+ 30 мин</span><span class="size">2000 × 2000</span></div>
-            <div class="zone-row"><span class="time">+ 60 мин</span><span class="size">1000 × 1000</span></div>
-            <div class="zone-row"><span class="time">+ 90 мин</span><span class="size">500 × 500</span></div>
-            <div class="zone-row"><span class="time">+ 120 мин</span><span class="size">200 × 200</span></div>
-            <div class="zone-row"><span class="time">+ 150 мин</span><span class="size">100 × 100</span></div>
-            <div class="zone-row final"><span class="time">Финал</span><span class="size">10 × 10</span></div>
-        </div>
-
-        <div class="rule-item"><strong>5.3</strong> Игроки за пределами зоны получают урон. Граница видна на карте и мини-карте.</div>
-    </div>
-
-    <!-- 6 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[6]</span> Победитель и призы</div>
-
-        <div class="rule-item"><strong>6.1</strong> Победитель — сервер, чья команда останется последней на карте.</div>
-        <div class="rule-item"><strong>6.2</strong> Победитель получает титул: <span class="highlight">«Самый сильный сервер»</span>.</div>
-    </div>
-
-    <!-- 7 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[7]</span> Техническая часть</div>
-
-        <div class="rule-item"><strong>7.1</strong> Версия Minecraft: <span class="highlight">1.21.11</span></div>
-        <div class="rule-item"><strong>7.2</strong> Хостинг: ивент проводится при поддержке <strong>SakuraNet</strong></div>
-        <div class="rule-item"><strong>7.3</strong> IP сервера выдаётся за 1 час до старта.</div>
-        <div class="rule-item"><strong>7.4</strong> Все участники обязаны быть в дискорде организаторов.</div>
-        <div class="rule-item"><strong>7.5</strong> Стриминг разрешён с задержкой <span class="highlight">не менее 2 минут</span>.</div>
-    </div>
-
-    <!-- 8 -->
-    <div class="section">
-        <div class="section-title"><span class="marker">[8]</span> Дополнительные положения</div>
-
-        <div class="rule-item"><strong>8.1</strong> Решения организаторов — <span class="highlight">окончательны</span>.</div>
-        <div class="rule-item"><strong>8.2</strong> Администрация может менять правила в экстренных ситуациях.</div>
-        <div class="rule-item"><strong>8.3</strong> Участие в ивенте = автоматическое согласие со всеми правилами.</div>
-    </div>
-
-    <!-- Бан-лист -->
-    <div class="section">
-        <div class="section-title"><span class="marker">▸</span> Запрещённые модификации и клиенты</div>
-
-        <div class="mod-list">
-            <span class="category">Чит-клиенты и сборки</span>
-            <div class="mods">
-                <span class="bad">Wurst</span>, Aristois, Impact, Inertia, Sigma, Meteor, BleachHack, Jello, Apollon, Toolbox, Badlion Client (запрещённые функции), LiquidBounce, Ares, Remix, Nachtmahr, Spidermod, Huzuni, Wolfram, Salhack, KamiBlue, Phobos, GameSense, Konas, Novoline, FDPClient, Rise, MoonX, Koid, Xatz, Glow, R.I.P, ForgeHax, Myau, Gs2, Crypt, YR, Flux, Eternal, ZeroDay, ExLoader, Astolfo, Lime, Exibition, Corrosion, D3, Skeleton, Cokkie, WeepCraft, Seppuku, Pyro, Prophunt, CheatBreaker.
-            </div>
-
-            <span class="category">X-Ray и подсветка</span>
-            <div class="mods">
-                <span class="bad">X-Ray</span> (любые версии и ресурспаки), DiamondGen, TrueSight, FreeCam, Player Spotlight, AucHelper, ChestTracker, Friend Highlighter, AntiInvis, RemoveBlindness, FullBright (отдельные виды), Wallhack, CaveFinder, EntityTracker, StorageESP, InventoryViewer, Orespawn, Minimap (с подсветкой игроков).
-            </div>
-
-            <span class="category">Автоматизация и боты</span>
-            <div class="mods">
-                <span class="bad">Baritone</span>, Fabaritone, Tweakeroo (запрещённые функции), AutoMining, AutoHarvest, ReplantingCrops, AutoFish, AutoEat, Printer (Litematica), AutoBridge, ScaffoldWalk, AutoBuild, FastPlace, AutoClicker, ButterflyClicker, DragClicker, JitterClicker, MacroMod, MacroKey, Macro, Scripts, AutoSprint, SprintToggle (отдельные), AutoSneak, AutoJump, AutoStep, AntiAFK, AutoRespawn, AutoReconnect, AutoTotem, AutoGapple, AutoPot, AutoSoup, AutoPearl, AutoCrystal, AutoWeb, AutoTrap, AntiKnockback, Velocity, AimAssist, KillAura, TriggerBot, Reach, HitBox, AntiFall, NoFall, Step, HighJump, Speed, Fly, BHop, Jesus, Spider, LongJump, AirJump, NoSlowdown, NoWeb, AntiVoid, SafeWalk, Phase, NoClip, GhostHand, Nuker, TNTExploit, BedExploit, Anchor, CevBreaker, AutoBreak, VeinMiner (запрещённые), TreeCapitator, OreVeinMiner.
-            </div>
-
-            <span class="category">Прочие утилиты</span>
-            <div class="mods">
-                BetterPing, PacketCanceller, PacketFly, Timer, TPSHack, ReachMod, HitSpoof, NoPitchLimit, NoRotation, AntiHunger, AntiBlind, AntiLevitation, AntiShulker, AntiWither, NameProtect, Capes (читерские), Safewalk, ParkourMod (запрещённые), ElytraFly, ElytraTricks, BoatFly, GuiMove, InventorySort, MouseTweaks, ItemScroller, Mouser, Tabtweaks, PingDisplay, CoordinatesDisplay (отдельные), Waypoints (с подсветкой), VoxelMap, JourneyMap, XaeroMinimap, ZanMinimap.
-            </div>
-
-            <div style="margin-top:14px; color:#6a6a8a; font-size:13px; border-top:1px solid #1a1a2a; padding-top:12px;">
-                Любые другие моды, дающие преимущество, могут быть запрещены администрацией.
-            </div>
-        </div>
-    </div>
-
-    <!-- Футер -->
-    <div class="footer">
-        Server Royale · Правила ивента · 2026
-        <br>
-        <span style="color:#4a4a6a; font-size:12px;">Организаторы оставляют за собой право изменять правила</span>
-    </div>
-
-</div>
-
+  var sticky = document.getElementById('stickybar');
+  var cta = document.querySelector('.cta');
+  document.getElementById('yes2').addEventListener('click', function () {
+    accept();
+    cta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { sticky.classList.toggle('off', e.isIntersecting); });
+    }, { threshold: 0.2 }).observe(cta);
+  }
+  document.getElementById('later').addEventListener('click', function () {
+    answer.textContent = 'Хорошо, предложение останется открытым — вернитесь к нему, когда будете готовы.';
+  });
+</script>
 </body>
-</html>
+                                                                                              </html>
+                                                                                              
